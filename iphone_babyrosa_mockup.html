@@ -1,0 +1,1754 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iPhone Babyrosa Mockup</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #fff6fa 0%, #ffe2ec 42%, #ffd5e5 100%);
+      padding: 24px;
+    }
+
+    .iphone {
+      width: 360px;
+      height: 760px;
+      background: linear-gradient(180deg, #191919, #050505);
+      border-radius: 52px;
+      padding: 11px;
+      box-shadow:
+        0 40px 90px rgba(44, 10, 28, 0.28),
+        inset 0 0 0 1px rgba(255,255,255,0.06);
+      position: relative;
+    }
+
+    .screen {
+      width: 100%;
+      height: 100%;
+      border-radius: 41px;
+      overflow: hidden;
+      position: relative;
+      background: #000;
+    }
+
+    .dynamic-island {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 126px;
+      height: 34px;
+      border-radius: 999px;
+      background: #090909;
+      z-index: 15;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+    }
+
+    .statusbar {
+      position: absolute;
+      top: 16px;
+      left: 18px;
+      right: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fff;
+      z-index: 16;
+      pointer-events: none;
+    }
+
+    .status-time {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      margin-left: 10px;
+    }
+
+    .status-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-right: 4px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .signal {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 12px;
+    }
+
+    .signal span {
+      width: 3px;
+      border-radius: 999px;
+      background: white;
+      display: block;
+    }
+
+    .signal span:nth-child(1) { height: 4px; opacity: 0.72; }
+    .signal span:nth-child(2) { height: 6px; opacity: 0.82; }
+    .signal span:nth-child(3) { height: 8px; opacity: 0.92; }
+    .signal span:nth-child(4) { height: 11px; }
+
+    .battery {
+      width: 24px;
+      height: 12px;
+      border: 1.7px solid rgba(255,255,255,0.94);
+      border-radius: 3px;
+      position: relative;
+      padding: 1.5px;
+      display: flex;
+      align-items: center;
+    }
+
+    .battery::after {
+      content: '';
+      position: absolute;
+      right: -3px;
+      top: 3px;
+      width: 2px;
+      height: 5px;
+      border-radius: 1px;
+      background: rgba(255,255,255,0.94);
+    }
+
+    .battery-level {
+      width: 62%;
+      height: 100%;
+      border-radius: 1.5px;
+      background: white;
+    }
+
+    .lockscreen,
+    .homescreen {
+      position: absolute;
+      inset: 0;
+      transition: opacity .35s ease, transform .35s ease;
+    }
+
+    .lockscreen {
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.32), transparent 28%),
+        radial-gradient(circle at 80% 12%, rgba(255,255,255,0.16), transparent 20%),
+        linear-gradient(180deg, #ffc7de 0%, #f4a7c8 48%, #e991bb 100%);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 34px 20px 20px;
+    }
+
+    .lockscreen::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.12), transparent 12%),
+        radial-gradient(circle at 72% 48%, rgba(255,255,255,0.08), transparent 16%);
+      pointer-events: none;
+    }
+
+    .time {
+      margin-top: 8px;
+      font-size: 78px;
+      line-height: 0.95;
+      letter-spacing: -3px;
+      font-weight: 275;
+      text-shadow: 0 8px 30px rgba(98, 20, 54, 0.18);
+    }
+
+    .date {
+      margin-top: 8px;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+    }
+
+    .lock-card {
+      margin-top: 30px;
+      width: 100%;
+      background: rgba(255,255,255,0.13);
+      border: 1px solid rgba(255,255,255,0.20);
+      border-radius: 32px;
+      backdrop-filter: blur(22px) saturate(120%);
+      -webkit-backdrop-filter: blur(22px) saturate(120%);
+      padding: 24px 18px 22px;
+      text-align: center;
+      box-shadow: 0 20px 35px rgba(78, 19, 47, 0.12);
+    }
+
+    .lock-card h2 {
+      font-size: 21px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.3px;
+    }
+
+    .lock-card p {
+      font-size: 14px;
+      line-height: 1.35;
+      opacity: 0.96;
+      margin-bottom: 18px;
+    }
+
+    .code-display {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1.8px solid rgba(255,255,255,0.92);
+      background: transparent;
+      transition: 0.2s ease;
+    }
+
+    .dot.filled {
+      background: white;
+    }
+
+    .pin-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 72px);
+      justify-content: center;
+      gap: 14px 18px;
+      margin: 0 auto;
+    }
+
+    .pin-btn {
+      width: 72px;
+      height: 72px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.16);
+      color: white;
+      font-size: 30px;
+      font-weight: 300;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: transform .12s ease, background .2s ease, opacity .2s ease;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+    }
+
+    .pin-btn:hover { background: rgba(255,255,255,0.22); }
+    .pin-btn:active { transform: scale(0.96); }
+
+    .hint {
+      margin-top: 18px;
+      min-height: 18px;
+      font-size: 13px;
+      font-weight: 600;
+      color: white;
+    }
+
+    .error {
+      display: none;
+    }
+
+    .homescreen {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(1.03);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(255,255,255,0.22), transparent 22%),
+        linear-gradient(180deg, #ffcadd 0%, #f6a8c8 55%, #ec96bd 100%);
+      padding: 96px 18px 18px;
+      color: white;
+    }
+
+    .homescreen::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.08), transparent 20%),
+        radial-gradient(circle at 15% 18%, rgba(255,255,255,0.14), transparent 14%);
+    }
+
+    .homescreen.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1);
+    }
+
+    .lockscreen.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(.985);
+    }
+
+    .app-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px 8px;
+      align-content: start;
+      padding: 0 2px;
+    }
+
+    .app {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      text-align: center;
+      user-select: none;
+    }
+
+    .icon {
+      width: 62px;
+      height: 62px;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow:
+        0 10px 20px rgba(113, 40, 75, 0.18),
+        0 2px 3px rgba(255,255,255,0.25) inset,
+        0 -1px 0 rgba(0,0,0,0.08) inset;
+      position: relative;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.30), rgba(255,255,255,0.02) 45%, rgba(0,0,0,0.05));
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .icon svg {
+      position: relative;
+      z-index: 1;
+      overflow: visible;
+    }
+
+    .label {
+      font-size: 12px;
+      font-weight: 500;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.22);
+      letter-spacing: -0.1px;
+    }
+
+    .dock {
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 24px;
+      z-index: 3;
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(26px) saturate(140%);
+      -webkit-backdrop-filter: blur(26px) saturate(140%);
+      border-radius: 30px;
+      padding: 12px 8px 10px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
+    }
+
+    .dock .icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 16px;
+    }
+
+    .dock .label {
+      font-size: 11px;
+    }
+
+    .home-indicator {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 132px;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.94);
+      z-index: 4;
+      cursor: pointer;
+    }
+
+    .app-screen {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg,#ffcadd,#f6a8c8);
+      z-index: 20;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(1.04);
+      transition: opacity .28s ease, transform .32s cubic-bezier(.22,1,.36,1);
+    }
+
+    .app-screen.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1);
+    }
+
+    .app-screen.closing {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.94);
+    }
+
+    
+
+    .app-header {
+      display: none;
+    }
+
+    .app-content {
+      position: absolute;
+      top: 104px;
+      left: 0;
+      right: 0;
+      bottom: 26px;
+      padding: 0 16px 18px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .app-content::-webkit-scrollbar {
+      display: none;
+    }
+
+    .spotify-view {
+      display: none;
+      color: white;
+    }
+
+    .spotify-view.active {
+      display: block;
+    }
+
+    .timer-view {
+      display: none;
+      color: white;
+      min-height: 100%;
+      padding-top: 6px;
+    }
+
+    .timer-view.active {
+      display: block;
+    }
+
+    .photos-view {
+      display: none;
+      color: white;
+      min-height: 100%;
+      padding-top: 6px;
+    }
+
+    .photos-view.active {
+      display: block;
+    }
+
+    .photos-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding-bottom: 18px;
+    }
+
+    .photo-card {
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 22px;
+      padding: 10px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.16);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .photo-art {
+      height: 128px;
+      border-radius: 16px;
+      background: linear-gradient(180deg,#fff6fb,#ffdbe9);
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
+    }
+
+    .photo-caption {
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 8px;
+      text-align: center;
+      opacity: 0.95;
+    }
+
+    .phone-view {
+      display: none;
+      color: white;
+      min-height: 100%;
+      padding-top: 6px;
+    }
+
+    .phone-view.active {
+      display: block;
+    }
+
+    .phone-tabs {
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 18px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 12px 6px 14px;
+      background: rgba(255,255,255,0.16);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 24px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
+    }
+
+    .phone-tab {
+      font-size: 11px;
+      font-weight: 600;
+      opacity: 0.72;
+      cursor: pointer;
+      color: white;
+      padding: 4px 6px;
+      text-align: center;
+      flex: 1;
+    }
+
+    .phone-tab.active {
+      opacity: 1;
+    }
+
+    .dialer {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px 18px;
+      margin-top: 18px;
+      padding: 0 18px 140px;
+    }
+
+    .dial-btn {
+      background: rgba(255,255,255,0.18);
+      border-radius: 50%;
+      height: 74px;
+      width: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      cursor: pointer;
+      margin: 0 auto;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.16);
+      user-select: none;
+      transition: transform .12s ease, background .16s ease;
+    }
+
+    .dial-btn:active {
+      transform: scale(0.96);
+      background: rgba(255,255,255,0.26);
+    }
+
+    .dial-display {
+      text-align: center;
+      margin-top: 8px;
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      min-height: 28px;
+    }
+
+    .love-modal {
+      position: absolute;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      background: rgba(0,0,0,0.35);
+      backdrop-filter: blur(6px);
+    }
+
+    .love-modal.active {
+      display: flex;
+    }
+
+    .love-modal-box {
+      position: relative;
+      background: linear-gradient(180deg,#ffffff,#fff0f6);
+      color: #ff2d55;
+      padding: 22px 20px 18px;
+      border-radius: 26px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 15px;
+      max-width: 260px;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+      animation: popIn .25s ease;
+    }
+
+    .modal-close {
+      position:absolute;
+      top:8px;
+      right:10px;
+      font-size:18px;
+      font-weight:700;
+      cursor:pointer;
+      color:#999;
+    }
+
+    .modal-close:active {
+      transform: scale(0.9);
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.8); opacity:0; }
+      100% { transform: scale(1); opacity:1; }
+    }
+
+    .dial-call-btn {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 110px;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #34c759;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+      box-shadow: 0 12px 28px rgba(32, 138, 70, 0.35);
+    }
+
+    .phone-view.active {
+      display: block;
+    }
+
+    .phone-contact-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.24), rgba(255,255,255,0.10));
+      border: 1px solid rgba(255,255,255,0.24);
+      border-radius: 28px;
+      padding: 18px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 16px 30px rgba(92, 28, 61, 0.18);
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .phone-avatar {
+      width: 82px;
+      height: 82px;
+      margin: 0 auto 12px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.55));
+      color: #d44f86;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: 800;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.55);
+    }
+
+    .phone-name {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 6px;
+    }
+
+    .phone-sub {
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    .call-list {
+      display: grid;
+      gap: 10px;
+      padding-bottom: 18px;
+    }
+
+    .call-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 22px;
+      padding: 14px 16px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
+    }
+
+    .call-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .call-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.9);
+      color: #30b85c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .call-meta {
+      min-width: 0;
+    }
+
+    .call-name {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .call-type {
+      font-size: 11px;
+      opacity: 0.85;
+    }
+
+    .call-time {
+      font-size: 12px;
+      font-weight: 600;
+      opacity: 0.92;
+      white-space: nowrap;
+    }
+
+    .love-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.24), rgba(255,255,255,0.10));
+      border: 1px solid rgba(255,255,255,0.24);
+      border-radius: 28px;
+      padding: 18px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 16px 30px rgba(92, 28, 61, 0.18);
+      margin-bottom: 16px;
+    }
+
+    .love-eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.9;
+      margin-bottom: 8px;
+    }
+
+    .love-title {
+      font-size: 26px;
+      line-height: 1.1;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -0.03em;
+    }
+
+    .love-date {
+      font-size: 14px;
+      opacity: 0.92;
+      margin-bottom: 18px;
+    }
+
+    .count-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .count-box {
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 22px;
+      padding: 16px 12px;
+      text-align: center;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.14);
+    }
+
+    .count-number {
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      margin-bottom: 6px;
+    }
+
+    .count-label {
+      font-size: 12px;
+      opacity: 0.9;
+      font-weight: 600;
+    }
+
+    .love-note {
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 24px;
+      padding: 16px;
+      font-size: 14px;
+      line-height: 1.45;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.14);
+    }
+
+    .safari-item{
+  background:#fff;
+  border-radius:14px;
+  padding:10px 12px;
+  font-size:14px;
+  box-shadow:0 6px 14px rgba(0,0,0,0.08);
+}
+
+.spotify-helper {
+      display: none;
+    }
+
+    .spotify-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      padding-bottom: 22px;
+    }
+
+    .track-card {
+      border: none;
+      text-align: left;
+      border-radius: 20px;
+      padding: 10px;
+      min-height: 92px;
+      background: linear-gradient(180deg, rgba(30,30,30,0.58), rgba(14,14,14,0.42));
+      color: white;
+      cursor: pointer;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 10px 20px rgba(91, 26, 55, 0.16);
+      transition: transform .15s ease, background .2s ease;
+      display: flex;
+      gap: 12px;
+      text-decoration: none;
+      align-items: center;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .track-card:hover {
+      background: linear-gradient(180deg, rgba(42,42,42,0.72), rgba(18,18,18,0.5));
+    }
+
+    .track-card:active,
+    .track-card.active {
+      transform: scale(0.98);
+      background: linear-gradient(180deg, rgba(29,185,84,0.78), rgba(24,24,24,0.58));
+    }
+
+    .track-cover {
+      width: 60px;
+      height: 60px;
+      border-radius: 18px;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.22);
+      background: #2a2a2a;
+    }
+
+    .track-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cover-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding: 7px;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+      color: rgba(255,255,255,0.95);
+      background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(0,0,0,0.24));
+    }
+
+    .track-meta {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .track-title {
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 4px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .track-artist {
+      font-size: 11px;
+      opacity: 0.82;
+      margin-bottom: 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .track-sub {
+      display: none;
+    }
+
+    .shake {
+      animation: shake .36s ease;
+    }
+
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20% { transform: translateX(-7px); }
+      40% { transform: translateX(6px); }
+      60% { transform: translateX(-5px); }
+      80% { transform: translateX(4px); }
+    }
+
+    @keyframes pulse {
+      0% { transform: translate(-50%,-50%) scale(1); }
+      50% { transform: translate(-50%,-50%) scale(1.15); }
+      100% { transform: translate(-50%,-50%) scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="iphone">
+    <div class="screen">
+      <div class="dynamic-island"></div>
+
+      <div class="statusbar">
+        <span class="status-time js-live-time">09:41</span>
+        <div class="status-right">
+          <div class="signal" aria-label="Netzempfang">
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <span>5G</span>
+          <div class="battery"><div class="battery-level"></div></div>
+        </div>
+      </div>
+
+      <section class="lockscreen" id="lockscreen">
+        <div class="time js-live-time-large">09:41</div>
+        <div class="date js-live-date">Donnerstag, 16. April</div>
+
+        <div class="lock-card" id="lockCard">
+          <h2>Sperrbildschirm</h2>
+          <p>Gib dein Passwort ein, um den Homescreen zu öffnen.</p>
+
+          <div class="code-display">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+
+          <div class="pin-grid">
+            <button class="pin-btn" data-num="1">1</button>
+            <button class="pin-btn" data-num="2">2</button>
+            <button class="pin-btn" data-num="3">3</button>
+            <button class="pin-btn" data-num="4">4</button>
+            <button class="pin-btn" data-num="5">5</button>
+            <button class="pin-btn" data-num="6">6</button>
+            <button class="pin-btn" data-num="7">7</button>
+            <button class="pin-btn" data-num="8">8</button>
+            <button class="pin-btn" data-num="9">9</button>
+            <div></div>
+            <button class="pin-btn" data-num="0">0</button>
+            <div></div>
+          </div>
+
+          <div class="hint">Gib deinen 4-stelligen Code ein.</div>
+          <div class="error" id="errorMsg"></div>
+        </div>
+      </section>
+
+      <section class="homescreen" id="homescreen">
+        <div class="app-grid">
+          <div class="app">
+            <div class="icon" style="background:#ffffff">
+              <svg viewBox="0 0 64 64" width="50" height="50" aria-hidden="true">
+                <defs>
+                  <radialGradient id="fmOuter" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#ffffff"/>
+                    <stop offset="18%" stop-color="#ffffff"/>
+                    <stop offset="19%" stop-color="#dfffe7"/>
+                    <stop offset="34%" stop-color="#8cf5a6"/>
+                    <stop offset="35%" stop-color="#54e67c"/>
+                    <stop offset="52%" stop-color="#2fdc66"/>
+                    <stop offset="53%" stop-color="#1fcb58"/>
+                    <stop offset="72%" stop-color="#22b24f"/>
+                    <stop offset="100%" stop-color="#1c9845"/>
+                  </radialGradient>
+                </defs>
+                <circle cx="32" cy="32" r="24" fill="url(#fmOuter)"/>
+                <circle cx="32" cy="32" r="10.5" fill="#ffffff"/>
+                <circle cx="32" cy="32" r="6.6" fill="#21c75b"/>
+                <path d="M32 10 L37 24 L32 20 L27 24 Z" fill="#15b04c" opacity="0.95"/>
+              </svg>
+            </div>
+            <div class="label">Wo ist?</div>
+          </div>
+          <div class="app">
+            <div class="icon" style="background:#000000">
+              <svg viewBox="0 0 64 64" width="50" height="50" aria-hidden="true">
+                <circle cx="32" cy="32" r="24" fill="#fff" stroke="#dadbe1" stroke-width="1.2"/>
+                <circle cx="32" cy="32" r="1.8" fill="#ff6b81"/>
+                <line x1="32" y1="32" x2="32" y2="18" stroke="#1c1c1e" stroke-width="2.8" stroke-linecap="round"/>
+                <line x1="32" y1="32" x2="42.5" y2="32" stroke="#1c1c1e" stroke-width="2.8" stroke-linecap="round"/>
+                <line x1="32" y1="11" x2="32" y2="14" stroke="#ff6b81" stroke-width="2" stroke-linecap="round"/>
+                <line x1="32" y1="50" x2="32" y2="53" stroke="#ff6b81" stroke-width="2" stroke-linecap="round"/>
+                <line x1="11" y1="32" x2="14" y2="32" stroke="#ff6b81" stroke-width="2" stroke-linecap="round"/>
+                <line x1="50" y1="32" x2="53" y2="32" stroke="#ff6b81" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="label">Uhr</div>
+          </div>
+          <div class="app">
+            <div class="icon" style="background:linear-gradient(180deg,#40a6ff,#0077ff)">
+              <svg viewBox="0 0 64 64" width="50" height="50" aria-hidden="true">
+                <rect x="10" y="16" width="44" height="31" rx="8" fill="#ffffff" opacity="0.96"/>
+                <path d="M10 18 L32 35 L54 18" fill="none" stroke="#0a84ff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M10 44 L24 30" fill="none" stroke="#cfe6ff" stroke-width="2.2"/>
+                <path d="M54 44 L40 30" fill="none" stroke="#cfe6ff" stroke-width="2.2"/>
+              </svg>
+            </div>
+            <div class="label">Mail</div>
+          </div>
+          <div class="app">
+            <div class="icon" style="background:linear-gradient(180deg,#ffffff,#f4f4f7)">
+              <svg viewBox="0 0 64 64" width="52" height="52" aria-hidden="true">
+                <defs>
+                  <radialGradient id="core" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#fff8cc"/>
+                    <stop offset="60%" stop-color="#ffe066"/>
+                    <stop offset="100%" stop-color="#ffd43b"/>
+                  </radialGradient>
+                </defs>
+                <g transform="translate(32 32)">
+                  <!-- petals -->
+                  <g>
+                    <ellipse cx="0" cy="-16" rx="6.5" ry="12.5" fill="#ff2d55"/>
+                    <ellipse cx="11.5" cy="-11.5" rx="6.5" ry="12.5" transform="rotate(45)" fill="#ff7a00"/>
+                    <ellipse cx="16" cy="0" rx="6.5" ry="12.5" transform="rotate(90)" fill="#ffd60a"/>
+                    <ellipse cx="11.5" cy="11.5" rx="6.5" ry="12.5" transform="rotate(135)" fill="#32d74b"/>
+                    <ellipse cx="0" cy="16" rx="6.5" ry="12.5" fill="#30d158"/>
+                    <ellipse cx="-11.5" cy="11.5" rx="6.5" ry="12.5" transform="rotate(-135)" fill="#64d2ff"/>
+                    <ellipse cx="-16" cy="0" rx="6.5" ry="12.5" transform="rotate(90)" fill="#0a84ff"/>
+                    <ellipse cx="-11.5" cy="-11.5" rx="6.5" ry="12.5" transform="rotate(-45)" fill="#bf5af2"/>
+                  </g>
+                  <!-- inner glow -->
+                  <circle cx="0" cy="0" r="9" fill="url(#core)"/>
+                  <circle cx="0" cy="0" r="6" fill="#ffe066" opacity="0.85"/>
+                </g>
+              </svg>
+            </div>
+            <div class="label">Fotos</div>
+          </div>
+          <div class="app">
+            <div class="icon" style="background:#000000">
+              <svg viewBox="0 0 64 64" width="50" height="50" aria-hidden="true">
+                <circle cx="32" cy="32" r="23" fill="#1db954"/>
+                <path d="M18 26.5c10-2.7 20.5-1.6 28.3 2.3" stroke="#111" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+                <path d="M20.5 33.6c7.9-2 15.7-1 21.7 2" stroke="#111" stroke-width="2.9" fill="none" stroke-linecap="round"/>
+                <path d="M23 40.3c5.8-1.2 11.2-.5 15.6 1.5" stroke="#111" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="label">Spotify</div>
+          </div>
+        </div>
+
+        <div class="dock">
+          <div class="app">
+            <div class="icon" style="background:linear-gradient(180deg,#5ae06d,#26c451)">
+              <svg viewBox="0 0 64 64" width="50" height="50" aria-hidden="true">
+                <path d="M20 18c-2 2-3 5 0 11 3 6 9 12 15 15 6 3 9 2 11 0l-5-6c-1-1-2-1-3-.5l-3 1c-4-2-7-5-9-9l1-3c.5-1 0-2-.5-3l-6-5z" fill="#fff"/>
+              </svg>
+            </div>
+            <div class="label">Anruf</div>
+          </div>
+          <div class="app">
+            <div class="icon" style="background:linear-gradient(180deg,#58df6e,#22c45c)">
+              <svg viewBox="0 0 64 64" width="50" height="50" aria-hidden="true">
+                <path d="M12 22c0-6 5-11 11-11h18c10 0 18 8 18 18s-8 18-18 18H28l-10 8 2-8h-1c-5 0-7-4-7-9z" fill="#ffffff"/>
+                <circle cx="28" cy="30" r="2.4" fill="#34c759"/>
+                <circle cx="34" cy="30" r="2.4" fill="#34c759"/>
+                <circle cx="40" cy="30" r="2.4" fill="#34c759"/>
+              </svg>
+            </div>
+            <div class="label">Nachrichten</div>
+          </div>
+          <div class="app">
+            <div class="icon" style="background:#ffffff">
+              <svg viewBox="0 0 64 64" width="50" height="50" aria-hidden="true">
+                <circle cx="32" cy="32" r="23" fill="#4db2ff"/>
+                <circle cx="32" cy="32" r="18.5" fill="none" stroke="#fff" stroke-width="2" opacity="0.9"/>
+                <line x1="32" y1="15" x2="32" y2="49" stroke="#fff" stroke-width="1.5" opacity="0.5"/>
+                <line x1="15" y1="32" x2="49" y2="32" stroke="#fff" stroke-width="1.5" opacity="0.5"/>
+                <path d="M32 17 L38 31 L32 28 L26 31 Z" fill="#ff5a5f"/>
+                <path d="M32 47 L27 34 L32 36.8 L37 34 Z" fill="#ffffff"/>
+              </svg>
+            </div>
+            <div class="label">Safari</div>
+          </div>
+          <div class="app">
+            <div class="icon" style="background:#000000">
+              <svg viewBox="0 0 64 64" width="50" height="50" aria-hidden="true">
+                <circle cx="32" cy="32" r="23" fill="#1db954"/>
+                <path d="M18 26.5c10-2.7 20.5-1.6 28.3 2.3" stroke="#111" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+                <path d="M20.5 33.6c7.9-2 15.7-1 21.7 2" stroke="#111" stroke-width="2.9" fill="none" stroke-linecap="round"/>
+                <path d="M23 40.3c5.8-1.2 11.2-.5 15.6 1.5" stroke="#111" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="label">Spotify</div>
+          </div>
+        </div>
+
+        <div class="home-indicator"></div>
+      </section>
+
+      <!-- APP SCREENS -->
+      <div class="app-screen" id="appScreen">
+        <div class="dynamic-island"></div>
+        <div class="statusbar">
+          <span class="status-time js-live-time">09:41</span>
+          <div class="status-right">
+            <div class="signal">
+              <span></span><span></span><span></span><span></span>
+            </div>
+            <span>5G</span>
+            <div class="battery"><div class="battery-level"></div></div>
+          </div>
+        </div>
+        
+        <div class="app-content">
+          <section class="timer-view" id="timerView">
+            <div class="love-card">
+              <div class="love-eyebrow">Seit unserem Tag</div>
+              <div class="love-title">Wie lange wir schon zusammen sind</div>
+              <div class="love-date">Seit dem 06.02.2026 💗</div>
+              <div class="count-grid">
+                <div class="count-box">
+                  <div class="count-number" id="countDays">0</div>
+                  <div class="count-label">Tage</div>
+                </div>
+                <div class="count-box">
+                  <div class="count-number" id="countHours">0</div>
+                  <div class="count-label">Stunden</div>
+                </div>
+                <div class="count-box">
+                  <div class="count-number" id="countMinutes">0</div>
+                  <div class="count-label">Minuten</div>
+                </div>
+                <div class="count-box">
+                  <div class="count-number" id="countSeconds">0</div>
+                  <div class="count-label">Sekunden</div>
+                </div>
+              </div>
+            </div>
+            <div class="love-note">
+              Jeder einzelne Moment seit dem <strong>06.02.2026</strong> zählt hier live mit. ✨
+            </div>
+          </section>
+
+          <section class="photos-view" id="photosView">
+            <div class="photos-grid">
+              <div class="photo-card">
+                <div class="photo-art">
+                  <svg viewBox="0 0 200 160" width="100%" height="100%" aria-hidden="true">
+                    <rect width="200" height="160" fill="#ffeef5"/>
+                    <circle cx="70" cy="58" r="18" fill="#f6c2a0"/>
+                    <circle cx="128" cy="58" r="18" fill="#f3bf9a"/>
+                    <path d="M50 118c6-24 24-34 40-34s34 10 40 34" fill="#ff8fb6"/>
+                    <path d="M108 118c6-24 24-34 40-34s34 10 40 34" fill="#ff6fa5" transform="translate(-20,0)"/>
+                    <path d="M58 52c4-12 20-18 28-8" stroke="#7a3e52" stroke-width="6" stroke-linecap="round"/>
+                    <path d="M116 50c6-12 22-16 30-6" stroke="#5a2a40" stroke-width="6" stroke-linecap="round"/>
+                    <path d="M88 82c10 8 20 8 30 0" stroke="#ff6b8a" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <path d="M92 86 L100 98 L108 86" fill="#ff5d8f"/>
+                  </svg>
+                </div>
+                <div class="photo-caption">Unser süßes Portrait</div>
+              </div>
+
+              <div class="photo-card">
+                <div class="photo-art">
+                  <svg viewBox="0 0 200 160" width="100%" height="100%" aria-hidden="true">
+                    <rect width="200" height="160" fill="#fff3f8"/>
+                    <circle cx="78" cy="56" r="18" fill="#f5c6a5"/>
+                    <circle cx="122" cy="56" r="18" fill="#f2c19e"/>
+                    <path d="M58 118c4-25 22-36 42-36s38 11 42 36" fill="#ff88b1"/>
+                    <path d="M61 52c8-16 26-16 34-6" stroke="#6b3a49" stroke-width="6" stroke-linecap="round"/>
+                    <path d="M107 50c10-14 28-16 36-4" stroke="#4e2740" stroke-width="6" stroke-linecap="round"/>
+                    <circle cx="95" cy="92" r="4" fill="#ff5d8f"/>
+                    <circle cx="105" cy="92" r="4" fill="#ff5d8f"/>
+                    <path d="M95 97c4 5 6 7 10 10 4-3 6-5 10-10" stroke="#ff5d8f" stroke-width="3" fill="none" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="photo-caption">Hand in Hand</div>
+              </div>
+
+              <div class="photo-card">
+                <div class="photo-art">
+                  <svg viewBox="0 0 200 160" width="100%" height="100%" aria-hidden="true">
+                    <rect width="200" height="160" fill="#fff1f7"/>
+                    <path d="M0 125 Q50 100 100 122 T200 118 V160 H0 Z" fill="#ffd0df"/>
+                    <circle cx="84" cy="64" r="17" fill="#f4c29d"/>
+                    <circle cx="118" cy="64" r="17" fill="#f2c09b"/>
+                    <path d="M66 116c5-22 18-32 35-32s30 10 35 32" fill="#ff74a8"/>
+                    <path d="M74 56c5-12 18-18 26-8" stroke="#5f3148" stroke-width="6" stroke-linecap="round"/>
+                    <path d="M108 56c6-12 18-18 28-6" stroke="#7a4158" stroke-width="6" stroke-linecap="round"/>
+                    <path d="M100 78c8 6 12 6 20 0" stroke="#ff5d8f" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    <text x="28" y="34" fill="#ff7ba7" font-size="18" font-family="sans-serif">love</text>
+                  </svg>
+                </div>
+                <div class="photo-caption">Spaziergang</div>
+              </div>
+
+              <div class="photo-card">
+                <div class="photo-art">
+                  <svg viewBox="0 0 200 160" width="100%" height="100%" aria-hidden="true">
+                    <rect width="200" height="160" fill="#fff5f9"/>
+                    <circle cx="76" cy="60" r="18" fill="#f4c39e"/>
+                    <circle cx="124" cy="60" r="18" fill="#f2bf9a"/>
+                    <path d="M56 118c4-26 22-36 42-36s38 10 46 36" fill="#ff89b3"/>
+                    <path d="M60 50c8-10 20-14 30-6" stroke="#6f3b4d" stroke-width="6" stroke-linecap="round"/>
+                    <path d="M112 50c8-12 22-14 30-4" stroke="#553044" stroke-width="6" stroke-linecap="round"/>
+                    <path d="M88 92c8 8 16 8 24 0" stroke="#ff5d8f" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <path d="M96 82c4-6 8-8 12-8 4 0 8 2 12 8" stroke="#ff9abb" stroke-width="3" fill="none" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="photo-caption">Ganz verliebt</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="phone-view" id="phoneView">
+
+  <div id="phoneContent"></div>
+
+  <div class="phone-tabs">
+    <div class="phone-tab active" data-tab="favoriten">Favoriten</div>
+    <div class="phone-tab" data-tab="liste">Anrufe</div>
+    <div class="phone-tab" data-tab="kontakte">Kontakte</div>
+    <div class="phone-tab" data-tab="ziffernblock">Ziffernblock</div>
+  </div>
+
+</section>
+
+          <section class="map-view" id="mapView" style="display:none;color:white;">
+            
+            <div style="
+              width:100%;
+              border-radius:28px;
+              padding:18px;
+              margin-bottom:14px;
+              background: linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0.10));
+              backdrop-filter: blur(18px);
+              border:1px solid rgba(255,255,255,0.25);
+              box-shadow: 0 16px 30px rgba(92, 28, 61, 0.18);
+            ">
+
+              <div style="font-size:13px;opacity:0.8;margin-bottom:6px;font-weight:600;letter-spacing:0.05em;">
+                Unser besonderer Ort
+              </div>
+
+              <div style="font-size:22px;font-weight:700;margin-bottom:14px;">
+                Wo alles begonnen hat ❤️
+              </div>
+
+              <div style="
+                width:100%;
+                height:180px;
+                border-radius:22px;
+                position:relative;
+                overflow:hidden;
+                background:
+                  radial-gradient(circle at 30% 30%, rgba(255,255,255,0.25), transparent 40%),
+                  linear-gradient(135deg,#f8a8c6,#e48bb2 50%,#c96a97);
+                box-shadow: inset 0 1px 0 rgba(255,255,255,0.25);
+              ">
+
+                <!-- fake map lines -->
+                <div style="position:absolute;inset:0;opacity:0.2;background:
+                  linear-gradient(45deg, white 2px, transparent 2px) 0 0/40px 40px,
+                  linear-gradient(-45deg, white 2px, transparent 2px) 0 0/40px 40px;"></div>
+
+                <!-- heart pin -->
+                <div style="
+                  position:absolute;
+                  top:50%;
+                  left:50%;
+                  transform:translate(-50%,-50%);
+                  font-size:34px;
+                  animation:pulse 1.6s infinite;
+                ">
+                  ❤️
+                </div>
+
+              </div>
+
+              <a href="https://www.google.com/maps?q=48.24139362417911,16.385045908705056" target="_blank"
+                style="
+                  display:block;
+                  margin-top:14px;
+                  padding:12px;
+                  border-radius:18px;
+                  background:rgba(255,255,255,0.18);
+                  text-align:center;
+                  font-weight:600;
+                  text-decoration:none;
+                  color:white;
+                  backdrop-filter: blur(10px);
+                ">
+                📍 Standort öffnen
+              </a>
+
+            </div>
+
+          </section>
+
+          <section class="safari-view" id="safariView" style="display:none;color:#111;">
+  <div style="background:#fff;border-radius:24px;padding:14px 12px;box-shadow:0 12px 28px rgba(0,0,0,0.12);">
+    <div style="background:#f1f1f4;border-radius:16px;padding:10px 12px;font-size:14px;color:#888;">
+      <div id="safariSearch" style="cursor:pointer;">🔍 Google durchsuchen</div>
+    </div>
+    <div style="margin-top:12px;font-size:13px;color:#666;font-weight:600;">Letzte Suchen</div>
+    <div style="margin-top:8px;display:grid;gap:8px;">
+      <div class="safari-item">Warum ist mein Freund so Toll?</div>
+      <div class="safari-item">Bilder von Kristijan Bonic in Unterwäsche</div>
+      <div class="safari-item">Warum liebt mich mein Freund so sehr?</div>
+      <div class="safari-item">Pinker Power Ranger</div>
+    </div>
+  </div>
+</section>
+
+<section class="spotify-view" id="spotifyView">
+            
+            <div class="spotify-grid" id="spotifyGrid">
+              <a class="track-card" href="https://open.spotify.com/intl-de/track/23LaXiRokfTjutun0KpQjn?si=51eed90de7ea4d0b" target="_blank" rel="noopener noreferrer">
+                <div class="track-cover" style="background:linear-gradient(135deg,#2a0f14,#7f1f39 48%,#d0557f)"><div class="cover-inner"></div></div>
+                <div class="track-meta">
+                  <div class="track-title">Ljubi grli me ti</div>
+                  <div class="track-artist">Ljuba Alicic, Zoran Starcevic</div>
+                  
+                </div>
+              </a>
+              <a class="track-card" href="https://open.spotify.com/intl-de/track/20CmZRsRNd0klpnEM7qoSN?si=4c096aa1433a4191" target="_blank" rel="noopener noreferrer">
+                <div class="track-cover" style="background:linear-gradient(135deg,#2b0b16,#8f2746 52%,#ff8baa)"><div class="cover-inner"></div></div>
+                <div class="track-meta">
+                  <div class="track-title">Ja Jos Spavam U Tvojoj Majici</div>
+                  <div class="track-artist">Ceca</div>
+                  
+                </div>
+              </a>
+              <a class="track-card" href="https://open.spotify.com/intl-de/track/2OivwJxTNQC45tem61SM4z?si=44487f4f29544abc" target="_blank" rel="noopener noreferrer">
+                <div class="track-cover" style="background:linear-gradient(135deg,#2d1706,#8c5d1e 50%,#efc56a)"><div class="cover-inner"></div></div>
+                <div class="track-meta">
+                  <div class="track-title">Izgledala je malo čudno u kaputu žutom krojenom bez veze</div>
+                  <div class="track-artist">Bijelo Dugme</div>
+                  
+                </div>
+              </a>
+              <a class="track-card" href="https://open.spotify.com/intl-de/track/5s1Ex88pESE9hht2FZC1sN?si=e68b229568244fd3" target="_blank" rel="noopener noreferrer">
+                <div class="track-cover" style="background:linear-gradient(135deg,#0f1115,#4a4f57 52%,#d84a4a)"><div class="cover-inner"></div></div>
+                <div class="track-meta">
+                  <div class="track-title">Pokreni me</div>
+                  <div class="track-artist">Laki pingvini</div>
+                  
+                </div>
+              </a>
+              <a class="track-card" href="https://open.spotify.com/intl-de/track/6AURCcBXz9BugPbpoVSRMC?si=acf831ffffa44a1c" target="_blank" rel="noopener noreferrer">
+                <div class="track-cover" style="background:linear-gradient(135deg,#5b2e13,#a85e2d 48%,#f0c54f)"><div class="cover-inner"></div></div>
+                <div class="track-meta">
+                  <div class="track-title">Naučit Ću Te Mala</div>
+                  <div class="track-artist">Darko Domijan</div>
+                  
+                </div>
+              </a>
+              <a class="track-card" href="https://open.spotify.com/intl-de/track/6yQ2hE9NfgDFY5l8aAame5?si=c46b267af4894601" target="_blank" rel="noopener noreferrer">
+                <div class="track-cover" style="background:linear-gradient(135deg,#11162e,#29428f 52%,#6f8fff)"><div class="cover-inner"></div></div>
+                <div class="track-meta">
+                  <div class="track-title">Ne spavaj mala moja muzika dok svira</div>
+                  <div class="track-artist">Bijelo Dugme</div>
+                  
+                </div>
+              </a>
+              <a class="track-card" href="https://open.spotify.com/intl-de/track/1bhsMIhN4BgX5wDFH3fU0Q?si=973505c5beeb4def" target="_blank" rel="noopener noreferrer">
+                <div class="track-cover" style="background:linear-gradient(135deg,#24101f,#6d2a57 54%,#ff9ac2)"><div class="cover-inner"></div></div>
+                <div class="track-meta">
+                  <div class="track-title">Ja Sam Za Ples</div>
+                  <div class="track-artist">Novi Fosili</div>
+                  
+                </div>
+              </a>
+            </div>
+          </section>
+        </div>
+        <div class="home-indicator" id="homeBar"></div>
+
+        <div class="love-modal" id="loveModal">
+          <div class="love-modal-box">
+            <div class="modal-close" id="modalClose">✕</div>
+            <div id="modalText">HEY! du brauchst niemanden anrufen du hast deinen super tollen Freund Kristijan ❤️</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+  const correctPin = '0602';
+  let input = '';
+
+  const dots = Array.from(document.querySelectorAll('.dot'));
+  const numButtons = document.querySelectorAll('[data-num]');
+  const hintEl = document.querySelector('.hint');
+  const lockscreen = document.getElementById('lockscreen');
+  const homescreen = document.getElementById('homescreen');
+  const lockCard = document.getElementById('lockCard');
+
+  const apps = document.querySelectorAll('.app');
+  const appScreen = document.getElementById('appScreen');
+  const homeBar = document.getElementById('homeBar');
+  const liveTimes = document.querySelectorAll('.js-live-time');
+  const liveTimeLarge = document.querySelector('.js-live-time-large');
+  const liveDate = document.querySelector('.js-live-date');
+
+  const photosView = document.getElementById('photosView');
+  const safariView = document.getElementById('safariView');
+  const spotifyView = document.getElementById('spotifyView');
+  const phoneView = document.getElementById('phoneView');
+  const mapView = document.getElementById('mapView');
+  const timerView = document.getElementById('timerView');
+  const countDays = document.getElementById('countDays');
+  const countHours = document.getElementById('countHours');
+  const countMinutes = document.getElementById('countMinutes');
+  const countSeconds = document.getElementById('countSeconds');
+  const spotifyCards = document.querySelectorAll('.track-card');
+  const phoneTabs = document.querySelectorAll('.phone-tab');
+  const phoneContent = document.getElementById('phoneContent');
+  const loveModal = document.getElementById('loveModal');
+  const safariSearch = document.getElementById('safariSearch');
+  const modalClose = document.getElementById('modalClose');
+
+  function updateRelationshipTimer() {
+    const startDate = new Date('2026-02-06T00:00:00');
+    const now = new Date();
+    const diff = Math.max(0, now - startDate);
+    const totalSeconds = Math.floor(diff / 1000);
+    const days = Math.floor(totalSeconds / 86400);
+    const hours = Math.floor((totalSeconds % 86400) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    if (countDays) countDays.textContent = String(days);
+    if (countHours) countHours.textContent = String(hours).padStart(2, '0');
+    if (countMinutes) countMinutes.textContent = String(minutes).padStart(2, '0');
+    if (countSeconds) countSeconds.textContent = String(seconds).padStart(2, '0');
+  }
+
+  function updateDateTime() {
+    const now = new Date();
+    const timeText = now.toLocaleTimeString('de-DE', {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+    const dateText = now.toLocaleDateString('de-DE', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long'
+    });
+
+    liveTimes.forEach((el) => {
+      el.textContent = timeText;
+    });
+
+    if (liveTimeLarge) liveTimeLarge.textContent = timeText;
+    if (liveDate) {
+      liveDate.textContent = dateText.charAt(0).toUpperCase() + dateText.slice(1);
+    }
+  }
+
+  function renderDots() {
+    dots.forEach((dot, index) => {
+      dot.classList.toggle('filled', index < input.length);
+    });
+  }
+
+  function unlock() {
+    lockscreen.classList.add('hidden');
+    homescreen.classList.add('active');
+    localStorage.setItem('unlocked', 'true');
+  }
+
+  function showErrorHint() {
+    hintEl.textContent = 'Tipp! das Passwort hat was mit eurem Jahrestag zutun!';
+    hintEl.style.color = '#ff3b30';
+    lockCard.classList.remove('shake');
+    void lockCard.offsetWidth;
+    lockCard.classList.add('shake');
+  }
+
+  function resetHint() {
+    hintEl.textContent = 'Gib deinen 4-stelligen Code ein.';
+    hintEl.style.color = 'white';
+  }
+
+  function resetInput(showError = false) {
+    input = '';
+    renderDots();
+    if (showError) {
+      showErrorHint();
+    } else {
+      resetHint();
+    }
+  }
+
+  function addNumber(num) {
+    if (input.length >= 4) return;
+    input += num;
+    if (hintEl.style.color === 'rgb(255, 59, 48)') resetHint();
+    renderDots();
+
+    if (input.length === 4) {
+      setTimeout(() => {
+        if (input === correctPin) {
+          unlock();
+        } else {
+          resetInput(true);
+        }
+      }, 180);
+    }
+  }
+
+  function showLoveAlert(customText) {
+    const textBox = document.getElementById('modalText');
+    if (customText && textBox) textBox.textContent = customText;
+    if (!loveModal) return;
+
+    loveModal.classList.add('active');
+  }
+
+  function resetAppViews() {
+    if (photosView) photosView.classList.remove('active');
+    if (safariView) safariView.style.display = 'none';
+    if (spotifyView) spotifyView.classList.remove('active');
+    if (timerView) timerView.classList.remove('active');
+    if (phoneView) phoneView.classList.remove('active');
+    if (mapView) mapView.style.display = 'none';
+  }
+
+  function renderPhone(tab) {
+    phoneTabs.forEach((t) => t.classList.remove('active'));
+    const activeTab = document.querySelector('[data-tab="' + tab + '"]');
+    if (activeTab) activeTab.classList.add('active');
+
+    if (tab === 'favoriten') {
+      phoneContent.innerHTML = `
+        <div class="phone-contact-card">
+          <div class="phone-avatar">KB</div>
+          <div class="phone-name">Kristijan Bonic</div>
+          <div class="phone-sub">Favorit</div>
+        </div>
+      `;
+      return;
+    }
+
+    if (tab === 'liste') {
+      phoneContent.innerHTML = `
+        <div class="call-list">
+          <div class="call-row"><div class="call-left"><div class="call-icon">📞</div><div class="call-meta"><div class="call-name">Kristijan Bonic</div><div class="call-type">Ausgehend</div></div></div><div class="call-time">Heute</div></div>
+          <div class="call-row"><div class="call-left"><div class="call-icon">📞</div><div class="call-meta"><div class="call-name">Kristijan Bonic</div><div class="call-type">Eingehend</div></div></div><div class="call-time">Gestern</div></div>
+          <div class="call-row"><div class="call-left"><div class="call-icon">📞</div><div class="call-meta"><div class="call-name">Kristijan Bonic</div><div class="call-type">Ausgehend</div></div></div><div class="call-time">Mo</div></div>
+        </div>
+      `;
+      return;
+    }
+
+    if (tab === 'kontakte') {
+      phoneContent.innerHTML = `
+        <div class="phone-contact-card">
+          <div class="phone-avatar">KB</div>
+          <div class="phone-name">Kristijan Bonic</div>
+          <div class="phone-sub">Einziger Kontakt 💗</div>
+        </div>
+      `;
+      return;
+    }
+
+    if (tab === 'ziffernblock') {
+      const dialButtons = [
+        { n: '1', s: '' }, { n: '2', s: 'ABC' }, { n: '3', s: 'DEF' },
+        { n: '4', s: 'GHI' }, { n: '5', s: 'JKL' }, { n: '6', s: 'MNO' },
+        { n: '7', s: 'PQRS' }, { n: '8', s: 'TUV' }, { n: '9', s: 'WXYZ' },
+        { n: '*', s: '' }, { n: '0', s: '+' }, { n: '#', s: '' }
+      ];
+
+      phoneContent.innerHTML = `
+        <div class="dial-display"></div>
+        <div class="dialer">
+          ${dialButtons.map((btn) => `
+            <div class="dial-btn" data-digit="${btn.n}">
+              <div style="display:flex;flex-direction:column;align-items:center;line-height:1;">
+                <span style="font-size:28px;font-weight:500;">${btn.n}</span>
+                <span style="font-size:10px;opacity:0.72;margin-top:4px;letter-spacing:0.08em;">${btn.s}</span>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+        <div class="dial-call-btn">📞</div>
+      `;
+    }
+  }
+
+  numButtons.forEach((btn) => {
+    btn.addEventListener('click', () => addNumber(btn.dataset.num));
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (/^[0-9]$/.test(e.key)) addNumber(e.key);
+    if (e.key === 'Backspace') {
+      input = input.slice(0, -1);
+      renderDots();
+      if (!input.length) resetHint();
+    }
+    if (e.key === 'Enter' && input === correctPin) unlock();
+  });
+
+  // immer beim Sperrbildschirm starten
+localStorage.removeItem('unlocked');
+
+  function initTime() {
+    updateDateTime();
+    lockscreen.style.opacity = '1';
+  }
+
+  lockscreen.style.opacity = '0';
+  setTimeout(initTime, 300);
+
+  setInterval(() => {
+    updateDateTime();
+    updateRelationshipTimer();
+  }, 1000);
+  updateRelationshipTimer();
+
+  apps.forEach((app) => {
+    app.addEventListener('click', () => {
+      const name = app.querySelector('.label')?.textContent || 'App';
+      if (!homescreen.classList.contains('active')) return;
+
+      resetAppViews();
+      if (name === 'Fotos') photosView.classList.add('active');
+      if (name === 'Safari') safariView.style.display = 'block';
+      if (name === 'Spotify') spotifyView.classList.add('active');
+      if (name === 'Uhr') timerView.classList.add('active');
+      if (name === 'Anruf') phoneView.classList.add('active');
+      if (name === 'Wo ist?') mapView.style.display = 'block';
+
+      appScreen.classList.remove('closing');
+      appScreen.classList.add('active');
+    });
+  });
+
+  spotifyCards.forEach((card) => {
+    card.addEventListener('click', () => {
+      spotifyCards.forEach((c) => c.classList.remove('active'));
+      card.classList.add('active');
+    });
+  });
+
+  phoneTabs.forEach((tab) => {
+    tab.addEventListener('click', () => renderPhone(tab.dataset.tab));
+  });
+
+  phoneContent.addEventListener('click', (e) => {
+    const digitBtn = e.target.closest('.dial-btn');
+    if (digitBtn) {
+      showLoveAlert();
+      return;
+    }
+
+    const callBtn = e.target.closest('.dial-call-btn');
+    if (callBtn) {
+      showLoveAlert();
+    }
+  });
+
+  if(modalClose){
+    modalClose.addEventListener('click', ()=>{
+      if(loveModal) loveModal.classList.remove('active');
+      const textBox = document.getElementById('modalText');
+      if(textBox) textBox.textContent = 'HEY! du brauchst niemanden anrufen du hast deinen super tollen Freund Kristijan ❤️';
+    });
+  }
+
+  if(safariSearch){
+    safariSearch.addEventListener('click', ()=>{
+      showLoveAlert('wonach willst du suchen du hast doch mit Kristijan schon alles wonach du gesucht hast!');
+    });
+  }
+
+  renderPhone('favoriten');
+
+  homeBar.addEventListener('click', () => {
+    appScreen.classList.remove('active');
+    appScreen.classList.add('closing');
+    setTimeout(() => {
+      resetAppViews();
+      appScreen.classList.remove('closing');
+    }, 280);
+  });
+
+  appScreen.classList.remove('active');
+  appScreen.classList.remove('closing');
+</script>
+</body>
+</html>
