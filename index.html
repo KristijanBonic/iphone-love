@@ -1681,6 +1681,15 @@
     }
   }
 
+  function handlePinInteraction(event) {
+    const button = event.currentTarget;
+    if (!button?.dataset?.num) return;
+
+    // iPhone Safari can be inconsistent with synthesized click timing.
+    event.preventDefault();
+    addNumber(button.dataset.num);
+  }
+
   function showLoveAlert(customText) {
     const textBox = document.getElementById('modalText');
     if (customText && textBox) textBox.textContent = customText;
@@ -1781,7 +1790,9 @@
   }
 
   numButtons.forEach((btn) => {
-    btn.addEventListener('click', () => addNumber(btn.dataset.num));
+    btn.addEventListener('click', handlePinInteraction);
+    btn.addEventListener('touchend', handlePinInteraction, { passive: false });
+    btn.addEventListener('pointerup', handlePinInteraction);
   });
 
   document.addEventListener('keydown', (e) => {
@@ -1817,11 +1828,4 @@ localStorage.removeItem('unlocked');
       if (!homescreen.classList.contains('active')) return;
 
       resetAppViews();
-      if (name === 'Fotos') photosView.classList.add('active');
-      if (name === 'Safari') safariView.style.display = 'block';
-      if (name === 'Spotify') spotifyView.classList.add('active');
-      if (name === 'Uhr') timerView.classList.add('active');
-      if (name === 'Anruf') phoneView.classList.add('active');
-      if (name === 'Wo ist?') mapView.style.display = 'block';
-
-      appScreen.classList.remove(
+      if (name === 'Fotos') 
