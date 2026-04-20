@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <base href="https://kristijanbonic.github.io/iphone-love/" />
   <title>iPhone Babyrosa Mockup</title>
   <style>
     * {
@@ -1823,7 +1824,4 @@ localStorage.removeItem('unlocked');
       if (name === 'Anruf') phoneView.classList.add('active');
       if (name === 'Wo ist?') mapView.style.display = 'block';
 
-      appScreen.classList.remove('closing');
-      appScreen.classList.add('active');
-    });
-  }
+      appScreen.classList.remove(
