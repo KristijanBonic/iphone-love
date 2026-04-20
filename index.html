@@ -672,8 +672,8 @@
     }
 
     .phone-contact-card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.24), rgba(255,255,255,0.10));
-      border: 1px solid rgba(255,255,255,0.24);
+      background: linear-gradient(180deg, rgba(90, 33, 63, 0.46), rgba(58, 18, 40, 0.34));
+      border: 1px solid rgba(255,255,255,0.14);
       border-radius: 28px;
       padding: 18px;
       backdrop-filter: blur(18px);
@@ -696,6 +696,14 @@
       font-size: 28px;
       font-weight: 800;
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.55);
+    }
+
+    .phone-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 50%;
     }
 
     .phone-name {
@@ -721,8 +729,8 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      background: rgba(255,255,255,0.14);
-      border: 1px solid rgba(255,255,255,0.18);
+      background: linear-gradient(180deg, rgba(90, 33, 63, 0.44), rgba(58, 18, 40, 0.32));
+      border: 1px solid rgba(255,255,255,0.14);
       border-radius: 22px;
       padding: 14px 16px;
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
@@ -746,6 +754,14 @@
       justify-content: center;
       font-size: 16px;
       flex-shrink: 0;
+    }
+
+    .call-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 50%;
     }
 
     .call-meta {
@@ -774,8 +790,8 @@
     }
 
     .love-card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.24), rgba(255,255,255,0.10));
-      border: 1px solid rgba(255,255,255,0.24);
+      background: linear-gradient(180deg, rgba(90, 33, 63, 0.46), rgba(58, 18, 40, 0.34));
+      border: 1px solid rgba(255,255,255,0.14);
       border-radius: 28px;
       padding: 18px;
       backdrop-filter: blur(18px);
@@ -837,8 +853,8 @@
     }
 
     .love-note {
-      background: rgba(255,255,255,0.14);
-      border: 1px solid rgba(255,255,255,0.18);
+      background: linear-gradient(180deg, rgba(90, 33, 63, 0.42), rgba(58, 18, 40, 0.30));
+      border: 1px solid rgba(255,255,255,0.14);
       border-radius: 24px;
       padding: 16px;
       font-size: 14px;
@@ -850,13 +866,16 @@
       width: 100%;
       border: none;
       text-align: left;
-      background: #fff;
+      background: linear-gradient(180deg, rgba(90, 33, 63, 0.46), rgba(58, 18, 40, 0.34));
       border-radius: 14px;
       padding: 12px 14px;
       font-size: 14px;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+      color: white;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 10px 20px rgba(91, 26, 55, 0.22);
       cursor: pointer;
       transition: transform .12s ease, box-shadow .18s ease;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
 
     .safari-item:active {
@@ -875,35 +894,41 @@
 
     .safari-back {
       border: none;
-      background: #f4d3e0;
-      color: #b23e6d;
+      background: linear-gradient(180deg, rgba(104, 38, 73, 0.50), rgba(67, 22, 47, 0.36));
+      color: white;
       border-radius: 999px;
       padding: 10px 14px;
       font-size: 13px;
       font-weight: 700;
       cursor: pointer;
       justify-self: start;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
 
     .safari-card {
-      background: #fff;
+      background: linear-gradient(180deg, rgba(90, 33, 63, 0.46), rgba(58, 18, 40, 0.34));
       border-radius: 22px;
       padding: 16px;
-      box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 16px 30px rgba(92, 28, 61, 0.24);
+      border: 1px solid rgba(255,255,255,0.14);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
     }
 
     .safari-title {
       font-size: 21px;
       line-height: 1.15;
       font-weight: 800;
-      color: #171717;
+      color: white;
       margin-bottom: 10px;
     }
 
     .safari-text {
       font-size: 14px;
       line-height: 1.55;
-      color: #3b3b3b;
+      color: rgba(255,255,255,0.92);
     }
 
     .safari-list {
@@ -911,7 +936,7 @@
       gap: 10px;
       margin-top: 10px;
       padding-left: 18px;
-      color: #3b3b3b;
+      color: rgba(255,255,255,0.92);
       font-size: 14px;
       line-height: 1.5;
     }
@@ -925,16 +950,19 @@
     .safari-photo-slot {
       aspect-ratio: 1 / 1.15;
       border-radius: 18px;
-      background: linear-gradient(180deg, #fff7fb, #ffd9e7);
-      border: 2px dashed #f0aac3;
+      background: linear-gradient(180deg, rgba(90, 33, 63, 0.42), rgba(58, 18, 40, 0.30));
+      border: 1px solid rgba(255,255,255,0.14);
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
       padding: 14px;
-      color: #c45d87;
+      color: white;
       font-size: 13px;
       font-weight: 700;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
 
     .safari-photo-slot img {
@@ -949,8 +977,8 @@
       width: 100%;
       border-radius: 20px;
       overflow: hidden;
-      background: linear-gradient(180deg, #ffe6f1, #ffc6db);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.75);
+      background: linear-gradient(180deg, rgba(90, 33, 63, 0.42), rgba(58, 18, 40, 0.30));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
     }
 
     .ranger-photo svg,
@@ -1135,7 +1163,7 @@
       <section class="homescreen" id="homescreen">
         <div class="app-grid">
           <div class="app">
-            <div class="icon"><img src="./images/app-wo_ist.jpg" alt="Wo ist App"></div>
+            <div class="icon"><img src="./images/app-wo_ist?.jpg" alt="Wo ist App"></div>
             <div class="label">Wo ist?</div>
           </div>
           <div class="app">
@@ -1482,12 +1510,12 @@
     if (!safariView) return;
 
     safariView.innerHTML = `
-      <div style="background:#fff;border-radius:24px;padding:14px 12px;box-shadow:0 12px 28px rgba(0,0,0,0.12);">
+      <div style="background:linear-gradient(180deg, rgba(90, 33, 63, 0.50), rgba(58, 18, 40, 0.36));border:1px solid rgba(255,255,255,0.14);border-radius:24px;padding:14px 12px;box-shadow:0 16px 30px rgba(92, 28, 61, 0.24);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);">
         <div id="safariHome">
-          <div style="background:#f1f1f4;border-radius:16px;padding:10px 12px;font-size:14px;color:#888;">
+          <div style="background:linear-gradient(180deg, rgba(104, 38, 73, 0.48), rgba(67, 22, 47, 0.34));border-radius:16px;padding:10px 12px;font-size:14px;color:rgba(255,255,255,0.88);box-shadow:inset 0 1px 0 rgba(255,255,255,0.10);">
             <div id="safariSearch" style="cursor:pointer;">Google durchsuchen</div>
           </div>
-          <div style="margin-top:12px;font-size:13px;color:#666;font-weight:600;">Letzte Suchen</div>
+          <div style="margin-top:12px;font-size:13px;color:rgba(255,255,255,0.78);font-weight:600;">Letzte Suchen</div>
           <div style="margin-top:8px;display:grid;gap:8px;">
             <button class="safari-item" type="button" data-safari-page="friend-awesome">Warum ist mein Freund so Toll?</button>
             <button class="safari-item" type="button" data-safari-page="friend-gallery">Bilder von meinem wunderschönen Freund</button>
@@ -1696,7 +1724,7 @@
     if (tab === 'favoriten') {
       phoneContent.innerHTML = `
         <div class="phone-contact-card">
-          <div class="phone-avatar">KB</div>
+          <div class="phone-avatar"><img src="./images/kontakt-kristijan_bonic.jpg" alt="Kristijan Bonic"></div>
           <div class="phone-name">Kristijan Bonic</div>
           <div class="phone-sub">Favorit</div>
         </div>
@@ -1707,9 +1735,9 @@
     if (tab === 'liste') {
       phoneContent.innerHTML = `
         <div class="call-list">
-          <div class="call-row"><div class="call-left"><div class="call-icon">📞</div><div class="call-meta"><div class="call-name">Kristijan Bonic</div><div class="call-type">Ausgehend</div></div></div><div class="call-time">Heute</div></div>
-          <div class="call-row"><div class="call-left"><div class="call-icon">📞</div><div class="call-meta"><div class="call-name">Kristijan Bonic</div><div class="call-type">Eingehend</div></div></div><div class="call-time">Gestern</div></div>
-          <div class="call-row"><div class="call-left"><div class="call-icon">📞</div><div class="call-meta"><div class="call-name">Kristijan Bonic</div><div class="call-type">Ausgehend</div></div></div><div class="call-time">Mo</div></div>
+          <div class="call-row"><div class="call-left"><div class="call-icon"><img src="./images/kontakt-kristijan_bonic.jpg" alt="Kristijan Bonic"></div><div class="call-meta"><div class="call-name">Kristijan Bonic</div><div class="call-type">Ausgehend</div></div></div><div class="call-time">Heute</div></div>
+          <div class="call-row"><div class="call-left"><div class="call-icon"><img src="./images/kontakt-kristijan_bonic.jpg" alt="Kristijan Bonic"></div><div class="call-meta"><div class="call-name">Kristijan Bonic</div><div class="call-type">Eingehend</div></div></div><div class="call-time">Gestern</div></div>
+          <div class="call-row"><div class="call-left"><div class="call-icon"><img src="./images/kontakt-kristijan_bonic.jpg" alt="Kristijan Bonic"></div><div class="call-meta"><div class="call-name">Kristijan Bonic</div><div class="call-type">Ausgehend</div></div></div><div class="call-time">Mo</div></div>
         </div>
       `;
       return;
@@ -1718,7 +1746,7 @@
     if (tab === 'kontakte') {
       phoneContent.innerHTML = `
         <div class="phone-contact-card">
-          <div class="phone-avatar">KB</div>
+          <div class="phone-avatar"><img src="./images/kontakt-kristijan_bonic.jpg" alt="Kristijan Bonic"></div>
           <div class="phone-name">Kristijan Bonic</div>
           <div class="phone-sub">Einziger Kontakt 💗</div>
         </div>
@@ -1798,76 +1826,4 @@ localStorage.removeItem('unlocked');
       appScreen.classList.remove('closing');
       appScreen.classList.add('active');
     });
-  });
-
-  spotifyCards.forEach((card) => {
-    card.addEventListener('click', () => {
-      spotifyCards.forEach((c) => c.classList.remove('active'));
-      card.classList.add('active');
-    });
-  });
-
-  phoneTabs.forEach((tab) => {
-    tab.addEventListener('click', () => renderPhone(tab.dataset.tab));
-  });
-
-  phoneContent.addEventListener('click', (e) => {
-    const digitBtn = e.target.closest('.dial-btn');
-    if (digitBtn) {
-      showLoveAlert();
-      return;
-    }
-
-    const callBtn = e.target.closest('.dial-call-btn');
-    if (callBtn) {
-      showLoveAlert();
-    }
-  });
-
-  if(modalClose){
-    modalClose.addEventListener('click', ()=>{
-      if(loveModal) loveModal.classList.remove('active');
-      const textBox = document.getElementById('modalText');
-      if(textBox) textBox.textContent = 'HEY! du brauchst niemanden anrufen du hast deinen super tollen Freund Kristijan ❤️';
-    });
   }
-
-  if (safariView) {
-    safariView.addEventListener('click', (e) => {
-      const searchButton = e.target.closest('#safariSearch');
-      if (searchButton) {
-        showLoveAlert('wonach willst du suchen du hast doch mit Kristijan schon alles wonach du gesucht hast!');
-        return;
-      }
-
-      const safariItem = e.target.closest('[data-safari-page]');
-      if (safariItem) {
-        openSafariPage(safariItem.dataset.safariPage);
-        return;
-      }
-
-      const backButton = e.target.closest('.safari-back');
-      if (backButton) {
-        showSafariHome();
-      }
-    });
-  }
-
-  initializeSafariContent();
-  showSafariHome();
-  renderPhone('favoriten');
-
-  homeBar.addEventListener('click', () => {
-    appScreen.classList.remove('active');
-    appScreen.classList.add('closing');
-    setTimeout(() => {
-      resetAppViews();
-      appScreen.classList.remove('closing');
-    }, 280);
-  });
-
-  appScreen.classList.remove('active');
-  appScreen.classList.remove('closing');
-</script>
-</body>
-</html>
