@@ -391,7 +391,7 @@
       background:
         radial-gradient(circle at 20% 10%, rgba(255,255,255,0.22), transparent 22%),
         linear-gradient(180deg, #ffcadd 0%, #f6a8c8 55%, #ec96bd 100%);
-      padding: 96px 18px 18px;
+      padding: 84px 18px 18px;
       color: white;
     }
 
@@ -474,6 +474,25 @@
       display: block;
       position: relative;
       z-index: 1;
+    }
+
+    .icon.tiktok-icon {
+      background:
+        radial-gradient(circle at 30% 25%, rgba(255,255,255,0.16), transparent 26%),
+        linear-gradient(180deg, #29121f, #12070d 62%, #050305 100%);
+    }
+
+    .icon.tiktok-icon span {
+      position: relative;
+      z-index: 1;
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: -0.06em;
+      color: #ffffff;
+      text-shadow:
+        2px 0 0 #5ff9ef,
+        -2px 0 0 #ff4f9a,
+        0 0 18px rgba(255,255,255,0.12);
     }
 
     .label {
@@ -561,7 +580,7 @@
 
     .app-content {
       position: absolute;
-      top: 104px;
+      top: 82px;
       left: 0;
       right: 0;
       bottom: 26px;
@@ -607,6 +626,521 @@
 
     .weather-view.active {
       display: block;
+    }
+
+    .tiktok-view {
+      display: none;
+      color: white;
+      min-height: 100%;
+      height: 100%;
+      padding-top: 0;
+      position: relative;
+      overflow: hidden;
+      border-radius: 0;
+      background: linear-gradient(180deg, rgba(14, 7, 12, 0.98), rgba(9, 5, 9, 1));
+    }
+
+    .tiktok-view.active {
+      display: block;
+    }
+
+    .tiktok-topbar {
+      position: absolute;
+      top: 8px;
+      left: 0;
+      right: 0;
+      z-index: 6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      padding: 8px 18px 0;
+      pointer-events: none;
+    }
+
+    .tiktok-tab {
+      font-size: 14px;
+      font-weight: 800;
+      color: rgba(255,255,255,0.56);
+      letter-spacing: -0.02em;
+      pointer-events: auto;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .tiktok-tab.active {
+      color: white;
+    }
+
+    .tiktok-tab.active::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: -7px;
+      transform: translateX(-50%);
+      width: 28px;
+      height: 3px;
+      border-radius: 999px;
+      background: white;
+    }
+
+    .tiktok-feed {
+      position: absolute;
+      inset: 0 0 72px 0;
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .tiktok-feed::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tiktok-card {
+      position: relative;
+      min-height: 100%;
+      scroll-snap-align: start;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 22% 18%, rgba(255,255,255,0.08), transparent 18%),
+        linear-gradient(180deg, rgba(28, 10, 22, 0.28), rgba(8, 4, 8, 0.12));
+    }
+
+    .tiktok-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.00) 25%, rgba(0,0,0,0.20) 62%, rgba(0,0,0,0.64) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .tiktok-media {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: #120811;
+    }
+
+    .tiktok-pause-indicator {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(0.94);
+      z-index: 3;
+      width: 74px;
+      height: 74px;
+      border-radius: 50%;
+      background: rgba(10, 7, 10, 0.42);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .16s ease, transform .16s ease;
+      box-shadow: 0 18px 36px rgba(0,0,0,0.20);
+    }
+
+    .tiktok-card.is-paused .tiktok-pause-indicator {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .tiktok-pause-bars {
+      display: flex;
+      gap: 8px;
+    }
+
+    .tiktok-pause-bars span {
+      width: 8px;
+      height: 28px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.96);
+      display: block;
+    }
+
+    .tiktok-card-content {
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 14px;
+      z-index: 2;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .tiktok-caption {
+      max-width: calc(100% - 66px);
+    }
+
+    .tiktok-user-row {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 6px;
+    }
+
+    .tiktok-avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1.5px solid rgba(255,255,255,0.88);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+      flex-shrink: 0;
+    }
+
+    .tiktok-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .tiktok-user {
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .tiktok-meta {
+      font-size: 10px;
+      color: rgba(255,255,255,0.82);
+      margin-top: 1px;
+    }
+
+    .tiktok-text {
+      font-size: 12px;
+      line-height: 1.35;
+      color: rgba(255,255,255,0.94);
+      text-shadow: 0 4px 18px rgba(0,0,0,0.26);
+    }
+
+    .tiktok-actions {
+      width: 42px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .tiktok-action-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .tiktok-action {
+      width: auto;
+      height: auto;
+      border-radius: 0;
+      border: none;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 23px;
+      line-height: 1;
+      cursor: pointer;
+      transition: transform .12s ease, color .15s ease, opacity .15s ease;
+      user-select: none;
+      color: rgba(255,255,255,0.96);
+      text-shadow: 0 8px 24px rgba(0,0,0,0.28);
+    }
+
+    .tiktok-action svg {
+      width: 18px;
+      height: 22px;
+      display: block;
+      fill: currentColor;
+    }
+
+    .tiktok-action:active {
+      transform: scale(0.96);
+    }
+
+    .tiktok-action.is-liked {
+      color: #ff3b7a;
+    }
+
+    .tiktok-action.is-saved {
+      color: #ffd84d;
+    }
+
+    .tiktok-action-label {
+      font-size: 9px;
+      font-weight: 800;
+      color: rgba(255,255,255,0.92);
+      text-shadow: 0 4px 14px rgba(0,0,0,0.26);
+      text-align: center;
+    }
+
+    .tiktok-share-toast {
+      position: absolute;
+      left: 50%;
+      bottom: 92px;
+      transform: translateX(-50%) translateY(12px);
+      z-index: 9;
+      padding: 10px 14px;
+      border-radius: 16px;
+      background: rgba(18, 10, 16, 0.92);
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+      box-shadow: 0 14px 28px rgba(0,0,0,0.24);
+    }
+
+    .tiktok-share-toast.active {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .tiktok-bottom-nav {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 7;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+      padding: 10px 10px 12px;
+      background: linear-gradient(180deg, rgba(8,5,8,0.04), rgba(8,5,8,0.88));
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .tiktok-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: rgba(255,255,255,0.56);
+      font-size: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .tiktok-nav-item.active {
+      color: white;
+    }
+
+    .tiktok-nav-icon {
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .tiktok-plus {
+      width: 34px;
+      height: 26px;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #5ff9ef 0 18%, #fff 18% 82%, #ff4f9a 82% 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0a0a0a;
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .tiktok-panel {
+      display: none;
+      position: absolute;
+      inset: 0 0 72px 0;
+      overflow-y: auto;
+      padding: 56px 14px 20px;
+      scrollbar-width: none;
+    }
+
+    .tiktok-panel.active {
+      display: block;
+    }
+
+    .tiktok-panel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tiktok-comments-sheet {
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      bottom: 82px;
+      z-index: 8;
+      border-radius: 26px;
+      background: linear-gradient(180deg, rgba(33, 14, 24, 0.96), rgba(15, 7, 13, 0.98));
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.34);
+      padding: 16px;
+      display: none;
+    }
+
+    .tiktok-comments-sheet.active {
+      display: block;
+    }
+
+    .tiktok-comments-title {
+      font-size: 15px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .tiktok-comment {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .tiktok-comment:last-child {
+      border-bottom: none;
+    }
+
+    .tiktok-comment-user {
+      font-size: 12px;
+      font-weight: 800;
+      color: rgba(255,255,255,0.70);
+      margin-bottom: 4px;
+    }
+
+    .tiktok-comment-text {
+      font-size: 14px;
+      line-height: 1.45;
+      color: rgba(255,255,255,0.94);
+    }
+
+    .tiktok-comment-main {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .tiktok-comment-like {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: rgba(255,255,255,0.68);
+      cursor: pointer;
+      user-select: none;
+      min-width: 24px;
+      transition: transform .12s ease, color .15s ease;
+    }
+
+    .tiktok-comment-like:active {
+      transform: scale(0.95);
+    }
+
+    .tiktok-comment-like.is-liked {
+      color: #ff3b7a;
+    }
+
+    .tiktok-comment-like-icon {
+      font-size: 14px;
+      line-height: 1;
+    }
+
+    .tiktok-comment-like-count {
+      font-size: 10px;
+      font-weight: 800;
+      color: rgba(255,255,255,0.92);
+    }
+
+    .tiktok-comments-close {
+      margin-top: 12px;
+      width: 100%;
+      border: none;
+      border-radius: 18px;
+      min-height: 42px;
+      background: linear-gradient(180deg, #ffd6e7, #f6a9c9);
+      color: #8d1f4b;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .tiktok-profile-card,
+    .tiktok-empty-card {
+      border-radius: 28px;
+      padding: 20px 18px;
+      background: linear-gradient(180deg, rgba(90, 33, 63, 0.44), rgba(58, 18, 40, 0.30));
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 16px 30px rgba(92, 28, 61, 0.24);
+    }
+
+    .tiktok-profile-head {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .tiktok-profile-avatar {
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.92);
+      margin-bottom: 12px;
+    }
+
+    .tiktok-profile-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .tiktok-profile-name {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .tiktok-profile-user {
+      font-size: 14px;
+      color: rgba(255,255,255,0.82);
+    }
+
+    .tiktok-profile-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .tiktok-profile-stat {
+      border-radius: 20px;
+      padding: 14px 10px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+      text-align: center;
+    }
+
+    .tiktok-profile-stat strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+
+    .tiktok-profile-empty {
+      border-radius: 22px;
+      padding: 20px;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      color: rgba(255,255,255,0.88);
     }
 
     .calculator-view {
@@ -1690,6 +2224,10 @@
             <div class="icon"><img src="./images/apps/app-spotify.jpg" alt="Spotify App"></div>
             <div class="label">Spotify</div>
           </div>
+          <div class="app">
+            <div class="icon"><img src="./images/apps/app-tiktok.jpg" alt="TikTok App"></div>
+            <div class="label">TikTok</div>
+          </div>
         </div>
 
         <div class="dock">
@@ -2089,6 +2627,77 @@
               </a>
             </div>
           </section>
+
+          <section class="tiktok-view" id="tiktokView">
+            <div class="tiktok-topbar">
+              <div class="tiktok-tab active" data-tiktok-tab="foryou">Für dich</div>
+              <div class="tiktok-tab" data-tiktok-tab="following">Folge ich</div>
+            </div>
+
+            <div class="tiktok-feed" id="tiktokFeed"></div>
+
+            <div class="tiktok-panel" id="tiktokFriendsPanel"></div>
+
+            <div class="tiktok-panel" id="tiktokInboxPanel">
+              <div class="tiktok-empty-card">
+                <div style="font-size:22px;font-weight:800;margin-bottom:10px;">Posteingang</div>
+                <div style="font-size:14px;line-height:1.5;color:rgba(255,255,255,0.88);">
+                  Hier ist gerade noch nichts. Alles ist ruhig, außer eurem süßen TikTok-Feed. 
+                </div>
+              </div>
+            </div>
+
+            <div class="tiktok-panel" id="tiktokProfilePanel">
+              <div class="tiktok-profile-card">
+                <div class="tiktok-profile-head">
+                  <div class="tiktok-profile-avatar">
+                    <img src="./images/tiktok/tiktok-bonic_b.jpg" alt="@bonic_b Profilbild">
+                  </div>
+                  <div class="tiktok-profile-name">Bosiljka Bonic</div>
+                  <div class="tiktok-profile-user">@bonic_b</div>
+                </div>
+
+                <div class="tiktok-profile-stats">
+                  <div class="tiktok-profile-stat"><strong>1</strong><span>gefolgt</span></div>
+                  <div class="tiktok-profile-stat"><strong>1</strong><span>Follower</span></div>
+                  <div class="tiktok-profile-stat"><strong>0</strong><span>Likes</span></div>
+                </div>
+
+                <div class="tiktok-profile-empty">Keine Videos gepostet</div>
+              </div>
+            </div>
+
+            <div class="tiktok-comments-sheet" id="tiktokComments">
+              <div class="tiktok-comments-title">Kommentare</div>
+              <div id="tiktokCommentsList"></div>
+              <button class="tiktok-comments-close" id="tiktokCommentsClose" type="button">Schließen</button>
+            </div>
+
+            <div class="tiktok-share-toast" id="tiktokShareToast">Danke fürs Teilen</div>
+
+            <div class="tiktok-bottom-nav">
+              <div class="tiktok-nav-item active" data-tiktok-nav="home">
+                <div class="tiktok-nav-icon">⌂</div>
+                <div>Home</div>
+              </div>
+              <div class="tiktok-nav-item" data-tiktok-nav="friends">
+                <div class="tiktok-nav-icon">👥</div>
+                <div>Freundinnen</div>
+              </div>
+              <div class="tiktok-nav-item" data-tiktok-nav="create">
+                <div class="tiktok-plus">+</div>
+                <div>Erstellen</div>
+              </div>
+              <div class="tiktok-nav-item" data-tiktok-nav="inbox">
+                <div class="tiktok-nav-icon">✉</div>
+                <div>Posteingang</div>
+              </div>
+              <div class="tiktok-nav-item" data-tiktok-nav="profile">
+                <div class="tiktok-nav-icon">☺</div>
+                <div>Profil</div>
+              </div>
+            </div>
+          </section>
         </div>
         <div class="home-indicator" id="homeBar"></div>
 
@@ -2138,6 +2747,15 @@
   const timerView = document.getElementById('timerView');
   const weatherView = document.getElementById('weatherView');
   const calculatorView = document.getElementById('calculatorView');
+  const tiktokView = document.getElementById('tiktokView');
+  const tiktokFeed = document.getElementById('tiktokFeed');
+  const tiktokFriendsPanel = document.getElementById('tiktokFriendsPanel');
+  const tiktokInboxPanel = document.getElementById('tiktokInboxPanel');
+  const tiktokProfilePanel = document.getElementById('tiktokProfilePanel');
+  const tiktokComments = document.getElementById('tiktokComments');
+  const tiktokCommentsList = document.getElementById('tiktokCommentsList');
+  const tiktokCommentsClose = document.getElementById('tiktokCommentsClose');
+  const tiktokShareToast = document.getElementById('tiktokShareToast');
   const calcGrid = document.getElementById('calcGrid');
   const calcExpression = document.getElementById('calcExpression');
   const calcResult = document.getElementById('calcResult');
@@ -2171,6 +2789,93 @@
   let calcOperator = null;
   let calcWaitingForNext = false;
   let calcSpecialMessage = '';
+  let tiktokActiveTab = 'foryou';
+  let tiktokActiveNav = 'home';
+  let tiktokCommentVideoId = null;
+  let tiktokShareToastTimer = null;
+  const tiktokPausedVideos = new Set();
+  const tiktokVideos = [
+    {
+      id: 1,
+      src: './images/tiktok/tiktok-video_1.mp4',
+      user: '@bonic_k',
+      avatar: './images/tiktok/tiktok-bonic_k.jpg',
+      text: 'She is my everything #foreverandalways',
+      likes: 602,
+      commentsCount: 14,
+      liked: false,
+      saved: false,
+      comments: [
+        { user: '@lovebug', text: 'Wie süß ist dieses Video bitte?', likes: 4, liked: false },
+        { user: '@rosa.herz', text: 'Was für ein Traumpaar ihr seid.', likes: 7, liked: false },
+        { user: '@babylove', text: 'Wie süß wir sind, ich kann nicht mehr.', likes: 3, liked: false }
+      ]
+    },
+    {
+      id: 2,
+      src: './images/tiktok/tiktok-video_2.mp4',
+      user: '@bonic_k',
+      avatar: './images/tiktok/tiktok-bonic_k.jpg',
+      text: 'She makes my world beautiful #mywife',
+      likes: 489,
+      commentsCount: 11,
+      liked: false,
+      saved: false,
+      comments: [
+        { user: '@bonicfan', text: 'Ihr zwei seid einfach zu süß.', likes: 6, liked: false },
+        { user: '@traumpaar', text: 'Ganz ehrlich, was für ein schönes Video.', likes: 5, liked: false },
+        { user: '@rosa.glow', text: 'Wie süß wir sind, das ist unfair.', likes: 2, liked: false }
+      ]
+    },
+    {
+      id: 3,
+      src: './images/tiktok/tiktok-video_3.mp4',
+      user: '@bonic_k',
+      avatar: './images/tiktok/tiktok-bonic_k.jpg',
+      text: 'She makes me happy #love',
+      likes: 731,
+      commentsCount: 19,
+      liked: false,
+      saved: false,
+      comments: [
+        { user: '@cutiepie', text: 'Wie süß das Video ist omg.', likes: 8, liked: false },
+        { user: '@foreverpink', text: 'Was für ein Traumpaar wirklich.', likes: 9, liked: false },
+        { user: '@herzchen', text: 'Diese Energie zwischen euch zwei ist alles.', likes: 4, liked: false }
+      ]
+    },
+    {
+      id: 4,
+      src: './images/tiktok/tiktok-video_4.mp4',
+      user: '@bonic_k',
+      avatar: './images/tiktok/tiktok-bonic_k.jpg',
+      text: 'My wife #lovelove',
+      likes: 544,
+      commentsCount: 16,
+      liked: false,
+      saved: false,
+      comments: [
+        { user: '@moonkiss', text: 'Wie süß wir sind, ich liebe das.', likes: 6, liked: false },
+        { user: '@lovelens', text: 'Dieses Video ist so herzig.', likes: 5, liked: false },
+        { user: '@dreampair', text: 'Ganz klar ein Traumpaar.', likes: 7, liked: false }
+      ]
+    },
+    {
+      id: 5,
+      src: './images/tiktok/tiktok-video_5.mp4',
+      user: '@bonic_k',
+      avatar: './images/tiktok/tiktok-bonic_k.jpg',
+      text: 'God she looks so pretty #wow',
+      likes: 688,
+      commentsCount: 21,
+      liked: false,
+      saved: false,
+      comments: [
+        { user: '@softpink', text: 'Wie süß dieses letzte Video ist.', likes: 4, liked: false },
+        { user: '@couplegoals', text: 'Ihr seid wirklich ein Traumpaar.', likes: 8, liked: false },
+        { user: '@butterfly', text: 'Ich liebe, wie süß wir in solchen Videos wirken.', likes: 5, liked: false }
+      ]
+    }
+  ];
 
   if (photoViewer && appScreen) {
     appScreen.appendChild(photoViewer);
@@ -2661,6 +3366,215 @@
     syncCalculatorDisplay();
   }
 
+  function formatTikTokCount(value) {
+    return String(value);
+  }
+
+  function getTikTokVideoSources(videoPath) {
+    const fileName = videoPath.split('/').pop() || videoPath;
+    return [videoPath, './' + fileName];
+  }
+
+  function renderTikTokCard(video) {
+    return `
+      <article class="tiktok-card" data-tiktok-video="${video.id}">
+        <video class="tiktok-media" playsinline loop muted preload="metadata">
+          ${getTikTokVideoSources(video.src).map((source) => `<source src="${source}" type="video/mp4">`).join('')}
+        </video>
+        <div class="tiktok-pause-indicator">
+          <div class="tiktok-pause-bars"><span></span><span></span></div>
+        </div>
+        <div class="tiktok-card-content">
+          <div class="tiktok-caption">
+            <div class="tiktok-user-row">
+              <div class="tiktok-avatar"><img src="${video.avatar}" alt="${video.user} Profilbild"></div>
+              <div>
+                <div class="tiktok-user">${video.user}</div>
+                <div class="tiktok-meta">gepostet für dich</div>
+              </div>
+            </div>
+            <div class="tiktok-text">${video.text}</div>
+          </div>
+
+          <div class="tiktok-actions">
+            <div class="tiktok-action-wrap">
+              <div class="tiktok-action ${video.liked ? 'is-liked' : ''}" data-tiktok-action="like" data-video-id="${video.id}">❤</div>
+              <div class="tiktok-action-label" data-tiktok-like-count="${video.id}">${formatTikTokCount(video.likes)}</div>
+            </div>
+            <div class="tiktok-action-wrap">
+              <div class="tiktok-action" data-tiktok-action="comment" data-video-id="${video.id}">💬</div>
+              <div class="tiktok-action-label">${formatTikTokCount(video.commentsCount)}</div>
+            </div>
+            <div class="tiktok-action-wrap">
+              <div class="tiktok-action ${video.saved ? 'is-saved' : ''}" data-tiktok-action="save" data-video-id="${video.id}" aria-label="Speichern">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7 3.5h10a1 1 0 0 1 1 1V21l-6-3.8L6 21V4.5a1 1 0 0 1 1-1Z"></path>
+                </svg>
+              </div>
+              <div class="tiktok-action-label">Speichern</div>
+            </div>
+            <div class="tiktok-action-wrap">
+              <div class="tiktok-action" data-tiktok-action="share" data-video-id="${video.id}">↗</div>
+              <div class="tiktok-action-label">Teilen</div>
+            </div>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
+  function renderTikTokFeed() {
+    if (!tiktokFeed) return;
+    tiktokFeed.innerHTML = tiktokVideos.map(renderTikTokCard).join('');
+    if (tiktokFriendsPanel) {
+      tiktokFriendsPanel.innerHTML = `
+        <div class="tiktok-topbar" style="position:sticky;top:0;padding:0 0 18px;justify-content:center;">
+          <div class="tiktok-tab active">Freundinnen</div>
+        </div>
+        ${tiktokVideos.map(renderTikTokCard).join('')}
+      `;
+    }
+    syncTikTokButtons();
+    playVisibleTikTokVideo();
+  }
+
+  function syncTikTokButtons() {
+    document.querySelectorAll('[data-tiktok-action="like"]').forEach((button) => {
+      const video = tiktokVideos.find((item) => item.id === Number(button.dataset.videoId));
+      if (!video) return;
+      button.classList.toggle('is-liked', video.liked);
+    });
+
+    document.querySelectorAll('[data-tiktok-action="save"]').forEach((button) => {
+      const video = tiktokVideos.find((item) => item.id === Number(button.dataset.videoId));
+      if (!video) return;
+      button.classList.toggle('is-saved', video.saved);
+    });
+
+    document.querySelectorAll('[data-tiktok-like-count]').forEach((label) => {
+      const video = tiktokVideos.find((item) => item.id === Number(label.dataset.tiktokLikeCount));
+      if (!video) return;
+      label.textContent = formatTikTokCount(video.likes);
+    });
+  }
+
+  function playVisibleTikTokVideo() {
+    const scope = tiktokActiveNav === 'friends' ? tiktokFriendsPanel : tiktokFeed;
+    if (!scope) return;
+
+    const cards = Array.from(scope.querySelectorAll('.tiktok-card'));
+    if (!cards.length) return;
+
+    let activeCard = cards[0];
+    let bestOffset = Infinity;
+
+    cards.forEach((card) => {
+      const rect = card.getBoundingClientRect();
+      const offset = Math.abs(rect.top);
+      if (offset < bestOffset) {
+        bestOffset = offset;
+        activeCard = card;
+      }
+    });
+
+    scope.querySelectorAll('.tiktok-media').forEach((videoEl) => {
+      const parentCard = videoEl.closest('.tiktok-card');
+      const videoId = Number(parentCard?.dataset.tiktokVideo);
+      if (parentCard === activeCard) {
+        if (!tiktokPausedVideos.has(videoId)) {
+          parentCard?.classList.remove('is-paused');
+          const playPromise = videoEl.play();
+          if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(() => {});
+        } else {
+          parentCard?.classList.add('is-paused');
+          videoEl.pause();
+        }
+      } else {
+        parentCard?.classList.remove('is-paused');
+        videoEl.pause();
+      }
+    });
+  }
+
+  function toggleTikTokVideoPlayback(videoElement) {
+    if (!videoElement) return;
+    const parentCard = videoElement.closest('.tiktok-card');
+    const videoId = Number(parentCard?.dataset.tiktokVideo);
+    if (!videoId) return;
+
+    if (tiktokPausedVideos.has(videoId)) {
+      tiktokPausedVideos.delete(videoId);
+      parentCard?.classList.remove('is-paused');
+      const playPromise = videoElement.play();
+      if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(() => {});
+      return;
+    }
+
+    tiktokPausedVideos.add(videoId);
+    parentCard?.classList.add('is-paused');
+    videoElement.pause();
+  }
+
+  function openTikTokComments(videoId) {
+    const video = tiktokVideos.find((item) => item.id === videoId);
+    if (!video || !tiktokComments || !tiktokCommentsList) return;
+    tiktokCommentVideoId = videoId;
+    tiktokCommentsList.innerHTML = video.comments.map((comment) => `
+      <div class="tiktok-comment">
+        <div class="tiktok-comment-main">
+          <div class="tiktok-comment-user">${comment.user}</div>
+          <div class="tiktok-comment-text">${comment.text}</div>
+        </div>
+        <div class="tiktok-comment-like ${comment.liked ? 'is-liked' : ''}" data-comment-user="${comment.user}">
+          <div class="tiktok-comment-like-icon">❤</div>
+          <div class="tiktok-comment-like-count">${comment.likes}</div>
+        </div>
+      </div>
+    `).join('');
+    tiktokComments.classList.add('active');
+  }
+
+  function closeTikTokComments() {
+    if (!tiktokComments) return;
+    tiktokComments.classList.remove('active');
+    tiktokCommentVideoId = null;
+  }
+
+  function showTikTokShareToast() {
+    if (!tiktokShareToast) return;
+    tiktokShareToast.classList.add('active');
+    if (tiktokShareToastTimer) clearTimeout(tiktokShareToastTimer);
+    tiktokShareToastTimer = setTimeout(() => {
+      tiktokShareToast.classList.remove('active');
+    }, 1200);
+  }
+
+  function setTikTokTopTab(tab) {
+    tiktokActiveTab = tab;
+    document.querySelectorAll('[data-tiktok-tab]').forEach((button) => {
+      button.classList.toggle('active', button.dataset.tiktokTab === tab);
+    });
+    if (tiktokActiveNav === 'home') {
+      tiktokFeed?.scrollTo({ top: 0, behavior: 'smooth' });
+      playVisibleTikTokVideo();
+    }
+  }
+
+  function setTikTokNav(nav) {
+    tiktokActiveNav = nav;
+    document.querySelectorAll('[data-tiktok-nav]').forEach((button) => {
+      button.classList.toggle('active', button.dataset.tiktokNav === nav);
+    });
+
+    if (tiktokFeed) tiktokFeed.style.display = nav === 'home' ? 'block' : 'none';
+    if (tiktokFriendsPanel) tiktokFriendsPanel.classList.toggle('active', nav === 'friends');
+    if (tiktokInboxPanel) tiktokInboxPanel.classList.toggle('active', nav === 'inbox');
+    if (tiktokProfilePanel) tiktokProfilePanel.classList.toggle('active', nav === 'profile');
+
+    closeTikTokComments();
+    playVisibleTikTokVideo();
+  }
+
   async function startCamera() {
     if (!cameraPreview) return;
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
@@ -2726,6 +3640,7 @@
     if (timerView) timerView.classList.remove('active');
     if (weatherView) weatherView.classList.remove('active');
     if (calculatorView) calculatorView.classList.remove('active');
+    if (tiktokView) tiktokView.classList.remove('active');
     if (cameraView) cameraView.classList.remove('active');
     if (phoneView) phoneView.classList.remove('active');
     if (mapView) mapView.style.display = 'none';
@@ -2741,6 +3656,8 @@
       photoViewerPlaceholder.textContent = '';
     }
     stopCamera();
+    document.querySelectorAll('.tiktok-media').forEach((videoEl) => videoEl.pause());
+    closeTikTokComments();
     showSafariHome();
   }
 
@@ -2866,6 +3783,12 @@ localStorage.removeItem('unlocked');
       if (name === 'Uhr') timerView.classList.add('active');
       if (name === 'Wetter') weatherView.classList.add('active');
       if (name === 'Rechner') calculatorView.classList.add('active');
+      if (name === 'TikTok') {
+        tiktokView.classList.add('active');
+        setTikTokTopTab('foryou');
+        setTikTokNav('home');
+        setTimeout(playVisibleTikTokVideo, 120);
+      }
       if (name === 'Kamera') {
         cameraView.classList.add('active');
         startCamera();
@@ -2929,6 +3852,115 @@ localStorage.removeItem('unlocked');
       if (action === 'equals') {
         calculateResult();
       }
+    });
+  }
+
+  if (tiktokFeed) {
+    tiktokFeed.addEventListener('scroll', playVisibleTikTokVideo, { passive: true });
+    tiktokFeed.addEventListener('click', (e) => {
+      const action = e.target.closest('[data-tiktok-action]');
+      if (!action) {
+        const videoElement = e.target.closest('.tiktok-media');
+        if (videoElement) {
+          toggleTikTokVideoPlayback(videoElement);
+        }
+        return;
+      }
+
+      const videoId = Number(action.dataset.videoId);
+      const video = tiktokVideos.find((item) => item.id === videoId);
+      if (!video) return;
+
+      const actionName = action.dataset.tiktokAction;
+
+      if (actionName === 'like') {
+        video.liked = !video.liked;
+        video.likes += video.liked ? 1 : -1;
+        syncTikTokButtons();
+        return;
+      }
+
+      if (actionName === 'comment') {
+        openTikTokComments(videoId);
+        return;
+      }
+
+      if (actionName === 'save') {
+        video.saved = !video.saved;
+        syncTikTokButtons();
+        return;
+      }
+
+      if (actionName === 'share') {
+        showTikTokShareToast();
+      }
+    });
+  }
+
+  if (tiktokFriendsPanel) {
+    tiktokFriendsPanel.addEventListener('scroll', playVisibleTikTokVideo, { passive: true });
+    tiktokFriendsPanel.addEventListener('click', (e) => {
+      const mirroredAction = e.target.closest('[data-tiktok-action]');
+      if (!mirroredAction) {
+        const videoElement = e.target.closest('.tiktok-media');
+        if (videoElement) {
+          toggleTikTokVideoPlayback(videoElement);
+        }
+        return;
+      }
+      if (!tiktokFeed) return;
+      const twin = tiktokFeed.querySelector(`[data-tiktok-action="${mirroredAction.dataset.tiktokAction}"][data-video-id="${mirroredAction.dataset.videoId}"]`);
+      if (twin) twin.click();
+    });
+  }
+
+  document.querySelectorAll('[data-tiktok-tab]').forEach((button) => {
+    button.addEventListener('click', () => {
+      setTikTokTopTab(button.dataset.tiktokTab);
+      setTikTokNav('home');
+    });
+  });
+
+  document.querySelectorAll('[data-tiktok-nav]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const nav = button.dataset.tiktokNav;
+
+      if (nav === 'friends') {
+        setTikTokTopTab('following');
+        setTikTokNav('home');
+        return;
+      }
+
+      if (nav === 'create') {
+        return;
+      }
+
+      if (nav === 'home') {
+        setTikTokTopTab('foryou');
+      }
+
+      setTikTokNav(nav);
+    });
+  });
+
+  if (tiktokCommentsClose) {
+    tiktokCommentsClose.addEventListener('click', closeTikTokComments);
+  }
+
+  if (tiktokCommentsList) {
+    tiktokCommentsList.addEventListener('click', (e) => {
+      const likeButton = e.target.closest('.tiktok-comment-like');
+      if (!likeButton || tiktokCommentVideoId === null) return;
+
+      const video = tiktokVideos.find((item) => item.id === tiktokCommentVideoId);
+      if (!video) return;
+
+      const comment = video.comments.find((item) => item.user === likeButton.dataset.commentUser);
+      if (!comment) return;
+
+      comment.liked = !comment.liked;
+      comment.likes += comment.liked ? 1 : -1;
+      openTikTokComments(tiktokCommentVideoId);
     });
   }
 
@@ -3030,6 +4062,7 @@ localStorage.removeItem('unlocked');
   initializeSafariContent();
   initializeMapContent();
   initializePhotosContent();
+  renderTikTokFeed();
   clearCalculator();
   showSafariHome();
   renderPhone('favoriten');
