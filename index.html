@@ -1681,15 +1681,6 @@
     }
   }
 
-  function handlePinInteraction(event) {
-    const button = event.currentTarget;
-    if (!button?.dataset?.num) return;
-
-    // iPhone Safari can be inconsistent with synthesized click timing.
-    event.preventDefault();
-    addNumber(button.dataset.num);
-  }
-
   function showLoveAlert(customText) {
     const textBox = document.getElementById('modalText');
     if (customText && textBox) textBox.textContent = customText;
@@ -1788,12 +1779,6 @@
       `;
     }
   }
-
-  numButtons.forEach((btn) => {
-    btn.addEventListener('click', handlePinInteraction);
-    btn.addEventListener('touchend', handlePinInteraction, { passive: false });
-    btn.addEventListener('pointerup', handlePinInteraction);
-  });
 
   document.addEventListener('keydown', (e) => {
     if (/^[0-9]$/.test(e.key)) addNumber(e.key);
