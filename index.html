@@ -1142,17 +1142,17 @@
           </div>
 
           <div class="pin-grid">
-            <button class="pin-btn" data-num="1">1</button>
-            <button class="pin-btn" data-num="2">2</button>
-            <button class="pin-btn" data-num="3">3</button>
-            <button class="pin-btn" data-num="4">4</button>
-            <button class="pin-btn" data-num="5">5</button>
-            <button class="pin-btn" data-num="6">6</button>
-            <button class="pin-btn" data-num="7">7</button>
-            <button class="pin-btn" data-num="8">8</button>
-            <button class="pin-btn" data-num="9">9</button>
+            <button class="pin-btn" type="button" data-num="1" onclick="addNumber('1')">1</button>
+            <button class="pin-btn" type="button" data-num="2" onclick="addNumber('2')">2</button>
+            <button class="pin-btn" type="button" data-num="3" onclick="addNumber('3')">3</button>
+            <button class="pin-btn" type="button" data-num="4" onclick="addNumber('4')">4</button>
+            <button class="pin-btn" type="button" data-num="5" onclick="addNumber('5')">5</button>
+            <button class="pin-btn" type="button" data-num="6" onclick="addNumber('6')">6</button>
+            <button class="pin-btn" type="button" data-num="7" onclick="addNumber('7')">7</button>
+            <button class="pin-btn" type="button" data-num="8" onclick="addNumber('8')">8</button>
+            <button class="pin-btn" type="button" data-num="9" onclick="addNumber('9')">9</button>
             <div></div>
-            <button class="pin-btn" data-num="0">0</button>
+            <button class="pin-btn" type="button" data-num="0" onclick="addNumber('0')">0</button>
             <div></div>
           </div>
 
@@ -1828,4 +1828,86 @@ localStorage.removeItem('unlocked');
       if (!homescreen.classList.contains('active')) return;
 
       resetAppViews();
-      if (name === 'Fotos') 
+      if (name === 'Fotos') photosView.classList.add('active');
+      if (name === 'Safari') safariView.style.display = 'block';
+      if (name === 'Spotify') spotifyView.classList.add('active');
+      if (name === 'Uhr') timerView.classList.add('active');
+      if (name === 'Anruf') phoneView.classList.add('active');
+      if (name === 'Wo ist?') mapView.style.display = 'block';
+
+      appScreen.classList.remove('closing');
+      appScreen.classList.add('active');
+    });
+  });
+
+  spotifyCards.forEach((card) => {
+    card.addEventListener('click', () => {
+      spotifyCards.forEach((c) => c.classList.remove('active'));
+      card.classList.add('active');
+    });
+  });
+
+  phoneTabs.forEach((tab) => {
+    tab.addEventListener('click', () => renderPhone(tab.dataset.tab));
+  });
+
+  phoneContent.addEventListener('click', (e) => {
+    const digitBtn = e.target.closest('.dial-btn');
+    if (digitBtn) {
+      showLoveAlert();
+      return;
+    }
+
+    const callBtn = e.target.closest('.dial-call-btn');
+    if (callBtn) {
+      showLoveAlert();
+    }
+  });
+
+  if(modalClose){
+    modalClose.addEventListener('click', ()=>{
+      if(loveModal) loveModal.classList.remove('active');
+      const textBox = document.getElementById('modalText');
+      if(textBox) textBox.textContent = 'HEY! du brauchst niemanden anrufen du hast deinen super tollen Freund Kristijan ❤️';
+    });
+  }
+
+  if (safariView) {
+    safariView.addEventListener('click', (e) => {
+      const searchButton = e.target.closest('#safariSearch');
+      if (searchButton) {
+        showLoveAlert('wonach willst du suchen du hast doch mit Kristijan schon alles wonach du gesucht hast!');
+        return;
+      }
+
+      const safariItem = e.target.closest('[data-safari-page]');
+      if (safariItem) {
+        openSafariPage(safariItem.dataset.safariPage);
+        return;
+      }
+
+      const backButton = e.target.closest('.safari-back');
+      if (backButton) {
+        showSafariHome();
+      }
+    });
+  }
+
+  initializeSafariContent();
+  showSafariHome();
+  renderPhone('favoriten');
+
+  homeBar.addEventListener('click', () => {
+    appScreen.classList.remove('active');
+    appScreen.classList.add('closing');
+    setTimeout(() => {
+      resetAppViews();
+      appScreen.classList.remove('closing');
+    }, 280);
+  });
+
+  appScreen.classList.remove('active');
+  appScreen.classList.remove('closing');
+</script>
+</body>
+</html>
