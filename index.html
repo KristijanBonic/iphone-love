@@ -346,6 +346,15 @@
       overflow: visible;
     }
 
+    .icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      position: relative;
+      z-index: 1;
+    }
+
     .label {
       font-size: 12px;
       font-weight: 500;
@@ -1126,140 +1135,42 @@
       <section class="homescreen" id="homescreen">
         <div class="app-grid">
           <div class="app">
-            <div class="icon" style="background:#ffffff">
-              <svg viewBox="0 0 64 64" width="50" height="50" aria-hidden="true">
-                <defs>
-                  <radialGradient id="fmOuter" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="#ffffff"/>
-                    <stop offset="18%" stop-color="#ffffff"/>
-                    <stop offset="19%" stop-color="#dfffe7"/>
-                    <stop offset="34%" stop-color="#8cf5a6"/>
-                    <stop offset="35%" stop-color="#54e67c"/>
-                    <stop offset="52%" stop-color="#2fdc66"/>
-                    <stop offset="53%" stop-color="#1fcb58"/>
-                    <stop offset="72%" stop-color="#22b24f"/>
-                    <stop offset="100%" stop-color="#1c9845"/>
-                  </radialGradient>
-                </defs>
-                <circle cx="32" cy="32" r="24" fill="url(#fmOuter)"/>
-                <circle cx="32" cy="32" r="10.5" fill="#ffffff"/>
-                <circle cx="32" cy="32" r="6.6" fill="#21c75b"/>
-                <path d="M32 10 L37 24 L32 20 L27 24 Z" fill="#15b04c" opacity="0.95"/>
-              </svg>
-            </div>
+            <div class="icon"><img src="./images/app-wo_ist?.jpg" alt="Wo ist App"></div>
             <div class="label">Wo ist?</div>
           </div>
           <div class="app">
-            <div class="icon" style="background:#000000">
-              <svg viewBox="0 0 64 64" width="50" height="50" aria-hidden="true">
-                <circle cx="32" cy="32" r="24" fill="#fff" stroke="#dadbe1" stroke-width="1.2"/>
-                <circle cx="32" cy="32" r="1.8" fill="#ff6b81"/>
-                <line x1="32" y1="32" x2="32" y2="18" stroke="#1c1c1e" stroke-width="2.8" stroke-linecap="round"/>
-                <line x1="32" y1="32" x2="42.5" y2="32" stroke="#1c1c1e" stroke-width="2.8" stroke-linecap="round"/>
-                <line x1="32" y1="11" x2="32" y2="14" stroke="#ff6b81" stroke-width="2" stroke-linecap="round"/>
-                <line x1="32" y1="50" x2="32" y2="53" stroke="#ff6b81" stroke-width="2" stroke-linecap="round"/>
-                <line x1="11" y1="32" x2="14" y2="32" stroke="#ff6b81" stroke-width="2" stroke-linecap="round"/>
-                <line x1="50" y1="32" x2="53" y2="32" stroke="#ff6b81" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </div>
+            <div class="icon"><img src="./images/app-uhr.jpg" alt="Uhr App"></div>
             <div class="label">Uhr</div>
           </div>
           <div class="app">
-            <div class="icon" style="background:linear-gradient(180deg,#40a6ff,#0077ff)">
-              <svg viewBox="0 0 64 64" width="50" height="50" aria-hidden="true">
-                <rect x="10" y="16" width="44" height="31" rx="8" fill="#ffffff" opacity="0.96"/>
-                <path d="M10 18 L32 35 L54 18" fill="none" stroke="#0a84ff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M10 44 L24 30" fill="none" stroke="#cfe6ff" stroke-width="2.2"/>
-                <path d="M54 44 L40 30" fill="none" stroke="#cfe6ff" stroke-width="2.2"/>
-              </svg>
-            </div>
+            <div class="icon"><img src="./images/app-mail.jpg" alt="Mail App"></div>
             <div class="label">Mail</div>
           </div>
           <div class="app">
-            <div class="icon" style="background:linear-gradient(180deg,#ffffff,#f4f4f7)">
-              <svg viewBox="0 0 64 64" width="52" height="52" aria-hidden="true">
-                <defs>
-                  <radialGradient id="core" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="#fff8cc"/>
-                    <stop offset="60%" stop-color="#ffe066"/>
-                    <stop offset="100%" stop-color="#ffd43b"/>
-                  </radialGradient>
-                </defs>
-                <g transform="translate(32 32)">
-                  <!-- petals -->
-                  <g>
-                    <ellipse cx="0" cy="-16" rx="6.5" ry="12.5" fill="#ff2d55"/>
-                    <ellipse cx="11.5" cy="-11.5" rx="6.5" ry="12.5" transform="rotate(45)" fill="#ff7a00"/>
-                    <ellipse cx="16" cy="0" rx="6.5" ry="12.5" transform="rotate(90)" fill="#ffd60a"/>
-                    <ellipse cx="11.5" cy="11.5" rx="6.5" ry="12.5" transform="rotate(135)" fill="#32d74b"/>
-                    <ellipse cx="0" cy="16" rx="6.5" ry="12.5" fill="#30d158"/>
-                    <ellipse cx="-11.5" cy="11.5" rx="6.5" ry="12.5" transform="rotate(-135)" fill="#64d2ff"/>
-                    <ellipse cx="-16" cy="0" rx="6.5" ry="12.5" transform="rotate(90)" fill="#0a84ff"/>
-                    <ellipse cx="-11.5" cy="-11.5" rx="6.5" ry="12.5" transform="rotate(-45)" fill="#bf5af2"/>
-                  </g>
-                  <!-- inner glow -->
-                  <circle cx="0" cy="0" r="9" fill="url(#core)"/>
-                  <circle cx="0" cy="0" r="6" fill="#ffe066" opacity="0.85"/>
-                </g>
-              </svg>
-            </div>
+            <div class="icon"><img src="./images/app-fotos.jpg" alt="Fotos App"></div>
             <div class="label">Fotos</div>
           </div>
           <div class="app">
-            <div class="icon" style="background:#000000">
-              <svg viewBox="0 0 64 64" width="50" height="50" aria-hidden="true">
-                <circle cx="32" cy="32" r="23" fill="#1db954"/>
-                <path d="M18 26.5c10-2.7 20.5-1.6 28.3 2.3" stroke="#111" stroke-width="3.2" fill="none" stroke-linecap="round"/>
-                <path d="M20.5 33.6c7.9-2 15.7-1 21.7 2" stroke="#111" stroke-width="2.9" fill="none" stroke-linecap="round"/>
-                <path d="M23 40.3c5.8-1.2 11.2-.5 15.6 1.5" stroke="#111" stroke-width="2.6" fill="none" stroke-linecap="round"/>
-              </svg>
-            </div>
+            <div class="icon"><img src="./images/app-spotify.jpg" alt="Spotify App"></div>
             <div class="label">Spotify</div>
           </div>
         </div>
 
         <div class="dock">
           <div class="app">
-            <div class="icon" style="background:linear-gradient(180deg,#5ae06d,#26c451)">
-              <svg viewBox="0 0 64 64" width="50" height="50" aria-hidden="true">
-                <path d="M20 18c-2 2-3 5 0 11 3 6 9 12 15 15 6 3 9 2 11 0l-5-6c-1-1-2-1-3-.5l-3 1c-4-2-7-5-9-9l1-3c.5-1 0-2-.5-3l-6-5z" fill="#fff"/>
-              </svg>
-            </div>
+            <div class="icon"><img src="./images/app-anruf.jpg" alt="Anruf App"></div>
             <div class="label">Anruf</div>
           </div>
           <div class="app">
-            <div class="icon" style="background:linear-gradient(180deg,#58df6e,#22c45c)">
-              <svg viewBox="0 0 64 64" width="50" height="50" aria-hidden="true">
-                <path d="M12 22c0-6 5-11 11-11h18c10 0 18 8 18 18s-8 18-18 18H28l-10 8 2-8h-1c-5 0-7-4-7-9z" fill="#ffffff"/>
-                <circle cx="28" cy="30" r="2.4" fill="#34c759"/>
-                <circle cx="34" cy="30" r="2.4" fill="#34c759"/>
-                <circle cx="40" cy="30" r="2.4" fill="#34c759"/>
-              </svg>
-            </div>
+            <div class="icon"><img src="./images/app-nachrichten.jpg" alt="Nachrichten App"></div>
             <div class="label">Nachrichten</div>
           </div>
           <div class="app">
-            <div class="icon" style="background:#ffffff">
-              <svg viewBox="0 0 64 64" width="50" height="50" aria-hidden="true">
-                <circle cx="32" cy="32" r="23" fill="#4db2ff"/>
-                <circle cx="32" cy="32" r="18.5" fill="none" stroke="#fff" stroke-width="2" opacity="0.9"/>
-                <line x1="32" y1="15" x2="32" y2="49" stroke="#fff" stroke-width="1.5" opacity="0.5"/>
-                <line x1="15" y1="32" x2="49" y2="32" stroke="#fff" stroke-width="1.5" opacity="0.5"/>
-                <path d="M32 17 L38 31 L32 28 L26 31 Z" fill="#ff5a5f"/>
-                <path d="M32 47 L27 34 L32 36.8 L37 34 Z" fill="#ffffff"/>
-              </svg>
-            </div>
+            <div class="icon"><img src="./images/app-safari.jpg" alt="Safari App"></div>
             <div class="label">Safari</div>
           </div>
           <div class="app">
-            <div class="icon" style="background:#000000">
-              <svg viewBox="0 0 64 64" width="50" height="50" aria-hidden="true">
-                <circle cx="32" cy="32" r="23" fill="#1db954"/>
-                <path d="M18 26.5c10-2.7 20.5-1.6 28.3 2.3" stroke="#111" stroke-width="3.2" fill="none" stroke-linecap="round"/>
-                <path d="M20.5 33.6c7.9-2 15.7-1 21.7 2" stroke="#111" stroke-width="2.9" fill="none" stroke-linecap="round"/>
-                <path d="M23 40.3c5.8-1.2 11.2-.5 15.6 1.5" stroke="#111" stroke-width="2.6" fill="none" stroke-linecap="round"/>
-              </svg>
-            </div>
+            <div class="icon"><img src="./images/app-spotify.jpg" alt="Spotify App"></div>
             <div class="label">Spotify</div>
           </div>
         </div>
@@ -1477,7 +1388,7 @@
                 </div>
               </a>
               <a class="track-card" href="https://open.spotify.com/intl-de/track/2OivwJxTNQC45tem61SM4z?si=44487f4f29544abc" target="_blank" rel="noopener noreferrer">
-                <div class="track-cover"><img src="./images/spotify-Izgledala_je_malo_cudno_u_kaputu_zutom_krojenom_bez_veze.jpg" alt="Izgledala je malo cudno u kaputu zutom krojenom bez veze Cover"><div class="cover-inner"></div></div>
+                <div class="track-cover"><img src="./images/spotify-izgledala_je_malo_cudno_u_kaputu_zutom_krojenom_bez_veze.jpg" alt="Izgledala je malo cudno u kaputu zutom krojenom bez veze Cover"><div class="cover-inner"></div></div>
                 <div class="track-meta">
                   <div class="track-title">Izgledala je malo čudno u kaputu žutom krojenom bez veze</div>
                   <div class="track-artist">Bijelo Dugme</div>
