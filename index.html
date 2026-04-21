@@ -1,5 +1,4 @@
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
@@ -72,6 +71,78 @@
       height: 112px;
     }
 
+    .volume-up-button,
+    .volume-down-button {
+      left: -4px;
+      right: auto;
+      width: 4px;
+    }
+
+    .volume-up-button {
+      top: 152px;
+      height: 84px;
+    }
+
+    .volume-down-button {
+      top: 252px;
+      height: 84px;
+    }
+
+    .volume-hud {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%) translateX(-12px);
+      width: 46px;
+      padding: 10px 8px;
+      border-radius: 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(180deg, rgba(30, 12, 22, 0.72), rgba(18, 8, 14, 0.82));
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: 0 16px 30px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.10);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 40;
+      transition: opacity .22s ease, transform .22s ease;
+    }
+
+    .volume-hud.active {
+      opacity: 1;
+      transform: translateY(-50%) translateX(0);
+    }
+
+    .volume-hud-icon {
+      font-size: 15px;
+      color: rgba(255,255,255,0.96);
+      line-height: 1;
+    }
+
+    .volume-hud-track {
+      width: 10px;
+      height: 96px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.14);
+      padding: 2px;
+      display: flex;
+      align-items: flex-end;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+
+    .volume-hud-fill {
+      width: 100%;
+      height: 50%;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #ffd8ea, #f6a9c9);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.52);
+      transition: height .18s ease;
+    }
+
     .screen {
       width: 100%;
       height: 100%;
@@ -80,6 +151,7 @@
       position: relative;
       background: #000;
       z-index: 1;
+      transition: background .42s ease;
     }
 
     .dynamic-island {
@@ -91,8 +163,9 @@
       height: 34px;
       border-radius: 999px;
       background: #090909;
-      z-index: 15;
+      z-index: 60;
       box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+      cursor: pointer;
     }
 
     .statusbar {
@@ -110,6 +183,7 @@
 
     .screen.is-off .statusbar,
     .screen.is-off .dynamic-island,
+    .screen.is-off .top-sheet,
     .screen.is-off .lockscreen,
     .screen.is-off .homescreen,
     .screen.is-off .app-screen,
@@ -166,6 +240,108 @@
       margin-right: 4px;
       font-size: 12px;
       font-weight: 700;
+    }
+
+    .top-sheet {
+      position: absolute;
+      top: 28px;
+      left: 0;
+      right: 0;
+      z-index: 45;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-100%);
+      transition: opacity .24s ease, transform .28s ease;
+      border-radius: 0 0 28px 28px;
+      padding: 52px 16px 16px;
+      background: linear-gradient(180deg, rgba(90, 33, 63, 0.56), rgba(58, 18, 40, 0.42));
+      border: 1px solid rgba(255,255,255,0.10);
+      border-top: none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 30px rgba(77, 20, 47, 0.24);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      color: white;
+    }
+
+    .top-sheet.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .top-sheet-time {
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    .top-sheet-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
+    }
+
+    .top-sheet-cover {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: rgba(255,255,255,0.10);
+    }
+
+    .top-sheet-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .top-sheet-meta {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .top-sheet-title {
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 2px;
+      color: white;
+    }
+
+    .top-sheet-artist {
+      font-size: 11px;
+      color: rgba(255,255,255,0.76);
+    }
+
+    .top-sheet-action {
+      border: none;
+      border-radius: 16px;
+      min-width: 72px;
+      min-height: 40px;
+      padding: 0 12px;
+      background: linear-gradient(180deg, #ffd6e7, #f6a9c9);
+      color: #8d1f4b;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.72), 0 10px 20px rgba(214, 88, 140, 0.18);
+    }
+
+    .top-sheet-empty {
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.45;
+      color: rgba(255,255,255,0.82);
+      padding: 10px 6px 2px;
     }
 
     .signal {
@@ -235,12 +411,27 @@
     .screen-off {
       position: absolute;
       inset: -2px;
-      background: #000;
+      background:
+        radial-gradient(circle at 50% 38%, rgba(255,255,255,0.05), transparent 20%),
+        linear-gradient(180deg, #020202 0%, #000 100%);
       border-radius: 41px;
       z-index: 40;
       opacity: 0;
       pointer-events: none;
-      transition: opacity .28s ease;
+      transform: scale(1.008);
+      transition: opacity .26s ease, transform .28s cubic-bezier(.22,1,.36,1), filter .26s ease;
+      filter: brightness(0.92);
+    }
+
+    .screen-off::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.06), transparent 16%),
+        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+      opacity: 0;
+      transition: opacity .22s ease;
     }
 
     .screen-off-note {
@@ -259,6 +450,18 @@
     .screen.is-off .screen-off {
       opacity: 1;
       pointer-events: auto;
+      transform: scale(1);
+      filter: brightness(1);
+    }
+
+    .screen.is-waking .screen-off {
+      opacity: 1;
+      transform: scale(1.014);
+      filter: brightness(1.08);
+    }
+
+    .screen.is-waking .screen-off::after {
+      opacity: 1;
     }
 
     .lockscreen {
@@ -271,6 +474,9 @@
       flex-direction: column;
       align-items: center;
       padding: 34px 20px 20px;
+      transform: scale(1.01);
+      transition: opacity .26s ease, transform .3s cubic-bezier(.22,1,.36,1), filter .26s ease;
+      filter: saturate(1.02);
     }
 
     .lockscreen::before {
@@ -281,6 +487,20 @@
         radial-gradient(circle at 20% 30%, rgba(255,255,255,0.12), transparent 12%),
         radial-gradient(circle at 72% 48%, rgba(255,255,255,0.08), transparent 16%);
       pointer-events: none;
+    }
+
+    .screen:not(.is-off) .lockscreen,
+    .screen:not(.is-off) .homescreen,
+    .screen:not(.is-off) .app-screen {
+      transform: scale(1);
+      filter: none;
+    }
+
+    .screen.is-waking .lockscreen,
+    .screen.is-waking .homescreen,
+    .screen.is-waking .app-screen {
+      transform: scale(1.008);
+      filter: brightness(1.02);
     }
 
     .time {
@@ -1166,6 +1386,152 @@
       display: block;
     }
 
+    .booking-view {
+      display: none;
+      color: white;
+      min-height: 100%;
+      padding-top: 6px;
+    }
+
+    .booking-view.active {
+      display: block;
+    }
+
+    .booking-page {
+      display: none;
+    }
+
+    .booking-page.active {
+      display: block;
+    }
+
+    .booking-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .booking-button {
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 20px;
+      padding: 14px 12px;
+      background: linear-gradient(180deg, rgba(104, 38, 73, 0.50), rgba(67, 22, 47, 0.36));
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
+    }
+
+    .booking-back {
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 18px;
+      padding: 10px 14px;
+      background: linear-gradient(180deg, rgba(104, 38, 73, 0.42), rgba(67, 22, 47, 0.28));
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 14px;
+    }
+
+    .booking-kicker {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .booking-city {
+      font-size: 34px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .booking-period {
+      font-size: 13px;
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 18px;
+      text-align: center;
+    }
+
+    .booking-subtitle {
+      font-size: 14px;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.90);
+      margin-bottom: 16px;
+    }
+
+    .booking-stack {
+      display: grid;
+      gap: 12px;
+    }
+
+    .booking-trip-card {
+      background: linear-gradient(180deg, rgba(90, 33, 63, 0.44), rgba(58, 18, 40, 0.32));
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 22px;
+      padding: 16px 14px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 12px 24px rgba(92, 28, 61, 0.20);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .booking-trip-date {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.78);
+      margin-bottom: 8px;
+    }
+
+    .booking-trip-route {
+      font-size: 16px;
+      line-height: 1.45;
+      font-weight: 700;
+      color: rgba(255,255,255,0.96);
+    }
+
+    .booking-single-photo {
+      display: grid;
+      justify-content: center;
+    }
+
+    .booking-single-photo .photo-card {
+      width: min(100%, 200px);
+    }
+
+    .booking-gallery-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .booking-gallery-list .photo-card {
+      padding: 14px;
+    }
+
+    .booking-gallery-list .photo-art {
+      height: 320px;
+      cursor: default;
+    }
+
+    .booking-gallery-list .photo-art[data-photo-shell] img[data-photo-fit="contain"] {
+      object-fit: contain;
+      background: rgba(0,0,0,0.18);
+    }
+
     .camera-shell {
       background: linear-gradient(180deg, rgba(24, 12, 18, 0.92), rgba(10, 6, 10, 0.98));
       border: 1px solid rgba(255,255,255,0.10);
@@ -1270,11 +1636,13 @@
     }
 
     .calc-shell {
-      background: linear-gradient(180deg, rgba(33, 14, 24, 0.88), rgba(18, 8, 14, 0.96));
-      border: 1px solid rgba(255,255,255,0.10);
+      background: linear-gradient(180deg, rgba(90, 33, 63, 0.44), rgba(58, 18, 40, 0.32));
+      border: 1px solid rgba(255,255,255,0.14);
       border-radius: 32px;
       padding: 18px 14px 16px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 18px 34px rgba(42, 8, 24, 0.30);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 34px rgba(92, 28, 61, 0.24);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
 
     .calc-display {
@@ -1290,7 +1658,7 @@
     .calc-expression {
       font-size: 19px;
       font-weight: 600;
-      color: rgba(255,255,255,0.62);
+      color: rgba(255,255,255,0.72);
       margin-bottom: 10px;
     }
 
@@ -1308,7 +1676,7 @@
       text-align: right;
       font-size: 11px;
       line-height: 1.35;
-      color: rgba(255,255,255,0.58);
+      color: rgba(255,255,255,0.70);
     }
 
     .calc-grid {
@@ -1319,7 +1687,7 @@
 
     .calc-btn {
       appearance: none;
-      border: none;
+      border: 1px solid rgba(255,255,255,0.12);
       height: 66px;
       border-radius: 50%;
       display: flex;
@@ -1328,12 +1696,14 @@
       font-size: 28px;
       font-weight: 500;
       color: white;
-      background: linear-gradient(180deg, rgba(74, 74, 78, 0.96), rgba(50, 50, 54, 0.96));
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+      background: linear-gradient(180deg, rgba(132, 56, 94, 0.62), rgba(91, 31, 63, 0.48));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
       user-select: none;
       cursor: pointer;
       transition: transform .12s ease, filter .12s ease;
       -webkit-tap-highlight-color: transparent;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
     .calc-btn:active {
@@ -1342,13 +1712,15 @@
     }
 
     .calc-btn.light {
-      color: #1b1b1f;
-      background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(219, 219, 224, 0.92));
+      color: white;
+      background: linear-gradient(180deg, rgba(164, 88, 124, 0.72), rgba(120, 47, 82, 0.54));
     }
 
     .calc-btn.op {
-      background: linear-gradient(180deg, #ffcf93, #ff9f0a);
-      color: white;
+      background: linear-gradient(180deg, rgba(255, 211, 229, 0.98), rgba(244, 167, 202, 0.96));
+      border-color: rgba(255,255,255,0.18);
+      color: #8d1f4b;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.34);
     }
 
     .calc-btn.zero {
@@ -1386,6 +1758,20 @@
       grid-template-columns: 1fr 1fr;
       gap: 12px;
       padding-bottom: 18px;
+    }
+
+    #photosView .photos-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    #photosView .photo-card {
+      padding: 14px;
+    }
+
+    #photosView .photo-art {
+      height: 320px;
+      cursor: default;
     }
 
     .photo-card {
@@ -1463,6 +1849,11 @@
       display: block;
     }
 
+    .photo-viewer.contain-image img {
+      object-fit: contain;
+      background: rgba(0,0,0,0.98);
+    }
+
     .photo-viewer-placeholder {
       display: none;
       width: 100%;
@@ -1515,6 +1906,250 @@
 
     .phone-view.active {
       display: block;
+    }
+
+    .messages-view {
+      display: none;
+      color: white;
+      min-height: 100%;
+      padding-top: 6px;
+    }
+
+    .messages-view.active {
+      display: block;
+    }
+
+    .messages-shell {
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+      border-radius: 30px;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(90, 33, 63, 0.50), rgba(58, 18, 40, 0.36));
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: 0 16px 30px rgba(92, 28, 61, 0.18);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .messages-header {
+      padding: 16px 16px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+    }
+
+    .messages-card {
+      background: linear-gradient(180deg, rgba(90, 33, 63, 0.46), rgba(58, 18, 40, 0.34));
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 28px;
+      padding: 18px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 16px 30px rgba(92, 28, 61, 0.18);
+      margin-bottom: 0;
+    }
+
+    .messages-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 0;
+    }
+
+    .messages-avatar {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1.5px solid rgba(255,255,255,0.22);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
+      flex-shrink: 0;
+    }
+
+    .messages-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .messages-name {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
+    }
+
+    .messages-sub {
+      font-size: 13px;
+      color: rgba(255,255,255,0.82);
+    }
+
+    .messages-thread {
+      flex: 1;
+      padding: 16px 14px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow-y: auto;
+    }
+
+    .messages-date-chip {
+      align-self: center;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.10);
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.86);
+      margin-bottom: 4px;
+    }
+
+    .messages-story-title {
+      align-self: center;
+      max-width: 88%;
+      text-align: center;
+      padding: 10px 14px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.08));
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.4;
+      color: rgba(255,255,255,0.92);
+      margin-bottom: 6px;
+    }
+
+    .message-story {
+      align-self: flex-start;
+      max-width: 78%;
+      padding: 10px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
+    }
+
+    .message-story-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 10px;
+    }
+
+    .message-story-image {
+      width: 86px;
+      height: 146px;
+      border-radius: 18px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.08);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.18);
+    }
+
+    .message-story-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .message-time-divider {
+      align-self: center;
+      margin: 6px 0 2px;
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.58);
+    }
+
+    .message-row {
+      display: flex;
+    }
+
+    .message-row.incoming {
+      justify-content: flex-start;
+    }
+
+    .message-row.outgoing {
+      justify-content: flex-end;
+    }
+
+    .message-bubble {
+      max-width: 76%;
+      padding: 12px 14px;
+      border-radius: 22px;
+      font-size: 14px;
+      line-height: 1.42;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
+    }
+
+    .message-bubble.incoming {
+      background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(255,255,255,0.10));
+      border: 1px solid rgba(255,255,255,0.12);
+      color: white;
+      border-bottom-left-radius: 8px;
+    }
+
+    .message-bubble.outgoing {
+      background: linear-gradient(180deg, #ffd8ea, #f6a9c9);
+      color: #8d1f4b;
+      border-bottom-right-radius: 8px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.58), 0 10px 22px rgba(214, 88, 140, 0.16);
+    }
+
+    .message-placeholder-note {
+      align-self: center;
+      margin-top: 2px;
+      padding: 10px 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.10);
+      font-size: 12px;
+      line-height: 1.45;
+      color: rgba(255,255,255,0.84);
+      text-align: center;
+      max-width: 88%;
+    }
+
+    .messages-compose {
+      padding: 10px 12px 14px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    }
+
+    .messages-compose-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+
+    .messages-compose-input {
+      flex: 1;
+      font-size: 14px;
+      color: rgba(255,255,255,0.72);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .messages-compose-send {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, #ffd8ea, #f6a9c9);
+      color: #8d1f4b;
+      font-weight: 800;
+      font-size: 15px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.58);
     }
 
     .phone-tabs {
@@ -1910,18 +2545,16 @@
     .call-sheet-status {
       font-size: 14px;
       color: rgba(255,255,255,0.84);
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
 
-    .call-sheet-note {
-      border-radius: 22px;
-      padding: 14px 16px;
+    .call-sheet-duration {
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
       margin-bottom: 20px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.06));
-      border: 1px solid rgba(255,255,255,0.12);
-      font-size: 13px;
-      line-height: 1.45;
-      color: rgba(255,255,255,0.92);
+      color: white;
+      text-shadow: 0 10px 24px rgba(0,0,0,0.18);
     }
 
     .call-sheet-actions {
@@ -2009,6 +2642,25 @@
       font-size: 12px;
       opacity: 0.9;
       font-weight: 600;
+    }
+
+    #timerView .count-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    #timerView .count-box {
+      padding: 16px 14px;
+    }
+
+    .count-or {
+      align-self: center;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.72);
     }
 
     .love-note {
@@ -2102,12 +2754,12 @@
 
     .safari-gallery {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      grid-template-columns: 1fr;
+      gap: 16px;
     }
 
     .safari-photo-slot {
-      aspect-ratio: 1 / 1.15;
+      min-height: 320px;
       border-radius: 18px;
       background: linear-gradient(180deg, rgba(90, 33, 63, 0.42), rgba(58, 18, 40, 0.30));
       border: 1px solid rgba(255,255,255,0.14);
@@ -2256,9 +2908,9 @@
       bottom: 32px;
       z-index: 25;
       display: none;
-      margin-top: 16px;
-      padding: 16px 14px 14px;
-      border-radius: 24px;
+      margin-top: 12px;
+      padding: 12px 12px 10px;
+      border-radius: 20px;
       background: linear-gradient(180deg, rgba(90, 33, 63, 0.54), rgba(58, 18, 40, 0.40));
       border: 1px solid rgba(255,255,255,0.12);
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 14px 28px rgba(91, 26, 55, 0.24);
@@ -2272,15 +2924,15 @@
 
     .spotify-player-top {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       align-items: center;
-      margin-bottom: 14px;
+      margin-bottom: 10px;
     }
 
     .spotify-player-cover {
-      width: 56px;
-      height: 56px;
-      border-radius: 16px;
+      width: 46px;
+      height: 46px;
+      border-radius: 13px;
       overflow: hidden;
       flex-shrink: 0;
       background: linear-gradient(180deg, rgba(104, 38, 73, 0.42), rgba(67, 22, 47, 0.28));
@@ -2300,20 +2952,20 @@
     }
 
     .spotify-player-title {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 800;
       line-height: 1.25;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
       color: white;
     }
 
     .spotify-player-artist {
-      font-size: 12px;
+      font-size: 11px;
       color: rgba(255,255,255,0.78);
     }
 
     .spotify-progress {
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
 
     .spotify-range {
@@ -2349,8 +3001,8 @@
     .spotify-time-row {
       display: flex;
       justify-content: space-between;
-      margin-top: 6px;
-      font-size: 11px;
+      margin-top: 4px;
+      font-size: 10px;
       font-weight: 700;
       color: rgba(255,255,255,0.70);
     }
@@ -2359,36 +3011,36 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 14px;
-      margin-bottom: 12px;
+      gap: 10px;
+      margin-bottom: 8px;
     }
 
     .spotify-control {
       border: none;
       background: transparent;
       color: white;
-      font-size: 22px;
+      font-size: 19px;
       cursor: pointer;
-      min-width: 34px;
-      min-height: 34px;
+      min-width: 28px;
+      min-height: 28px;
     }
 
     .spotify-control.play {
-      width: 52px;
-      height: 52px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
       background: linear-gradient(180deg, #ffd6e7, #f6a9c9);
       color: #8d1f4b;
-      font-size: 22px;
+      font-size: 18px;
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.72), 0 10px 20px rgba(214, 88, 140, 0.22);
     }
 
     .spotify-volume-row {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       color: rgba(255,255,255,0.84);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
     }
 
@@ -2413,7 +3065,15 @@
 </head>
 <body>
   <div class="iphone">
+    <div class="side-button volume-up-button" id="volumeUpButton" aria-label="Lauter" title="Lauter"></div>
+    <div class="side-button volume-down-button" id="volumeDownButton" aria-label="Leiser" title="Leiser"></div>
     <div class="side-button lock-button" id="lockButton" aria-label="Bildschirm sperren" title="Bildschirm sperren"></div>
+    <div class="volume-hud" id="volumeHud" aria-hidden="true">
+      <div class="volume-hud-icon">🔊</div>
+      <div class="volume-hud-track">
+        <div class="volume-hud-fill" id="volumeHudFill"></div>
+      </div>
+    </div>
     <div class="screen is-off" id="phoneScreen">
       <div class="dynamic-island"></div>
       <div class="screen-off" id="screenOff" aria-label="Bildschirm aktivieren">
@@ -2494,8 +3154,8 @@
             <div class="label">Fotos</div>
           </div>
           <div class="app">
-            <div class="icon"><img src="./images/apps/app-spotify.jpg" alt="Spotify App"></div>
-            <div class="label">Spotify</div>
+            <div class="icon"><img src="./images/apps/app-booking_com.jpg" alt="Booking.com App"></div>
+            <div class="label">Booking.com</div>
           </div>
           <div class="app">
             <div class="icon"><img src="./images/apps/app-tiktok.jpg" alt="TikTok App"></div>
@@ -2509,8 +3169,8 @@
             <div class="label">Anruf</div>
           </div>
           <div class="app">
-            <div class="icon"><img src="./images/apps/app-nachrichten.jpg" alt="Nachrichten App"></div>
-            <div class="label">Nachrichten</div>
+            <div class="icon"><img src="./images/apps/app-instagram.jpg" alt="Instagram App"></div>
+            <div class="label">Instagram</div>
           </div>
           <div class="app">
             <div class="icon"><img src="./images/apps/app-safari.jpg" alt="Safari App"></div>
@@ -2547,17 +3207,30 @@
               <div class="love-date">Seit dem 06.02.2026 💗</div>
               <div class="count-grid">
                 <div class="count-box">
+                  <div class="count-number" id="countYears">0</div>
+                  <div class="count-label">Jahre</div>
+                </div>
+                <div class="count-or">oder</div>
+                <div class="count-box">
+                  <div class="count-number" id="countMonths">0</div>
+                  <div class="count-label">Monate</div>
+                </div>
+                <div class="count-or">oder</div>
+                <div class="count-box">
                   <div class="count-number" id="countDays">0</div>
                   <div class="count-label">Tage</div>
                 </div>
+                <div class="count-or">oder</div>
                 <div class="count-box">
                   <div class="count-number" id="countHours">0</div>
                   <div class="count-label">Stunden</div>
                 </div>
+                <div class="count-or">oder</div>
                 <div class="count-box">
                   <div class="count-number" id="countMinutes">0</div>
                   <div class="count-label">Minuten</div>
                 </div>
+                <div class="count-or">oder</div>
                 <div class="count-box">
                   <div class="count-number" id="countSeconds">0</div>
                   <div class="count-label">Sekunden</div>
@@ -2565,7 +3238,7 @@
               </div>
             </div>
             <div class="love-note">
-              Jeder einzelne Moment seit dem <strong>06.02.2026</strong> zählt hier live mit. ✨
+              Jede Einheit seit dem <strong>06.02.2026</strong> wird hier als gesamte Zahl live mitgezählt. ✨
             </div>
           </section>
 
@@ -2721,6 +3394,8 @@
             </div>
           </section>
 
+          <section class="booking-view" id="bookingView"></section>
+
           <section class="phone-view" id="phoneView">
 
   <div id="phoneContent"></div>
@@ -2733,6 +3408,168 @@
   </div>
 
 </section>
+
+          <section class="messages-view" id="messagesView">
+            <div class="messages-shell">
+              <div class="messages-header">
+                <div class="messages-head">
+                  <div class="messages-avatar">
+                    <img src="./images/kontakte/kontakt-kristijan_bonic.jpg" alt="Kristijan Bonic">
+                  </div>
+                  <div>
+                    <div class="messages-name">Kristijan Bonic</div>
+                    <div class="messages-sub">Instagram Chat 💗</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="messages-thread">
+                <div class="messages-story-title">So hat alles angefangen, unsere ersten Instagram Nachrichten 🥹💗</div>
+                <div class="message-story">
+                  <div class="message-story-label">Hat auf @Kristijan Bonićs Story reagiert</div>
+                  <div class="message-story-image">
+                    <img src="./images/nachrichten/nachrichten-story.jpg" alt="Story von Kristijan Bonic">
+                  </div>
+                </div>
+
+                <div class="message-row outgoing">
+                  <div class="message-bubble outgoing">Baš je lijepo što imaš ikonu u telefonu. Ja isto imam Svetu Petku🥰</div>
+                </div>
+
+                <div class="message-time-divider">22.01.2026, 19:45</div>
+
+                <div class="message-row incoming">
+                  <div class="message-bubble incoming">Stvarno? 😀 Lepo je to čuti. A zašto baš Sveta Petka, ima li neko posebno značenje za tebe?</div>
+                </div>
+
+                <div class="message-row outgoing">
+                  <div class="message-bubble outgoing">Daa🥲 Mama mi je poklonila ikonu Svete Petke za Svetu Petku, htjela sam da je nosim sa sobom</div>
+                </div>
+
+                <div class="message-row outgoing">
+                  <div class="message-bubble outgoing">Ti?</div>
+                </div>
+
+                <div class="message-row incoming">
+                  <div class="message-bubble incoming">Stvarno Prelepo 😀 Baš je poseban poklon, pogotovo od mame. I ja sam bio skoro u crkvi kod nas u selu, sređuju crkveno dvorište i skupljaju donacije, pa sam hteo da kupim mlađem bratu ikonu Isusa Hrista. Uzeo sam i sebi jednu malu ikonicu da je nosim sa sobom, i tako sam ujedno pomogao našoj crkvi, pošto se baš trude.</div>
+                </div>
+
+                <div class="message-row outgoing">
+                  <div class="message-bubble outgoing">Prelijepo 🥰 Ja sam zapravo sada bila u crkvi na liturgiji. I ja isto često pomažem u crkvi, na primjer nedjeljom nakon druženja sklonim suđe. Na Badnji dan sam se prijavila kao pomoćnica i pomagala sam u našoj biblioteci</div>
+                </div>
+
+                <div class="message-row incoming">
+                  <div class="message-bubble incoming">To je lepo. Moj brat isto često pomaže i ide u crkvu. Ja, iskreno da ti kažem, idem malo ređe, ali se trudim da idem kad god stignem, pošto mi je vera ipak bitna.</div>
+                </div>
+
+                <div class="message-row incoming">
+                  <div class="message-bubble incoming">U koju crkvu ideš?</div>
+                </div>
+
+                <div class="message-row outgoing">
+                  <div class="message-bubble outgoing">Ja živim u becu, moja crkva je u 2. bezirk</div>
+                </div>
+
+                <div class="message-row outgoing">
+                  <div class="message-bubble outgoing">Ti? Vi?</div>
+                </div>
+
+                <div class="message-row incoming">
+                  <div class="message-bubble incoming">Živim u Sollenau, to je blizu Wiener Neustadta, a u crkvu idem tamo. Ali ranije sam živeo u Beču i tamo sam najviše išao u 12ti bezirk.</div>
+                </div>
+
+                <div class="message-row outgoing">
+                  <div class="message-bubble outgoing">Aha lijepo🥰</div>
+                </div>
+
+                <div class="message-row incoming">
+                  <div class="message-bubble incoming">ali razmišljam da se vratim za beč neznam još</div>
+                </div>
+
+                <div class="message-row incoming">
+                  <div class="message-bubble incoming">u beču nego sam dosta vremena proveo dole kad sam bio mali ti?</div>
+                </div>
+
+                <div class="message-row outgoing">
+                  <div class="message-bubble outgoing">Jel si rođen u becu? Ili dole?</div>
+                </div>
+
+                <div class="message-row outgoing">
+                  <div class="message-bubble outgoing">Rođena sam u becu u 3. generaciji🤗</div>
+                </div>
+
+                <div class="message-row incoming">
+                  <div class="message-bubble incoming">a dole odakle si?</div>
+                </div>
+
+                <div class="message-row outgoing">
+                  <div class="message-bubble outgoing">HAHAHAHAH obozavam ovo pitanje:</div>
+                </div>
+
+                <div class="message-row outgoing">
+                  <div class="message-bubble outgoing">Mama je iz Hrvatske.<br>Tata je iz Bosne.<br>Ali ni nismo iz Republike Srpske, nego (što je najbolje) mi smo iz Srebrenika u Bosni (muslimansko mjesto), a u Hrvatskoj smo u blizini Nove Gradiške</div>
+                </div>
+
+                <div class="message-row outgoing">
+                  <div class="message-bubble outgoing">Mi smo iz srpskih sela 😳</div>
+                </div>
+
+                <div class="message-row outgoing">
+                  <div class="message-bubble outgoing">A ti?</div>
+                </div>
+
+                <div class="message-row outgoing">
+                  <div class="message-bubble outgoing">hahahahahah samoo si čekala da te pitam to</div>
+                </div>
+
+                <div class="message-row outgoing">
+                  <div class="message-bubble outgoing">meni su mama i tata iz istog sela u srbiji: Udovice (blizu Smedereva)</div>
+                </div>
+
+                <div class="message-row incoming">
+                  <div class="message-bubble incoming">(U bosni i u hrvatskoj)</div>
+                </div>
+
+                <div class="message-row incoming">
+                  <div class="message-bubble incoming">Očekivala sam 😂😂😂</div>
+                </div>
+
+                <div class="message-row incoming">
+                  <div class="message-bubble incoming">Lijepo🥹</div>
+                </div>
+
+                <div class="message-row outgoing">
+                  <div class="message-bubble outgoing">tata mi je rođen dole a mama ovde</div>
+                </div>
+
+                <div class="message-row incoming">
+                  <div class="message-bubble incoming">Meni je tata rođen u becu a mama u wilhelmsburgu/lilienfeld negde u Niederösterreich</div>
+                </div>
+
+                <div class="message-row outgoing">
+                  <div class="message-bubble outgoing">to je tamo kod St Pölten valjda?</div>
+                </div>
+
+                <div class="message-row incoming">
+                  <div class="message-bubble incoming">Mislim... nisam sigurna</div>
+                </div>
+
+                <div class="message-row outgoing">
+                  <div class="message-bubble outgoing">iskreno da ti kažem mnogo je lepse živeti van beca</div>
+                </div>
+
+                <div class="message-row incoming">
+                  <div class="message-bubble incoming">Iskreno da ti kazem: to je moja najveća zelja.</div>
+                </div>
+
+              </div><div class="messages-compose">
+                <div class="messages-compose-bar">
+                  <div class="messages-compose-input">Instagram Chat</div>
+                  <div class="messages-compose-send">↑</div>
+                </div>
+              </div>
+            </div>
+          </section>
 
           <section class="map-view" id="mapView" style="display:none;color:white;">
             
@@ -2801,22 +3638,47 @@
                 </div>
               </div>
 
-              <a href="https://www.google.com/maps?q=48.24139362417911,16.385045908705056" target="_blank"
+              <button type="button" data-map-open
                 style="
                   display:block;
+                  width:100%;
                   margin-top:14px;
                   padding:12px;
                   border-radius:18px;
                   background:linear-gradient(180deg, rgba(104, 38, 73, 0.50), rgba(67, 22, 47, 0.36));
                   text-align:center;
                   font-weight:600;
-                  text-decoration:none;
                   color:white;
                   backdrop-filter: blur(10px);
                   border:1px solid rgba(255,255,255,0.12);
+                  cursor:pointer;
                 ">
                 Standort öffnen
-              </a>
+              </button>
+
+              <div data-map-panel style="display:none;margin-top:12px;border-radius:22px;overflow:hidden;border:1px solid rgba(255,255,255,0.14);background:
+                radial-gradient(circle at 20% 20%, rgba(255,255,255,0.18), transparent 26%),
+                radial-gradient(circle at 78% 28%, rgba(255,255,255,0.14), transparent 24%),
+                linear-gradient(135deg, rgba(246, 196, 219, 0.95), rgba(231, 153, 194, 0.92) 52%, rgba(199, 113, 162, 0.90));">
+                <div style="position:relative;height:220px;overflow:hidden;">
+                  <div style="position:absolute;inset:0;opacity:0.28;background:
+                    linear-gradient(90deg, rgba(255,255,255,0.65) 0 10px, transparent 10px 58px),
+                    linear-gradient(rgba(255,255,255,0.6) 0 10px, transparent 10px 58px);
+                    background-size:58px 58px;"></div>
+                  <div style="position:absolute;left:-8%;top:50%;width:118%;height:16px;border-radius:999px;background:rgba(255,255,255,0.85);transform:rotate(-16deg);box-shadow:0 0 0 6px rgba(233,145,188,0.28);"></div>
+                  <div style="position:absolute;left:-6%;top:26%;width:112%;height:14px;border-radius:999px;background:rgba(255,255,255,0.78);transform:rotate(9deg);box-shadow:0 0 0 6px rgba(233,145,188,0.22);"></div>
+                  <div style="position:absolute;left:18%;top:-4%;width:14px;height:108%;border-radius:999px;background:rgba(255,255,255,0.72);transform:rotate(8deg);box-shadow:0 0 0 6px rgba(233,145,188,0.18);"></div>
+                  <div style="position:absolute;right:21%;top:-8%;width:14px;height:116%;border-radius:999px;background:rgba(255,255,255,0.72);transform:rotate(-6deg);box-shadow:0 0 0 6px rgba(233,145,188,0.18);"></div>
+                  <div style="position:absolute;left:50%;top:50%;transform:translate(-50%, -58%);display:flex;flex-direction:column;align-items:center;">
+                    <div style="font-size:34px;filter:drop-shadow(0 8px 14px rgba(126, 28, 76, 0.32));">📍</div>
+                    <div style="margin-top:6px;padding:7px 10px;border-radius:14px;background:rgba(126, 28, 76, 0.78);color:white;font-size:12px;font-weight:700;backdrop-filter:blur(6px);">Unser erstes Treffen 💗</div>
+                  </div>
+                  <div style="position:absolute;left:12px;right:12px;bottom:12px;padding:10px 12px;border-radius:16px;background:rgba(126, 28, 76, 0.28);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.18);color:white;">
+                    <div style="font-size:12px;font-weight:700;opacity:0.92;margin-bottom:4px;">Handelskai, Wien</div>
+                    <div style="font-size:11px;opacity:0.82;">48.241394, 16.385046</div>
+                  </div>
+                </div>
+              </div>
 
             </div>
 
@@ -2979,13 +3841,12 @@
             </div>
             <div class="call-sheet-name">Kristijan Bonic</div>
             <div class="call-sheet-status" id="callStatus">Anrufen…</div>
-            <div class="call-sheet-note">In 5 Sekunden startet euer kleines Telefonat. 💗</div>
+            <div class="call-sheet-duration" id="callDuration">00:00</div>
             <div class="call-sheet-actions">
               <button class="call-action end" id="endCallButton" type="button" aria-label="Auflegen">📞</button>
             </div>
-            <audio id="callAudio" preload="auto">
-              <source src="./images/anruf/anruf-telefonat.mp3" type="audio/mpeg">
-            </audio>
+            <audio id="callBeepAudio" preload="auto" src="./images/anruf/anruf-beep.mp3"></audio>
+            <audio id="callAudio" preload="auto" src="./images/anruf/anruf-telefonat.mp3"></audio>
           </div>
         </div>
 
@@ -2993,6 +3854,20 @@
           <div class="love-modal-box">
             <div class="modal-close" id="modalClose">✕</div>
             <div id="modalText">HEY! du brauchst niemanden anrufen du hast deinen super tollen Freund Kristijan ❤️</div>
+          </div>
+        </div>
+
+        <div class="top-sheet" id="topSheet">
+          <div class="top-sheet-time js-live-time">09:41</div>
+          <div class="top-sheet-card">
+            <div class="top-sheet-cover">
+              <img id="topSheetCover" src="./images/apps/app-spotify.jpg" alt="Aktuelles Lied">
+            </div>
+            <div class="top-sheet-meta">
+              <div class="top-sheet-title" id="topSheetTitle">Kein Lied aktiv</div>
+              <div class="top-sheet-artist" id="topSheetArtist">Spotify wartet auf dich</div>
+            </div>
+            <button class="top-sheet-action" id="topSheetToggle" type="button">Start</button>
           </div>
         </div>
       </div>
@@ -3019,6 +3894,7 @@
   const lockscreen = document.getElementById('lockscreen');
   const homescreen = document.getElementById('homescreen');
   const lockCard = document.getElementById('lockCard');
+  const dynamicIslands = document.querySelectorAll('.dynamic-island');
 
   const apps = document.querySelectorAll('.app');
   const appScreen = document.getElementById('appScreen');
@@ -3031,6 +3907,7 @@
   const safariView = document.getElementById('safariView');
   const spotifyView = document.getElementById('spotifyView');
   const phoneView = document.getElementById('phoneView');
+  const messagesView = document.getElementById('messagesView');
   const mapView = document.getElementById('mapView');
   const timerView = document.getElementById('timerView');
   const weatherView = document.getElementById('weatherView');
@@ -3052,6 +3929,7 @@
   const cameraPreview = document.getElementById('cameraPreview');
   const cameraEmpty = document.getElementById('cameraEmpty');
   const cameraShutter = document.getElementById('cameraShutter');
+  const bookingView = document.getElementById('bookingView');
   const countDays = document.getElementById('countDays');
   const countHours = document.getElementById('countHours');
   const countMinutes = document.getElementById('countMinutes');
@@ -3062,7 +3940,9 @@
   const phoneContent = document.getElementById('phoneContent');
   const callOverlay = document.getElementById('callOverlay');
   const callStatus = document.getElementById('callStatus');
+  const callDuration = document.getElementById('callDuration');
   const endCallButton = document.getElementById('endCallButton');
+  const callBeepAudio = document.getElementById('callBeepAudio');
   const callAudio = document.getElementById('callAudio');
   const loveModal = document.getElementById('loveModal');
   const loveModalBox = document.querySelector('.love-modal-box');
@@ -3073,12 +3953,25 @@
   const safariSearch = document.getElementById('safariSearch');
   const modalClose = document.getElementById('modalClose');
   const lockButton = document.getElementById('lockButton');
+  const volumeUpButton = document.getElementById('volumeUpButton');
+  const volumeDownButton = document.getElementById('volumeDownButton');
+  const volumeHud = document.getElementById('volumeHud');
+  const volumeHudFill = document.getElementById('volumeHudFill');
+  const topSheet = document.getElementById('topSheet');
+  const topSheetCover = document.getElementById('topSheetCover');
+  const topSheetTitle = document.getElementById('topSheetTitle');
+  const topSheetArtist = document.getElementById('topSheetArtist');
+  const topSheetToggle = document.getElementById('topSheetToggle');
   const defaultModalText = 'HEY! du brauchst niemanden anrufen du hast deinen super tollen Freund Kristijan ❤️';
   const startupPermissionsKey = 'bk_startup_permissions_asked';
   const startupCameraAllowedKey = 'bk_startup_camera_allowed';
   const startupSpotifyAllowedKey = 'bk_startup_spotify_allowed';
   let cameraStream = null;
   let callTimeout = null;
+  let callDurationInterval = null;
+  let callStartTime = null;
+  let mediaVolume = 0.5;
+  let volumeHudTimeout = null;
   let cameraPreflightDone = localStorage.getItem(startupCameraAllowedKey) === 'true';
   let spotifyAccessGranted = localStorage.getItem(startupSpotifyAllowedKey) === 'true';
   let startupPermissionAsked = localStorage.getItem(startupPermissionsKey) === 'true';
@@ -3115,6 +4008,45 @@
   let spotifyStop = null;
   let spotifyNext = null;
   let spotifyVolume = null;
+
+  function setSpotifyPlayerVisible(visible) {
+    if (!spotifyPlayer) return;
+    spotifyPlayer.classList.toggle('active', Boolean(visible));
+  }
+
+  function isSpotifyPlaying() {
+    return Boolean(spotifyAudio && spotifyAudio.src && !spotifyAudio.paused && !spotifyAudio.ended);
+  }
+
+  function updateTopSheetState() {
+    const activeTrack = spotifyTracks[spotifyCurrentIndex];
+    const hasTrack = Boolean(spotifyAudio && spotifyAudio.src && activeTrack);
+    if (topSheetCover) topSheetCover.src = hasTrack ? activeTrack.cover : './images/apps/app-spotify.jpg';
+    if (topSheetTitle) topSheetTitle.textContent = hasTrack ? activeTrack.title : 'Kein Lied aktiv';
+    if (topSheetArtist) topSheetArtist.textContent = hasTrack ? activeTrack.artist : 'Spotify wartet auf dich';
+    if (topSheetToggle) topSheetToggle.textContent = isSpotifyPlaying() ? 'Pause' : 'Start';
+  }
+
+  function closeTopSheet() {
+    if (!topSheet) return;
+    topSheet.classList.remove('active');
+  }
+
+  function canOpenTopSheet() {
+    return Boolean(
+      topSheet &&
+      phoneScreen &&
+      !phoneScreen.classList.contains('is-off') &&
+      lockscreen &&
+      lockscreen.classList.contains('hidden')
+    );
+  }
+
+  function toggleTopSheet() {
+    if (!canOpenTopSheet()) return;
+    updateTopSheetState();
+    topSheet.classList.toggle('active');
+  }
   const tiktokVideos = [
     {
       id: 1,
@@ -3314,9 +4246,6 @@
           <button class="safari-back" type="button">Zurück</button>
           <div class="safari-card">
             <div class="safari-title">Bilder von meinem wunderschönen Freund</div>
-            <div class="safari-text">
-              Diese Galerie ist absichtlich noch leer gelassen, damit du später genau die Bilder einfügen kannst, die du haben willst.
-            </div>
           </div>
           <div class="safari-gallery">
             <div class="safari-photo-slot"><img src="./images/safari/safari_bild-1.jpg" alt="Wunderschöner Freund Bild 1"></div>
@@ -3386,7 +4315,30 @@
           <div style="background:linear-gradient(180deg, rgba(90, 33, 63, 0.42), rgba(58, 18, 40, 0.30));border:1px solid rgba(255,255,255,0.14);border-radius:22px;padding:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.10);"><div style="height:132px;border-radius:16px;overflow:hidden;"><img src="./images/wo-ist/wo-ist_bank.jpg" alt="Bank" style="width:100%;height:100%;object-fit:cover;display:block;"></div></div>
         </div>
 
-        <a href="https://www.google.com/maps?q=48.24139362417911,16.385045908705056" target="_blank" style="display:block;padding:14px 12px;border-radius:20px;background:linear-gradient(180deg, rgba(104, 38, 73, 0.50), rgba(67, 22, 47, 0.36));text-align:center;font-weight:700;text-decoration:none;color:white;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.12);">📍 Standort öffnen</a>
+        <button type="button" data-map-open style="display:block;width:100%;padding:14px 12px;border-radius:20px;background:linear-gradient(180deg, rgba(104, 38, 73, 0.50), rgba(67, 22, 47, 0.36));text-align:center;font-weight:700;color:white;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.12);cursor:pointer;">📍 Standort öffnen</button>
+        <div data-map-panel style="display:none;margin-top:12px;border-radius:22px;overflow:hidden;border:1px solid rgba(255,255,255,0.14);background:
+          radial-gradient(circle at 20% 20%, rgba(255,255,255,0.18), transparent 26%),
+          radial-gradient(circle at 78% 28%, rgba(255,255,255,0.14), transparent 24%),
+          linear-gradient(135deg, rgba(246, 196, 219, 0.95), rgba(231, 153, 194, 0.92) 52%, rgba(199, 113, 162, 0.90));">
+          <div style="position:relative;height:220px;overflow:hidden;">
+            <div style="position:absolute;inset:0;opacity:0.28;background:
+              linear-gradient(90deg, rgba(255,255,255,0.65) 0 10px, transparent 10px 58px),
+              linear-gradient(rgba(255,255,255,0.6) 0 10px, transparent 10px 58px);
+              background-size:58px 58px;"></div>
+            <div style="position:absolute;left:-8%;top:50%;width:118%;height:16px;border-radius:999px;background:rgba(255,255,255,0.85);transform:rotate(-16deg);box-shadow:0 0 0 6px rgba(233,145,188,0.28);"></div>
+            <div style="position:absolute;left:-6%;top:26%;width:112%;height:14px;border-radius:999px;background:rgba(255,255,255,0.78);transform:rotate(9deg);box-shadow:0 0 0 6px rgba(233,145,188,0.22);"></div>
+            <div style="position:absolute;left:18%;top:-4%;width:14px;height:108%;border-radius:999px;background:rgba(255,255,255,0.72);transform:rotate(8deg);box-shadow:0 0 0 6px rgba(233,145,188,0.18);"></div>
+            <div style="position:absolute;right:21%;top:-8%;width:14px;height:116%;border-radius:999px;background:rgba(255,255,255,0.72);transform:rotate(-6deg);box-shadow:0 0 0 6px rgba(233,145,188,0.18);"></div>
+            <div style="position:absolute;left:50%;top:50%;transform:translate(-50%, -58%);display:flex;flex-direction:column;align-items:center;">
+              <div style="font-size:34px;filter:drop-shadow(0 8px 14px rgba(126, 28, 76, 0.32));">📍</div>
+              <div style="margin-top:6px;padding:7px 10px;border-radius:14px;background:rgba(126, 28, 76, 0.78);color:white;font-size:12px;font-weight:700;backdrop-filter:blur(6px);">Unser erstes Treffen 💗</div>
+            </div>
+            <div style="position:absolute;left:12px;right:12px;bottom:12px;padding:10px 12px;border-radius:16px;background:rgba(126, 28, 76, 0.28);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.18);color:white;">
+              <div style="font-size:12px;font-weight:700;opacity:0.92;margin-bottom:4px;">Handelskai, Wien</div>
+              <div style="font-size:11px;opacity:0.82;">48.241394, 16.385046</div>
+            </div>
+          </div>
+        </div>
       </div>
     `;
   }
@@ -3400,7 +4352,7 @@
         return `
           <div class="photo-card">
             <div class="photo-art">
-              <img src="./images/fotos/fotos_bild-${number}.jpg" alt="Foto ${number} von euch" data-photo-full>
+              <img src="./images/fotos/fotos_bild-${number}.jpg" alt="Foto ${number} von euch">
             </div>
           </div>
         `;
@@ -3416,20 +4368,126 @@
     photosView.innerHTML = `<div class="photos-grid">${photos}</div>`;
   }
 
+  function buildBookingPhotoCard(src, alt, fallbackText, fitMode = 'cover') {
+    return `
+      <div class="photo-card">
+        <div class="photo-art" data-photo-shell>
+          <img src="${src}" alt="${alt}" data-photo-full data-photo-fit="${fitMode}" data-gallery-image data-gallery-fallback="${fallbackText}">
+        </div>
+      </div>
+    `;
+  }
+
+  function attachGalleryFallbacks(root) {
+    if (!root) return;
+    root.querySelectorAll('[data-gallery-image]').forEach((img) => {
+      img.addEventListener('error', () => {
+        const shell = img.closest('[data-photo-shell]');
+        if (!shell) return;
+        shell.classList.add('placeholder');
+        shell.setAttribute('data-photo-placeholder', img.dataset.galleryFallback || 'Platz für ein Foto');
+        shell.textContent = img.dataset.galleryFallback || 'Platz für ein Foto';
+      }, { once: true });
+    });
+  }
+
+  function showBookingPage(pageId) {
+    if (!bookingView) return;
+    bookingView.querySelectorAll('.booking-page').forEach((page) => page.classList.remove('active'));
+    const targetPage = bookingView.querySelector(`#bookingPage-${pageId}`);
+    if (targetPage) targetPage.classList.add('active');
+  }
+
+  function initializeBookingContent() {
+    if (!bookingView) return;
+
+    const trainCards = [
+      buildBookingPhotoCard('./images/booking/booking-zug_hin_1.jpg', 'Zugticket Hin 1', 'Zugticket hin 1', 'contain'),
+      buildBookingPhotoCard('./images/booking/booking-zug_hin_2.jpg', 'Zugticket Hin 2', 'Zugticket hin 2', 'contain'),
+      buildBookingPhotoCard('./images/booking/booking-zug_retour_1.jpg', 'Zugticket Retour 1', 'Zugticket retour 1', 'contain'),
+      buildBookingPhotoCard('./images/booking/booking-zug_retour_2.jpg', 'Zugticket Retour 2', 'Zugticket retour 2', 'contain')
+    ].join('');
+
+    const hotelCards = buildBookingPhotoCard('./images/booking/booking-hotel_1.jpg', 'Hotelbild 1', 'Hotelbild 1');
+
+    const photoCards = Array.from({ length: 50 }, (_, index) => (
+      buildBookingPhotoCard(`./images/booking/booking-foto_${index + 1}.jpg`, `Prag Foto ${index + 1}`, `Prag Foto ${index + 1}`)
+    )).join('');
+
+    bookingView.innerHTML = `
+      <div class="booking-page active" id="bookingPage-home">
+        <div class="love-card">
+          <div class="booking-kicker">Tschechien</div>
+          <div class="booking-city">Prag</div>
+          <div class="booking-period">06.03.2026 - 08.03.2026</div>
+
+          <div class="booking-actions">
+            <button class="booking-button" type="button" data-booking-page="train">Die Zugfahrt</button>
+            <button class="booking-button" type="button" data-booking-page="hotel">Das Hotel</button>
+            <button class="booking-button" type="button" data-booking-page="photos">Die Fotos</button>
+          </div>
+
+        </div>
+
+        <div class="love-note">Das war nur einer von vielen Urlauben, die wir noch machen werden, Ljubavi 🥹💗</div>
+      </div>
+
+      <div class="booking-page" id="bookingPage-train">
+        <button class="booking-back" type="button" data-booking-page="home">Zurück</button>
+        <div class="love-card">
+          <div class="love-eyebrow">Die Zugfahrt 🚆</div>
+          <div class="love-title">Unsere Tickets nach Prag</div>
+          <div class="booking-subtitle">Hin und zurück, damit diese erste Reise für immer festgehalten bleibt.</div>
+          <div class="booking-gallery-list">${trainCards}</div>
+        </div>
+      </div>
+
+      <div class="booking-page" id="bookingPage-hotel">
+        <button class="booking-back" type="button" data-booking-page="home">Zurück</button>
+        <div class="love-card">
+          <div class="love-eyebrow">Das Hotel ☁️</div>
+          <div class="love-title">The Cloud One Prague</div>
+          <div class="booking-subtitle">Unser Hotel in Prag und ein Teil dieser ersten gemeinsamen Reise.</div>
+          <div class="booking-gallery-list">${hotelCards}</div>
+        </div>
+      </div>
+
+      <div class="booking-page" id="bookingPage-photos">
+        <button class="booking-back" type="button" data-booking-page="home">Zurück</button>
+        <div class="love-card">
+          <div class="love-eyebrow">Die Fotos 📸</div>
+          <div class="love-title">Unsere Zeit in Prag</div>
+          <div class="booking-subtitle">Errinerungen aus unserem ersten Urlaub</div>
+          <div class="booking-gallery-list">${photoCards}</div>
+        </div>
+      </div>
+    `;
+
+    attachGalleryFallbacks(bookingView);
+  }
+
   function updateRelationshipTimer() {
     const startDate = new Date('2026-02-06T00:00:00');
     const now = new Date();
     const diff = Math.max(0, now - startDate);
     const totalSeconds = Math.floor(diff / 1000);
-    const days = Math.floor(totalSeconds / 86400);
-    const hours = Math.floor((totalSeconds % 86400) / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = totalSeconds % 60;
+    const totalMinutes = Math.floor(totalSeconds / 60);
+    const totalHours = Math.floor(totalSeconds / 3600);
+    const totalDays = Math.floor(totalSeconds / 86400);
 
-    if (countDays) countDays.textContent = String(days);
-    if (countHours) countHours.textContent = String(hours).padStart(2, '0');
-    if (countMinutes) countMinutes.textContent = String(minutes).padStart(2, '0');
-    if (countSeconds) countSeconds.textContent = String(seconds).padStart(2, '0');
+    let totalMonths = (now.getFullYear() - startDate.getFullYear()) * 12 + (now.getMonth() - startDate.getMonth());
+    if (now.getDate() < startDate.getDate()) totalMonths -= 1;
+    totalMonths = Math.max(0, totalMonths);
+    const totalYears = Math.floor(totalMonths / 12);
+
+    const formatWholeNumber = (value) => value.toLocaleString('de-DE');
+
+    if (countYears) countYears.textContent = formatWholeNumber(totalYears);
+    if (countMonths) countMonths.textContent = formatWholeNumber(totalMonths);
+    if (countDays) countDays.textContent = formatWholeNumber(totalDays);
+    if (countHours) countHours.textContent = formatWholeNumber(totalHours);
+    if (countMinutes) countMinutes.textContent = formatWholeNumber(totalMinutes);
+    if (countSeconds) countSeconds.textContent = formatWholeNumber(totalSeconds);
   }
 
   function updateDateTime() {
@@ -3464,17 +4522,25 @@
     if (phoneScreen) phoneScreen.classList.remove('is-off');
     lockscreen.classList.add('hidden');
     homescreen.classList.add('active');
+    closeTopSheet();
     syncStatusbarMode();
     localStorage.setItem('unlocked', 'true');
   }
 
   function wakePhone() {
-    if (phoneScreen) phoneScreen.classList.remove('is-off');
+    if (phoneScreen) {
+      phoneScreen.classList.add('is-waking');
+      phoneScreen.classList.remove('is-off');
+      setTimeout(() => {
+        phoneScreen.classList.remove('is-waking');
+      }, 260);
+    }
     resetInput(false);
     homescreen.classList.remove('active');
     lockscreen.classList.remove('hidden');
     appScreen.classList.remove('active');
     appScreen.classList.remove('closing');
+    closeTopSheet();
     resetAppViews();
     syncStatusbarMode();
   }
@@ -3485,8 +4551,12 @@
     lockscreen.classList.remove('hidden');
     appScreen.classList.remove('active');
     appScreen.classList.remove('closing');
+    closeTopSheet();
     resetAppViews();
-    if (phoneScreen) phoneScreen.classList.add('is-off');
+    if (phoneScreen) {
+      phoneScreen.classList.remove('is-waking');
+      phoneScreen.classList.add('is-off');
+    }
     syncStatusbarMode();
     localStorage.removeItem('unlocked');
   }
@@ -3696,6 +4766,56 @@
     return `${mins}:${String(secs).padStart(2, '0')}`;
   }
 
+  function syncVolumeHud() {
+    if (volumeHudFill) volumeHudFill.style.height = `${Math.round(mediaVolume * 100)}%`;
+  }
+
+  function applyMediaVolume() {
+    if (spotifyAudio) {
+      spotifyAudio.volume = mediaVolume;
+      spotifyAudio.muted = mediaVolume === 0;
+    }
+    if (spotifyVolume) spotifyVolume.value = String(mediaVolume);
+
+    if (callAudio) {
+      callAudio.volume = mediaVolume;
+      callAudio.muted = mediaVolume === 0;
+    }
+    if (callBeepAudio) {
+      callBeepAudio.volume = mediaVolume;
+      callBeepAudio.muted = mediaVolume === 0;
+    }
+
+    document.querySelectorAll('.tiktok-media').forEach((videoEl) => {
+      videoEl.volume = mediaVolume;
+      videoEl.muted = mediaVolume === 0;
+    });
+
+    syncVolumeHud();
+  }
+
+  function showVolumeHud() {
+    syncVolumeHud();
+    if (!volumeHud) return;
+    volumeHud.classList.add('active');
+    if (volumeHudTimeout) clearTimeout(volumeHudTimeout);
+    volumeHudTimeout = setTimeout(() => {
+      volumeHud.classList.remove('active');
+    }, 3000);
+  }
+
+  function adjustMediaVolume(delta) {
+    if (phoneScreen?.classList.contains('is-off')) return;
+    const nextVolume = Math.max(0, Math.min(1, Math.round((mediaVolume + delta) * 10) / 10));
+    if (nextVolume === mediaVolume) {
+      showVolumeHud();
+      return;
+    }
+    mediaVolume = nextVolume;
+    applyMediaVolume();
+    showVolumeHud();
+  }
+
   function getLocalAssetUrl(assetPath) {
     const normalized = assetPath.replace(/^\.\//, '');
     try {
@@ -3797,6 +4917,7 @@
     spotifyStop = document.getElementById('spotifyStop');
     spotifyNext = document.getElementById('spotifyNext');
     spotifyVolume = document.getElementById('spotifyVolume');
+    if (spotifyVolume) spotifyVolume.value = String(mediaVolume);
 
     spotifyAudio.addEventListener('timeupdate', () => {
       if (spotifySeek && spotifyAudio.duration) {
@@ -3807,11 +4928,16 @@
 
     spotifyAudio.addEventListener('loadedmetadata', () => {
       if (spotifyDuration) spotifyDuration.textContent = formatSpotifyTime(spotifyAudio.duration);
+      updateTopSheetState();
     });
 
     spotifyAudio.addEventListener('ended', () => {
+      updateTopSheetState();
       playSpotifyTrack((spotifyCurrentIndex + 1) % spotifyTracks.length, true);
     });
+
+    spotifyAudio.addEventListener('play', updateTopSheetState);
+    spotifyAudio.addEventListener('pause', updateTopSheetState);
 
     spotifySeek.addEventListener('input', () => {
       if (!spotifyAudio.duration) return;
@@ -3819,8 +4945,9 @@
     });
 
     spotifyVolume.addEventListener('input', () => {
-      spotifyAudio.volume = Number(spotifyVolume.value);
-      spotifyAudio.muted = Number(spotifyVolume.value) === 0;
+      mediaVolume = Number(spotifyVolume.value);
+      applyMediaVolume();
+      showVolumeHud();
     });
 
     spotifyPlayPause.addEventListener('click', () => {
@@ -3829,13 +4956,14 @@
         return;
       }
       if (spotifyAudio.paused) {
-        spotifyAudio.muted = Number(spotifyVolume?.value || 1) === 0;
+        spotifyAudio.muted = mediaVolume === 0;
         spotifyAudio.play();
         spotifyPlayPause.textContent = '❚❚';
       } else {
         spotifyAudio.pause();
         spotifyPlayPause.textContent = '▶';
       }
+      updateTopSheetState();
     });
 
     spotifyPrev.addEventListener('click', () => {
@@ -3862,7 +4990,7 @@
     if (!spotifyAudio) return;
     spotifyCurrentIndex = index;
     const track = spotifyTracks[index];
-    if (spotifyPlayer) spotifyPlayer.classList.add('active');
+    setSpotifyPlayerVisible(spotifyView && spotifyView.classList.contains('active'));
     if (spotifyPlayerCover) spotifyPlayerCover.src = track.cover;
     if (spotifyPlayerTitle) spotifyPlayerTitle.textContent = track.title;
     if (spotifyPlayerArtist) spotifyPlayerArtist.textContent = track.artist;
@@ -3881,6 +5009,7 @@
         if (spotifyPlayerTitle) spotifyPlayerTitle.textContent = 'Datei nicht gefunden / nicht abspielbar';
         if (spotifyPlayerArtist) spotifyPlayerArtist.textContent = track.title;
         if (spotifyPlayPause) spotifyPlayPause.textContent = '▶';
+        updateTopSheetState();
         return;
       }
 
@@ -3906,21 +5035,25 @@
         if (resolved) return;
         resolved = true;
         cleanupCandidateListeners();
-        spotifyAudio.muted = Number(spotifyVolume?.value || 1) === 0;
-        spotifyAudio.volume = Number(spotifyVolume?.value || 1);
+        spotifyAudio.muted = mediaVolume === 0;
+        spotifyAudio.volume = mediaVolume;
         if (autoplay) {
           const playPromise = spotifyAudio.play();
           if (playPromise && typeof playPromise.catch === 'function') {
             playPromise.then(() => {
               if (spotifyPlayPause) spotifyPlayPause.textContent = '❚❚';
+              updateTopSheetState();
             }).catch(() => {
               if (spotifyPlayPause) spotifyPlayPause.textContent = '▶';
+              updateTopSheetState();
             });
           } else if (spotifyPlayPause) {
             spotifyPlayPause.textContent = '❚❚';
+            updateTopSheetState();
           }
         } else if (spotifyPlayPause) {
           spotifyPlayPause.textContent = '▶';
+          updateTopSheetState();
         }
       };
 
@@ -3942,7 +5075,8 @@
     if (spotifySeek) spotifySeek.value = '0';
     if (spotifyCurrentTime) spotifyCurrentTime.textContent = '0:00';
     if (spotifyPlayPause) spotifyPlayPause.textContent = '▶';
-    if (spotifyPlayer) spotifyPlayer.classList.remove('active');
+    setSpotifyPlayerVisible(false);
+    updateTopSheetState();
   }
 
   function getTikTokVideoSources(videoPath) {
@@ -4069,8 +5203,8 @@
           if (videoEl.paused) {
             videoEl.currentTime = 0;
           }
-          videoEl.muted = false;
-          videoEl.volume = 1;
+          videoEl.muted = mediaVolume === 0;
+          videoEl.volume = mediaVolume;
           const playPromise = videoEl.play();
           if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(() => {});
         } else {
@@ -4094,8 +5228,8 @@
     if (tiktokPausedVideos.has(videoId)) {
       tiktokPausedVideos.delete(videoId);
       parentCard?.classList.remove('is-paused');
-      videoElement.muted = false;
-      videoElement.volume = 1;
+      videoElement.muted = mediaVolume === 0;
+      videoElement.volume = mediaVolume;
       const playPromise = videoElement.play();
       if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(() => {});
       return;
@@ -4236,30 +5370,78 @@
     if (cameraPreview) cameraPreview.srcObject = null;
   }
 
+  function formatCallDuration(totalSeconds) {
+    const mins = Math.floor(totalSeconds / 60);
+    const secs = totalSeconds % 60;
+    return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+  }
+
+  function startCallDuration() {
+    if (callDurationInterval) clearInterval(callDurationInterval);
+    callStartTime = Date.now();
+    if (callDuration) callDuration.textContent = '00:00';
+    callDurationInterval = setInterval(() => {
+      if (!callStartTime || !callDuration) return;
+      const seconds = Math.floor((Date.now() - callStartTime) / 1000);
+      callDuration.textContent = formatCallDuration(seconds);
+    }, 1000);
+  }
+
   function closeCallOverlay() {
     if (callTimeout) {
       clearTimeout(callTimeout);
       callTimeout = null;
+    }
+    if (callDurationInterval) {
+      clearInterval(callDurationInterval);
+      callDurationInterval = null;
+    }
+    callStartTime = null;
+    if (callBeepAudio) {
+      callBeepAudio.pause();
+      callBeepAudio.currentTime = 0;
     }
     if (callAudio) {
       callAudio.pause();
       callAudio.currentTime = 0;
     }
     if (callStatus) callStatus.textContent = 'Anrufen…';
+    if (callDuration) callDuration.textContent = '00:00';
     if (callOverlay) callOverlay.classList.remove('active');
   }
 
   function startKristijanCall() {
     if (callTimeout) clearTimeout(callTimeout);
+    if (callDurationInterval) {
+      clearInterval(callDurationInterval);
+      callDurationInterval = null;
+    }
+    callStartTime = null;
+    if (callBeepAudio) {
+      callBeepAudio.pause();
+      callBeepAudio.currentTime = 0;
+      callBeepAudio.load();
+      const beepPromise = callBeepAudio.play();
+      if (beepPromise && typeof beepPromise.catch === 'function') {
+        beepPromise.catch(() => {});
+      }
+    }
     if (callAudio) {
       callAudio.pause();
       callAudio.currentTime = 0;
+      callAudio.load();
     }
     if (callStatus) callStatus.textContent = 'Verbinde…';
+    if (callDuration) callDuration.textContent = '00:00';
     if (callOverlay) callOverlay.classList.add('active');
 
     callTimeout = setTimeout(() => {
+      if (callBeepAudio) {
+        callBeepAudio.pause();
+        callBeepAudio.currentTime = 0;
+      }
       if (callStatus) callStatus.textContent = 'Telefonat läuft…';
+      startCallDuration();
       if (callAudio) {
         const playPromise = callAudio.play();
         if (playPromise && typeof playPromise.catch === 'function') {
@@ -4276,16 +5458,21 @@
     if (photosView) photosView.classList.remove('active');
     if (safariView) safariView.style.display = 'none';
     if (spotifyView) spotifyView.classList.remove('active');
+    setSpotifyPlayerVisible(false);
     if (timerView) timerView.classList.remove('active');
     if (weatherView) weatherView.classList.remove('active');
     if (calculatorView) calculatorView.classList.remove('active');
     if (tiktokView) tiktokView.classList.remove('active');
     if (cameraView) cameraView.classList.remove('active');
+    if (bookingView) bookingView.classList.remove('active');
     if (phoneView) phoneView.classList.remove('active');
+    if (messagesView) messagesView.classList.remove('active');
     if (mapView) mapView.style.display = 'none';
+    showBookingPage('home');
     if (photoViewer) {
       photoViewer.classList.remove('active');
       photoViewer.classList.remove('show-placeholder');
+      photoViewer.classList.remove('contain-image');
     }
     if (photoViewerImage) {
       photoViewerImage.src = '';
@@ -4295,8 +5482,8 @@
       photoViewerPlaceholder.textContent = '';
     }
     stopCamera();
-    stopSpotifyPlayback();
     closeCallOverlay();
+    closeTopSheet();
     document.querySelectorAll('.tiktok-media').forEach((videoEl) => videoEl.pause());
     closeTikTokComments();
     showSafariHome();
@@ -4424,12 +5611,14 @@ localStorage.removeItem('unlocked');
       if (name === 'Safari') safariView.style.display = 'block';
       if (name === 'Spotify') {
         spotifyView.classList.add('active');
-        if (spotifyPlayer) spotifyPlayer.classList.add('active');
+        setSpotifyPlayerVisible(Boolean(spotifyAudio && spotifyAudio.src));
       }
       if (name === 'Uhr') timerView.classList.add('active');
       if (name === 'Wetter') weatherView.classList.add('active');
       if (name === 'Rechner') calculatorView.classList.add('active');
+      if (name === 'Booking.com') bookingView.classList.add('active');
       if (name === 'TikTok') {
+        stopSpotifyPlayback();
         tiktokView.classList.add('active');
         setTikTokTopTab('foryou');
         setTikTokNav('home');
@@ -4439,7 +5628,11 @@ localStorage.removeItem('unlocked');
         cameraView.classList.add('active');
         startCamera();
       }
-      if (name === 'Anruf') phoneView.classList.add('active');
+      if (name === 'Anruf') {
+        stopSpotifyPlayback();
+        phoneView.classList.add('active');
+      }
+      if (name === 'Instagram') messagesView.classList.add('active');
       if (name === 'Wo ist?') mapView.style.display = 'block';
 
       appScreen.classList.remove('closing');
@@ -4608,6 +5801,39 @@ localStorage.removeItem('unlocked');
     tab.addEventListener('click', () => renderPhone(tab.dataset.tab));
   });
 
+  if (bookingView) {
+    bookingView.addEventListener('click', (e) => {
+      const bookingNav = e.target.closest('[data-booking-page]');
+
+      if (!bookingNav) return;
+      showBookingPage(bookingNav.dataset.bookingPage || 'home');
+    });
+  }
+
+  if (mapView) {
+    mapView.addEventListener('click', (e) => {
+      const mapButton = e.target.closest('[data-map-open]');
+      if (!mapButton) return;
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      const mapCard = mapButton.closest('div[style], section, article') || mapView;
+      const mapPanel = mapCard.querySelector('[data-map-panel]');
+      if (!mapPanel) return;
+
+      const isOpen = mapPanel.style.display === 'block';
+      if (isOpen) {
+        mapPanel.style.display = 'none';
+        mapButton.textContent = mapButton.textContent.includes('schließen') ? '📍 Standort öffnen' : 'Standort öffnen';
+        return;
+      }
+
+      mapPanel.style.display = 'block';
+      mapButton.textContent = mapButton.textContent.includes('📍') ? '📍 Standort schließen' : 'Standort schließen';
+    });
+  }
+
   if (photosView) {
     photosView.addEventListener('click', (e) => {
       const photo = e.target.closest('[data-photo-full]');
@@ -4616,6 +5842,7 @@ localStorage.removeItem('unlocked');
 
       if (photo) {
         photoViewer.classList.remove('show-placeholder');
+        photoViewer.classList.remove('contain-image');
         photoViewerImage.src = photo.getAttribute('src') || '';
         photoViewerImage.alt = photo.getAttribute('alt') || 'Vollbild Foto';
         if (photoViewerPlaceholder) photoViewerPlaceholder.textContent = '';
@@ -4640,6 +5867,7 @@ localStorage.removeItem('unlocked');
       if (!photoViewer) return;
       photoViewer.classList.remove('active');
       photoViewer.classList.remove('show-placeholder');
+      photoViewer.classList.remove('contain-image');
     });
   }
 
@@ -4648,6 +5876,7 @@ localStorage.removeItem('unlocked');
       if (e.target !== photoViewer) return;
       photoViewer.classList.remove('active');
       photoViewer.classList.remove('show-placeholder');
+      photoViewer.classList.remove('contain-image');
     });
   }
 
@@ -4678,6 +5907,18 @@ localStorage.removeItem('unlocked');
 
   if (endCallButton) {
     endCallButton.addEventListener('click', closeCallOverlay);
+  }
+
+  if (callAudio) {
+    callAudio.addEventListener('ended', closeCallOverlay);
+  }
+
+  if (volumeUpButton) {
+    volumeUpButton.addEventListener('click', () => adjustMediaVolume(0.1));
+  }
+
+  if (volumeDownButton) {
+    volumeDownButton.addEventListener('click', () => adjustMediaVolume(-0.1));
   }
 
   if(modalClose){
@@ -4712,8 +5953,10 @@ localStorage.removeItem('unlocked');
   initializeSafariContent();
   initializeMapContent();
   initializePhotosContent();
+  initializeBookingContent();
   buildSpotifyPlayer();
   playSpotifyTrack(0, false);
+  applyMediaVolume();
   renderTikTokFeed();
   clearCalculator();
   showSafariHome();
@@ -4737,9 +5980,49 @@ localStorage.removeItem('unlocked');
     screenOff.addEventListener('touchstart', wakePhone, { passive: true });
   }
 
+  dynamicIslands.forEach((island) => {
+    island.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleTopSheet();
+    });
+  });
+
+  if (topSheetToggle) {
+    topSheetToggle.addEventListener('click', () => {
+      if (!spotifyAudio) return;
+      if (!spotifyAudio.src) {
+        playSpotifyTrack(spotifyCurrentIndex, true);
+        return;
+      }
+      if (spotifyAudio.paused) {
+        spotifyAudio.muted = mediaVolume === 0;
+        const playPromise = spotifyAudio.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(() => {});
+        }
+        if (spotifyPlayPause) spotifyPlayPause.textContent = '❚❚';
+      } else {
+        spotifyAudio.pause();
+        if (spotifyPlayPause) spotifyPlayPause.textContent = '▶';
+      }
+      updateTopSheetState();
+    });
+  }
+
+  if (topSheet) {
+    topSheet.addEventListener('click', (e) => e.stopPropagation());
+  }
+
+  if (phoneScreen) {
+    phoneScreen.addEventListener('click', () => {
+      closeTopSheet();
+    });
+  }
+
   appScreen.classList.remove('active');
   appScreen.classList.remove('closing');
 </script>
 </body>
 </html>
+
 
