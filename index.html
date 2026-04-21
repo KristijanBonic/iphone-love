@@ -242,50 +242,85 @@
       font-weight: 700;
     }
 
-    .top-sheet {
-      position: absolute;
-      top: 28px;
+    .screen.top-sheet-open .statusbar {
+      background: linear-gradient(180deg, rgba(90, 33, 63, 0.56), rgba(58, 18, 40, 0.42));
+      top: 0;
       left: 0;
       right: 0;
-      z-index: 45;
+      bottom: auto;
+      min-height: 52px;
+      padding: 16px 18px 12px;
+      box-sizing: border-box;
+      box-shadow: 0 14px 22px rgba(77, 20, 47, 0.18);
+    }
+
+    .top-sheet {
+      position: absolute;
+      top: 46px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 95;
+      display: none;
+      flex-direction: column;
       opacity: 0;
       pointer-events: none;
       transform: translateY(-100%);
       transition: opacity .24s ease, transform .28s ease;
-      border-radius: 0 0 28px 28px;
-      padding: 52px 16px 16px;
+      border-radius: 0;
+      padding: 22px 16px 6px;
       background: linear-gradient(180deg, rgba(90, 33, 63, 0.56), rgba(58, 18, 40, 0.42));
-      border: 1px solid rgba(255,255,255,0.10);
-      border-top: none;
+      border: none;
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 30px rgba(77, 20, 47, 0.24);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       color: white;
+      overflow-y: auto;
     }
 
     .top-sheet.active {
+      display: flex;
       opacity: 1;
       pointer-events: auto;
       transform: translateY(0);
     }
 
     .top-sheet-time {
-      font-size: 30px;
+      font-size: 46px;
       font-weight: 800;
       letter-spacing: -0.04em;
       text-align: center;
+      line-height: 0.95;
       margin-bottom: 14px;
+    }
+
+    .top-sheet-date {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-align: center;
+      color: rgba(255,255,255,0.84);
+      margin-bottom: 4px;
     }
 
     .top-sheet-card {
       display: flex;
-      align-items: center;
-      gap: 12px;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: auto;
+      margin-bottom: 0;
       padding: 12px;
       border-radius: 22px;
       background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
       border: 1px solid rgba(255,255,255,0.12);
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
+    }
+
+    .top-sheet-track-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
     }
 
     .top-sheet-cover {
@@ -322,17 +357,57 @@
       color: rgba(255,255,255,0.76);
     }
 
-    .top-sheet-action {
+    .top-sheet-progress {
+      width: 100%;
+    }
+
+    .top-sheet-time-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2px;
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.70);
+    }
+
+    .top-sheet-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      width: 100%;
+    }
+
+    .top-sheet-control {
       border: none;
-      border-radius: 16px;
-      min-width: 72px;
-      min-height: 40px;
-      padding: 0 12px;
+      background: transparent;
+      color: white;
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .top-sheet-control svg {
+      width: 22px;
+      height: 22px;
+      display: block;
+      fill: currentColor;
+    }
+
+    .top-sheet-control.secondary {
+      opacity: 0.86;
+    }
+
+    .top-sheet-control.play {
+      border-radius: 50%;
       background: linear-gradient(180deg, #ffd6e7, #f6a9c9);
       color: #8d1f4b;
-      font-size: 13px;
-      font-weight: 800;
-      cursor: pointer;
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.72), 0 10px 20px rgba(214, 88, 140, 0.18);
     }
 
@@ -1160,8 +1235,19 @@
     }
 
     .tiktok-nav-icon {
-      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       line-height: 1;
+    }
+
+    .tiktok-nav-icon svg {
+      width: 18px;
+      height: 18px;
+      display: block;
+      fill: currentColor;
     }
 
     .tiktok-plus {
@@ -2905,15 +2991,14 @@
       position: absolute;
       left: 16px;
       right: 16px;
-      bottom: 32px;
+      bottom: 14px;
       z-index: 25;
       display: none;
-      margin-top: 12px;
-      padding: 12px 12px 10px;
-      border-radius: 20px;
-      background: linear-gradient(180deg, rgba(90, 33, 63, 0.54), rgba(58, 18, 40, 0.40));
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 14px 28px rgba(91, 26, 55, 0.24);
+      padding: 10px 12px 8px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(111, 30, 58, 0.92), rgba(90, 24, 49, 0.90));
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 16px 26px rgba(64, 15, 33, 0.34);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
     }
@@ -2922,24 +3007,29 @@
       display: block;
     }
 
+    .spotify-player-surface {
+      cursor: pointer;
+    }
+
     .spotify-player-top {
       display: flex;
       gap: 10px;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 7px;
     }
 
     .spotify-player-cover {
-      width: 46px;
-      height: 46px;
-      border-radius: 13px;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
       overflow: hidden;
       flex-shrink: 0;
       background: linear-gradient(180deg, rgba(104, 38, 73, 0.42), rgba(67, 22, 47, 0.28));
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.18);
     }
 
-    .spotify-player-cover img {
+    .spotify-player-cover img,
+    .spotify-big-cover img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -2952,20 +3042,68 @@
     }
 
     .spotify-player-title {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 800;
-      line-height: 1.25;
+      line-height: 1.2;
       margin-bottom: 2px;
       color: white;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .spotify-player-artist {
       font-size: 11px;
       color: rgba(255,255,255,0.78);
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .spotify-player-toggle {
+      border: none;
+      background: transparent;
+      color: white;
+      cursor: pointer;
+      width: 42px;
+      height: 42px;
+      min-width: 42px;
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      border-radius: 50%;
+      background: linear-gradient(180deg, #ffd6e7, #f6a9c9);
+      color: #8d1f4b;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.72), 0 10px 20px rgba(214, 88, 140, 0.22);
+    }
+
+    .spotify-player-toggle svg {
+      width: 22px;
+      height: 22px;
+      display: block;
+      fill: currentColor;
     }
 
     .spotify-progress {
-      margin-bottom: 8px;
+      margin-bottom: 4px;
+    }
+
+    .spotify-player-progress {
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.20);
+      overflow: hidden;
+    }
+
+    .spotify-player-progress-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, rgba(255,255,255,0.92), rgba(255,214,231,0.98));
     }
 
     .spotify-range {
@@ -3001,7 +3139,7 @@
     .spotify-time-row {
       display: flex;
       justify-content: space-between;
-      margin-top: 4px;
+      margin-top: 2px;
       font-size: 10px;
       font-weight: 700;
       color: rgba(255,255,255,0.70);
@@ -3011,37 +3149,237 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      margin-bottom: 8px;
+      gap: 18px;
+      margin-bottom: 0;
     }
 
     .spotify-control {
       border: none;
       background: transparent;
       color: white;
-      font-size: 19px;
       cursor: pointer;
-      min-width: 28px;
-      min-height: 28px;
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .spotify-control svg {
+      width: 22px;
+      height: 22px;
+      display: block;
+      fill: currentColor;
+    }
+
+    .spotify-control.secondary {
+      opacity: 0.86;
     }
 
     .spotify-control.play {
-      width: 42px;
-      height: 42px;
       border-radius: 50%;
       background: linear-gradient(180deg, #ffd6e7, #f6a9c9);
       color: #8d1f4b;
-      font-size: 18px;
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.72), 0 10px 20px rgba(214, 88, 140, 0.22);
     }
 
-    .spotify-volume-row {
+    .spotify-big-player {
+      position: absolute;
+      inset: 0;
+      z-index: 34;
+      display: none;
+      padding: 12px 18px 22px;
+      background: linear-gradient(180deg, rgba(105, 28, 54, 0.98), rgba(80, 20, 42, 0.98));
+      color: white;
+      overflow-y: auto;
+    }
+
+    .spotify-big-player::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 78px;
+      background: linear-gradient(180deg, rgba(105, 28, 54, 1), rgba(99, 26, 51, 0.995));
+      z-index: 0;
+    }
+
+    .spotify-big-player.active {
+      display: block;
+    }
+
+    .spotify-big-topbar {
+      position: relative;
+      z-index: 1;
       display: flex;
       align-items: center;
-      gap: 8px;
-      color: rgba(255,255,255,0.84);
-      font-size: 11px;
-      font-weight: 700;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      padding-top: 18px;
+    }
+
+    .spotify-big-back,
+    .spotify-big-more {
+      border: none;
+      background: transparent;
+      color: white;
+      width: 34px;
+      height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      cursor: pointer;
+      opacity: 0.94;
+    }
+
+    .spotify-big-back svg,
+    .spotify-big-more svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+      display: block;
+    }
+
+    .spotify-big-top-title {
+      flex: 1;
+    }
+
+    .spotify-big-cover {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 26px;
+      overflow: hidden;
+      margin: 18px 0 26px;
+      background: rgba(255,255,255,0.08);
+      box-shadow: 0 20px 36px rgba(44, 8, 22, 0.34);
+    }
+
+    .spotify-big-song-row {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .spotify-big-song-meta {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .spotify-marquee {
+      position: relative;
+      overflow: hidden;
+      white-space: nowrap;
+      min-width: 0;
+      display: block;
+    }
+
+    .spotify-marquee span {
+      display: inline-block;
+      white-space: nowrap;
+      transform: translateX(0);
+    }
+
+    .spotify-marquee.is-marquee span {
+      padding-right: 48px;
+      animation: spotifyMarquee 11s linear infinite;
+    }
+
+    .spotify-big-title {
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.12;
+      margin-bottom: 6px;
+      white-space: nowrap;
+    }
+
+    .spotify-big-artist {
+      font-size: 15px;
+      color: rgba(255,255,255,0.78);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .spotify-big-like {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: none;
+      background: linear-gradient(180deg, #5cff81, #30cb59);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #0a3a14;
+      flex-shrink: 0;
+      box-shadow: 0 10px 18px rgba(40, 150, 68, 0.24);
+    }
+
+    .spotify-big-like svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+      display: block;
+    }
+
+    .spotify-big-progress {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 20px;
+    }
+
+    .spotify-big-controls {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .spotify-big-control {
+      border: none;
+      background: transparent;
+      color: white;
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .spotify-big-control svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+      display: block;
+    }
+
+    .spotify-big-control.play {
+      width: 84px;
+      height: 84px;
+      min-width: 84px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, #ffffff, #f1eff1);
+      color: #4a1730;
+      box-shadow: 0 18px 28px rgba(31, 6, 14, 0.26);
+    }
+
+    .spotify-big-control.play svg {
+      width: 30px;
+      height: 30px;
     }
 
     .shake {
@@ -3054,6 +3392,11 @@
       40% { transform: translateX(6px); }
       60% { transform: translateX(-5px); }
       80% { transform: translateX(4px); }
+    }
+
+    @keyframes spotifyMarquee {
+      0%, 12% { transform: translateX(0); }
+      88%, 100% { transform: translateX(var(--marquee-shift, 0)); }
     }
 
     @keyframes pulse {
@@ -3814,7 +4157,9 @@
                 <div>Home</div>
               </div>
               <div class="tiktok-nav-item" data-tiktok-nav="friends">
-                <div class="tiktok-nav-icon">👥</div>
+                <div class="tiktok-nav-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm6 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-6.03 2C5.67 14 3 16.16 3 18.83 3 19.48 3.52 20 4.17 20h9.66c.65 0 1.17-.52 1.17-1.17C15 16.16 12.33 14 8.97 14Zm7.08.55c-.66 0-1.08.72-.75 1.3.24.42.37.87.37 1.35 0 .45-.1.87-.27 1.25-.24.56.17 1.2.78 1.2h3.65c.65 0 1.17-.52 1.17-1.17 0-1.94-1.93-3.93-4.95-3.93Z"></path></svg>
+                </div>
                 <div>Freundinnen</div>
               </div>
               <div class="tiktok-nav-item" data-tiktok-nav="create">
@@ -3822,11 +4167,15 @@
                 <div>Erstellen</div>
               </div>
               <div class="tiktok-nav-item" data-tiktok-nav="inbox">
-                <div class="tiktok-nav-icon">✉</div>
+                <div class="tiktok-nav-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.75 5.5h14.5A2.25 2.25 0 0 1 21.5 7.75v8.5a2.25 2.25 0 0 1-2.25 2.25H4.75A2.25 2.25 0 0 1 2.5 16.25v-8.5A2.25 2.25 0 0 1 4.75 5.5Zm.56 1.5 6.69 5.13 6.69-5.13H5.31Zm14.69 1.88-7.54 5.77a.75.75 0 0 1-.92 0L4 8.88v7.37c0 .41.34.75.75.75h14.5c.41 0 .75-.34.75-.75V8.88Z"></path></svg>
+                </div>
                 <div>Posteingang</div>
               </div>
               <div class="tiktok-nav-item" data-tiktok-nav="profile">
-                <div class="tiktok-nav-icon">☺</div>
+                <div class="tiktok-nav-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm0 1.5c-4.08 0-7.5 2.42-7.5 5.25 0 .69.56 1.25 1.25 1.25h12.5c.69 0 1.25-.56 1.25-1.25 0-2.83-3.42-5.25-7.5-5.25Z"></path></svg>
+                </div>
                 <div>Profil</div>
               </div>
             </div>
@@ -3857,9 +4206,13 @@
           </div>
         </div>
 
-        <div class="top-sheet" id="topSheet">
-          <div class="top-sheet-time js-live-time">09:41</div>
-          <div class="top-sheet-card">
+      </div>
+
+      <div class="top-sheet" id="topSheet">
+        <div class="top-sheet-date js-live-date">Donnerstag, 16. April</div>
+        <div class="top-sheet-time js-live-time">09:41</div>
+        <div class="top-sheet-card">
+          <div class="top-sheet-track-row">
             <div class="top-sheet-cover">
               <img id="topSheetCover" src="./images/apps/app-spotify.jpg" alt="Aktuelles Lied">
             </div>
@@ -3867,7 +4220,15 @@
               <div class="top-sheet-title" id="topSheetTitle">Kein Lied aktiv</div>
               <div class="top-sheet-artist" id="topSheetArtist">Spotify wartet auf dich</div>
             </div>
-            <button class="top-sheet-action" id="topSheetToggle" type="button">Start</button>
+          </div>
+          <div class="top-sheet-progress">
+            <input class="spotify-range" id="topSheetSeek" type="range" min="0" max="100" value="0">
+            <div class="top-sheet-time-row"><span id="topSheetCurrentTime">0:00</span><span id="topSheetDuration">-0:00</span></div>
+          </div>
+          <div class="top-sheet-controls">
+            <button class="top-sheet-control secondary" id="topSheetPrev" type="button" aria-label="Vorheriges Lied"></button>
+            <button class="top-sheet-control play" id="topSheetToggle" type="button" aria-label="Wiedergabe"></button>
+            <button class="top-sheet-control secondary" id="topSheetNext" type="button" aria-label="Nächstes Lied"></button>
           </div>
         </div>
       </div>
@@ -3901,7 +4262,7 @@
   const homeBar = document.getElementById('homeBar');
   const liveTimes = document.querySelectorAll('.js-live-time');
   const liveTimeLarge = document.querySelector('.js-live-time-large');
-  const liveDate = document.querySelector('.js-live-date');
+  const liveDates = document.querySelectorAll('.js-live-date');
 
   const photosView = document.getElementById('photosView');
   const safariView = document.getElementById('safariView');
@@ -3962,6 +4323,11 @@
   const topSheetTitle = document.getElementById('topSheetTitle');
   const topSheetArtist = document.getElementById('topSheetArtist');
   const topSheetToggle = document.getElementById('topSheetToggle');
+  const topSheetPrev = document.getElementById('topSheetPrev');
+  const topSheetNext = document.getElementById('topSheetNext');
+  const topSheetSeek = document.getElementById('topSheetSeek');
+  const topSheetCurrentTime = document.getElementById('topSheetCurrentTime');
+  const topSheetDuration = document.getElementById('topSheetDuration');
   const defaultModalText = 'HEY! du brauchst niemanden anrufen du hast deinen super tollen Freund Kristijan ❤️';
   const startupPermissionsKey = 'bk_startup_permissions_asked';
   const startupCameraAllowedKey = 'bk_startup_camera_allowed';
@@ -3996,22 +4362,80 @@
   ];
   let spotifyAudio = null;
   let spotifyPlayer = null;
+  let spotifyBigPlayer = null;
+  let spotifyPlayerSurface = null;
   let spotifyCurrentIndex = 0;
   let spotifyPlayerCover = null;
   let spotifyPlayerTitle = null;
   let spotifyPlayerArtist = null;
+  let spotifyPlayerProgressFill = null;
+  let spotifySmallPlayPause = null;
+  let spotifyBigClose = null;
+  let spotifyBigCover = null;
+  let spotifyBigTitle = null;
+  let spotifyBigArtist = null;
   let spotifySeek = null;
   let spotifyCurrentTime = null;
   let spotifyDuration = null;
   let spotifyPlayPause = null;
   let spotifyPrev = null;
-  let spotifyStop = null;
   let spotifyNext = null;
-  let spotifyVolume = null;
+  const spotifyIcons = {
+    prev: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5.25a.75.75 0 0 1 1.5 0v13.5a.75.75 0 0 1-1.5 0V5.25Zm12.02.32a.75.75 0 0 1-.12 1.05L11.98 12l5.92 5.38a.75.75 0 1 1-1.01 1.1l-6.54-5.94a.75.75 0 0 1 0-1.1l6.54-5.94a.75.75 0 0 1 1.13.07Z"></path></svg>',
+    play: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.7 6.22c0-1.2 1.31-1.93 2.33-1.3l8.2 5.08c.97.6.97 2 0 2.6l-8.2 5.08c-1.02.63-2.33-.1-2.33-1.3V6.22Z"></path></svg>',
+    pause: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.75 5.5A1.25 1.25 0 0 1 9 6.75v10.5A1.25 1.25 0 0 1 7.75 18.5h-.5A1.25 1.25 0 0 1 6 17.25V6.75A1.25 1.25 0 0 1 7.25 5.5h.5Zm9 0A1.25 1.25 0 0 1 18 6.75v10.5a1.25 1.25 0 0 1-1.25 1.25h-.5A1.25 1.25 0 0 1 15 17.25V6.75a1.25 1.25 0 0 1 1.25-1.25h.5Z"></path></svg>',
+    next: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5.25a.75.75 0 0 1 1.5 0v13.5a.75.75 0 0 1-1.5 0V5.25ZM6.1 5.57a.75.75 0 0 1 1.05-.12l6.54 5.94a.75.75 0 0 1 0 1.1l-6.54 5.94a.75.75 0 1 1-1.01-1.1L12.06 12 6.14 6.62a.75.75 0 0 1-.04-1.05Z"></path></svg>',
+    back: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.53 5.47a.75.75 0 0 1 0 1.06L10.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06l-6-6a.75.75 0 0 1 0-1.06l6-6a.75.75 0 0 1 1.06 0Z"></path></svg>',
+    more: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 10.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm5.5 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm5.5 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"></path></svg>',
+    check: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.55 16.27 5.78 12.5a1 1 0 1 1 1.41-1.41l2.36 2.35 7.26-7.26a1 1 0 1 1 1.41 1.42l-7.97 7.96a1 1 0 0 1-1.41 0Z"></path></svg>'
+  };
 
   function setSpotifyPlayerVisible(visible) {
     if (!spotifyPlayer) return;
     spotifyPlayer.classList.toggle('active', Boolean(visible));
+  }
+
+  function setSpotifyBigPlayerVisible(visible) {
+    if (!spotifyBigPlayer) return;
+    spotifyBigPlayer.classList.toggle('active', Boolean(visible));
+  }
+
+  function setSpotifyPlayPauseIcon(isPlaying) {
+    if (!spotifyPlayPause) return;
+    spotifyPlayPause.innerHTML = isPlaying ? spotifyIcons.pause : spotifyIcons.play;
+  }
+
+  function setSpotifySmallPlayPauseIcon(isPlaying) {
+    if (!spotifySmallPlayPause) return;
+    spotifySmallPlayPause.innerHTML = isPlaying ? spotifyIcons.pause : spotifyIcons.play;
+  }
+
+  function setTopSheetPlayPauseIcon(isPlaying) {
+    if (!topSheetToggle) return;
+    topSheetToggle.innerHTML = isPlaying ? spotifyIcons.pause : spotifyIcons.play;
+  }
+
+  function setMarqueeText(element, text) {
+    if (!element) return;
+    const span = element.querySelector('span');
+    if (span) {
+      span.textContent = text;
+    } else {
+      element.textContent = text;
+    }
+  }
+
+  function refreshMarquee(element) {
+    if (!element) return;
+    const span = element.querySelector('span');
+    if (!span) return;
+    element.classList.remove('is-marquee');
+    element.style.removeProperty('--marquee-shift');
+    const overflow = span.scrollWidth - element.clientWidth;
+    if (overflow > 10) {
+      element.style.setProperty('--marquee-shift', `-${overflow}px`);
+      element.classList.add('is-marquee');
+    }
   }
 
   function isSpotifyPlaying() {
@@ -4024,12 +4448,23 @@
     if (topSheetCover) topSheetCover.src = hasTrack ? activeTrack.cover : './images/apps/app-spotify.jpg';
     if (topSheetTitle) topSheetTitle.textContent = hasTrack ? activeTrack.title : 'Kein Lied aktiv';
     if (topSheetArtist) topSheetArtist.textContent = hasTrack ? activeTrack.artist : 'Spotify wartet auf dich';
-    if (topSheetToggle) topSheetToggle.textContent = isSpotifyPlaying() ? 'Pause' : 'Start';
+    if (topSheetSeek) topSheetSeek.value = spotifySeek ? spotifySeek.value : '0';
+    if (topSheetCurrentTime) topSheetCurrentTime.textContent = spotifyCurrentTime ? spotifyCurrentTime.textContent : '0:00';
+    if (topSheetDuration) topSheetDuration.textContent = spotifyDuration ? spotifyDuration.textContent : '-0:00';
+    setSpotifySmallPlayPauseIcon(isSpotifyPlaying());
+    setTopSheetPlayPauseIcon(isSpotifyPlaying());
+    if (topSheetPrev) topSheetPrev.innerHTML = spotifyIcons.prev;
+    if (topSheetNext) topSheetNext.innerHTML = spotifyIcons.next;
   }
 
   function closeTopSheet() {
     if (!topSheet) return;
     topSheet.classList.remove('active');
+    topSheet.style.display = 'none';
+    topSheet.style.opacity = '0';
+    topSheet.style.pointerEvents = 'none';
+    topSheet.style.transform = 'translateY(-100%)';
+    if (phoneScreen) phoneScreen.classList.remove('top-sheet-open');
   }
 
   function canOpenTopSheet() {
@@ -4045,7 +4480,17 @@
   function toggleTopSheet() {
     if (!canOpenTopSheet()) return;
     updateTopSheetState();
-    topSheet.classList.toggle('active');
+    const shouldOpen = !topSheet.classList.contains('active');
+    if (shouldOpen) {
+      topSheet.style.display = 'block';
+      topSheet.style.opacity = '1';
+      topSheet.style.pointerEvents = 'auto';
+      topSheet.style.transform = 'translateY(0)';
+      topSheet.classList.add('active');
+      if (phoneScreen) phoneScreen.classList.add('top-sheet-open');
+      return;
+    }
+    closeTopSheet();
   }
   const tiktokVideos = [
     {
@@ -4507,9 +4952,9 @@
     });
 
     if (liveTimeLarge) liveTimeLarge.textContent = timeText;
-    if (liveDate) {
-      liveDate.textContent = dateText.charAt(0).toUpperCase() + dateText.slice(1);
-    }
+    liveDates.forEach((el) => {
+      el.textContent = dateText.charAt(0).toUpperCase() + dateText.slice(1);
+    });
   }
 
   function renderDots() {
@@ -4775,7 +5220,6 @@
       spotifyAudio.volume = mediaVolume;
       spotifyAudio.muted = mediaVolume === 0;
     }
-    if (spotifyVolume) spotifyVolume.value = String(mediaVolume);
 
     if (callAudio) {
       callAudio.volume = mediaVolume;
@@ -4878,56 +5322,91 @@
     const player = document.createElement('div');
     player.className = 'spotify-player';
     player.innerHTML = `
-      <div class="spotify-player-top">
-        <div class="spotify-player-cover"><img id="spotifyPlayerCover" src="${spotifyTracks[0].cover}" alt="Aktuelles Lied Cover"></div>
-        <div class="spotify-player-meta">
-          <div class="spotify-player-title" id="spotifyPlayerTitle">${spotifyTracks[0].title}</div>
-          <div class="spotify-player-artist" id="spotifyPlayerArtist">${spotifyTracks[0].artist}</div>
+      <div class="spotify-player-surface" id="spotifyPlayerSurface">
+        <div class="spotify-player-top">
+          <div class="spotify-player-cover"><img id="spotifyPlayerCover" src="${spotifyTracks[0].cover}" alt="Aktuelles Lied Cover"></div>
+          <div class="spotify-player-meta">
+            <div class="spotify-player-title" id="spotifyPlayerTitle">${spotifyTracks[0].title}</div>
+            <div class="spotify-player-artist" id="spotifyPlayerArtist">${spotifyTracks[0].artist}</div>
+          </div>
+          <button class="spotify-player-toggle" id="spotifySmallPlayPause" type="button" aria-label="Wiedergabe">${spotifyIcons.play}</button>
         </div>
-      </div>
-      <div class="spotify-progress">
-        <input class="spotify-range" id="spotifySeek" type="range" min="0" max="100" value="0">
-        <div class="spotify-time-row"><span id="spotifyCurrentTime">0:00</span><span id="spotifyDuration">0:00</span></div>
-      </div>
-      <div class="spotify-controls">
-        <button class="spotify-control" id="spotifyPrev" type="button">⏮</button>
-        <button class="spotify-control play" id="spotifyPlayPause" type="button">▶</button>
-        <button class="spotify-control" id="spotifyStop" type="button">⏹</button>
-        <button class="spotify-control" id="spotifyNext" type="button">⏭</button>
-      </div>
-      <div class="spotify-volume-row">
-        <span>🔉</span>
-        <input class="spotify-range" id="spotifyVolume" type="range" min="0" max="1" step="0.01" value="1">
-        <span>🔊</span>
+        <div class="spotify-player-progress"><div class="spotify-player-progress-fill" id="spotifyPlayerProgressFill"></div></div>
       </div>
       <video id="spotifyAudio" webkit-playsinline playsinline preload="auto" style="position:absolute; width:2px; height:2px; opacity:0.01; pointer-events:none; left:-9999px; top:-9999px; z-index:-5;"></video>
     `;
     appScreen.appendChild(player);
 
+    const bigPlayer = document.createElement('div');
+    bigPlayer.className = 'spotify-big-player';
+    bigPlayer.id = 'spotifyBigPlayer';
+    bigPlayer.innerHTML = `
+      <div class="spotify-big-topbar">
+        <button class="spotify-big-back" id="spotifyBigClose" type="button" aria-label="Zurück">${spotifyIcons.back}</button>
+        <div class="spotify-big-top-title" aria-hidden="true"></div>
+        <button class="spotify-big-more" type="button" aria-label="Mehr Optionen">${spotifyIcons.more}</button>
+      </div>
+      <div class="spotify-big-cover"><img id="spotifyBigCover" src="${spotifyTracks[0].cover}" alt="Aktuelles Lied groß"></div>
+      <div class="spotify-big-song-row">
+        <div class="spotify-big-song-meta">
+          <div class="spotify-big-title spotify-marquee" id="spotifyBigTitle"><span>${spotifyTracks[0].title}</span></div>
+          <div class="spotify-big-artist spotify-marquee" id="spotifyBigArtist"><span>${spotifyTracks[0].artist}</span></div>
+        </div>
+        <div class="spotify-big-like" aria-hidden="true">${spotifyIcons.check}</div>
+      </div>
+      <div class="spotify-big-progress">
+        <input class="spotify-range" id="spotifySeek" type="range" min="0" max="100" value="0">
+        <div class="spotify-time-row"><span id="spotifyCurrentTime">0:00</span><span id="spotifyDuration">-0:00</span></div>
+      </div>
+      <div class="spotify-big-controls">
+        <button class="spotify-big-control secondary" id="spotifyPrev" type="button" aria-label="Vorheriges Lied">${spotifyIcons.prev}</button>
+        <button class="spotify-big-control play" id="spotifyPlayPause" type="button" aria-label="Wiedergabe">${spotifyIcons.play}</button>
+        <button class="spotify-big-control secondary" id="spotifyNext" type="button" aria-label="Nächstes Lied">${spotifyIcons.next}</button>
+      </div>
+    `;
+    appScreen.appendChild(bigPlayer);
+
     spotifyPlayer = player;
+    spotifyBigPlayer = bigPlayer;
+    spotifyPlayerSurface = document.getElementById('spotifyPlayerSurface');
     spotifyAudio = document.getElementById('spotifyAudio');
     spotifyPlayerCover = document.getElementById('spotifyPlayerCover');
     spotifyPlayerTitle = document.getElementById('spotifyPlayerTitle');
     spotifyPlayerArtist = document.getElementById('spotifyPlayerArtist');
+    spotifyPlayerProgressFill = document.getElementById('spotifyPlayerProgressFill');
+    spotifySmallPlayPause = document.getElementById('spotifySmallPlayPause');
+    spotifyBigClose = document.getElementById('spotifyBigClose');
+    spotifyBigCover = document.getElementById('spotifyBigCover');
+    spotifyBigTitle = document.getElementById('spotifyBigTitle');
+    spotifyBigArtist = document.getElementById('spotifyBigArtist');
     spotifySeek = document.getElementById('spotifySeek');
     spotifyCurrentTime = document.getElementById('spotifyCurrentTime');
     spotifyDuration = document.getElementById('spotifyDuration');
     spotifyPlayPause = document.getElementById('spotifyPlayPause');
     spotifyPrev = document.getElementById('spotifyPrev');
-    spotifyStop = document.getElementById('spotifyStop');
     spotifyNext = document.getElementById('spotifyNext');
-    spotifyVolume = document.getElementById('spotifyVolume');
-    if (spotifyVolume) spotifyVolume.value = String(mediaVolume);
 
     spotifyAudio.addEventListener('timeupdate', () => {
+      const progressPercent = spotifyAudio.duration ? (spotifyAudio.currentTime / spotifyAudio.duration) * 100 : 0;
+      if (spotifyPlayerProgressFill) spotifyPlayerProgressFill.style.width = `${progressPercent}%`;
       if (spotifySeek && spotifyAudio.duration) {
-        spotifySeek.value = String((spotifyAudio.currentTime / spotifyAudio.duration) * 100);
+        spotifySeek.value = String(progressPercent);
+      }
+      if (topSheetSeek && spotifyAudio.duration) {
+        topSheetSeek.value = String(progressPercent);
       }
       if (spotifyCurrentTime) spotifyCurrentTime.textContent = formatSpotifyTime(spotifyAudio.currentTime);
+      if (topSheetCurrentTime) topSheetCurrentTime.textContent = formatSpotifyTime(spotifyAudio.currentTime);
+      if (spotifyDuration) {
+        const remaining = Math.max(0, spotifyAudio.duration - spotifyAudio.currentTime);
+        spotifyDuration.textContent = `-${formatSpotifyTime(remaining)}`;
+        if (topSheetDuration) topSheetDuration.textContent = `-${formatSpotifyTime(remaining)}`;
+      }
     });
 
     spotifyAudio.addEventListener('loadedmetadata', () => {
-      if (spotifyDuration) spotifyDuration.textContent = formatSpotifyTime(spotifyAudio.duration);
+      if (spotifyDuration) spotifyDuration.textContent = `-${formatSpotifyTime(spotifyAudio.duration)}`;
+      if (topSheetDuration) topSheetDuration.textContent = `-${formatSpotifyTime(spotifyAudio.duration)}`;
       updateTopSheetState();
     });
 
@@ -4944,11 +5423,12 @@
       spotifyAudio.currentTime = (Number(spotifySeek.value) / 100) * spotifyAudio.duration;
     });
 
-    spotifyVolume.addEventListener('input', () => {
-      mediaVolume = Number(spotifyVolume.value);
-      applyMediaVolume();
-      showVolumeHud();
-    });
+    if (topSheetSeek) {
+      topSheetSeek.addEventListener('input', () => {
+        if (!spotifyAudio.duration) return;
+        spotifyAudio.currentTime = (Number(topSheetSeek.value) / 100) * spotifyAudio.duration;
+      });
+    }
 
     spotifyPlayPause.addEventListener('click', () => {
       if (!spotifyAudio.src) {
@@ -4958,13 +5438,52 @@
       if (spotifyAudio.paused) {
         spotifyAudio.muted = mediaVolume === 0;
         spotifyAudio.play();
-        spotifyPlayPause.textContent = '❚❚';
+        setSpotifyPlayPauseIcon(true);
+        setSpotifySmallPlayPauseIcon(true);
+        setTopSheetPlayPauseIcon(true);
       } else {
         spotifyAudio.pause();
-        spotifyPlayPause.textContent = '▶';
+        setSpotifyPlayPauseIcon(false);
+        setSpotifySmallPlayPauseIcon(false);
+        setTopSheetPlayPauseIcon(false);
       }
       updateTopSheetState();
     });
+
+    if (spotifySmallPlayPause) {
+      spotifySmallPlayPause.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (!spotifyAudio.src) {
+          playSpotifyTrack(spotifyCurrentIndex, true);
+          return;
+        }
+        if (spotifyAudio.paused) {
+          spotifyAudio.muted = mediaVolume === 0;
+          spotifyAudio.play();
+          setSpotifySmallPlayPauseIcon(true);
+          setSpotifyPlayPauseIcon(true);
+          setTopSheetPlayPauseIcon(true);
+        } else {
+          spotifyAudio.pause();
+          setSpotifySmallPlayPauseIcon(false);
+          setSpotifyPlayPauseIcon(false);
+          setTopSheetPlayPauseIcon(false);
+        }
+        updateTopSheetState();
+      });
+    }
+
+    if (spotifyPlayerSurface) {
+      spotifyPlayerSurface.addEventListener('click', () => {
+        setSpotifyBigPlayerVisible(true);
+      });
+    }
+
+    if (spotifyBigClose) {
+      spotifyBigClose.addEventListener('click', () => {
+        setSpotifyBigPlayerVisible(false);
+      });
+    }
 
     spotifyPrev.addEventListener('click', () => {
       playSpotifyTrack((spotifyCurrentIndex - 1 + spotifyTracks.length) % spotifyTracks.length, true);
@@ -4974,9 +5493,17 @@
       playSpotifyTrack((spotifyCurrentIndex + 1) % spotifyTracks.length, true);
     });
 
-    spotifyStop.addEventListener('click', () => {
-      stopSpotifyPlayback();
-    });
+    if (topSheetPrev) {
+      topSheetPrev.addEventListener('click', () => {
+        playSpotifyTrack((spotifyCurrentIndex - 1 + spotifyTracks.length) % spotifyTracks.length, true);
+      });
+    }
+
+    if (topSheetNext) {
+      topSheetNext.addEventListener('click', () => {
+        playSpotifyTrack((spotifyCurrentIndex + 1) % spotifyTracks.length, true);
+      });
+    }
   }
 
   function updateSpotifyActiveCard() {
@@ -4994,9 +5521,17 @@
     if (spotifyPlayerCover) spotifyPlayerCover.src = track.cover;
     if (spotifyPlayerTitle) spotifyPlayerTitle.textContent = track.title;
     if (spotifyPlayerArtist) spotifyPlayerArtist.textContent = track.artist;
+    if (spotifyBigCover) spotifyBigCover.src = track.cover;
+    setMarqueeText(spotifyBigTitle, track.title);
+    setMarqueeText(spotifyBigArtist, track.artist);
     if (spotifyCurrentTime) spotifyCurrentTime.textContent = '0:00';
-    if (spotifyDuration) spotifyDuration.textContent = '0:00';
+    if (spotifyDuration) spotifyDuration.textContent = '-0:00';
     if (spotifySeek) spotifySeek.value = '0';
+    if (spotifyPlayerProgressFill) spotifyPlayerProgressFill.style.width = '0%';
+    requestAnimationFrame(() => {
+      refreshMarquee(spotifyBigTitle);
+      refreshMarquee(spotifyBigArtist);
+    });
     updateSpotifyActiveCard();
     spotifyAudio.pause();
     spotifyAudio.removeAttribute('src');
@@ -5008,7 +5543,15 @@
       if (candidateIndex >= candidates.length) {
         if (spotifyPlayerTitle) spotifyPlayerTitle.textContent = 'Datei nicht gefunden / nicht abspielbar';
         if (spotifyPlayerArtist) spotifyPlayerArtist.textContent = track.title;
-        if (spotifyPlayPause) spotifyPlayPause.textContent = '▶';
+        setMarqueeText(spotifyBigTitle, 'Datei nicht gefunden / nicht abspielbar');
+        setMarqueeText(spotifyBigArtist, track.title);
+        requestAnimationFrame(() => {
+          refreshMarquee(spotifyBigTitle);
+          refreshMarquee(spotifyBigArtist);
+        });
+        setSpotifyPlayPauseIcon(false);
+        setSpotifySmallPlayPauseIcon(false);
+        setTopSheetPlayPauseIcon(false);
         updateTopSheetState();
         return;
       }
@@ -5041,18 +5584,26 @@
           const playPromise = spotifyAudio.play();
           if (playPromise && typeof playPromise.catch === 'function') {
             playPromise.then(() => {
-              if (spotifyPlayPause) spotifyPlayPause.textContent = '❚❚';
+              setSpotifyPlayPauseIcon(true);
+              setSpotifySmallPlayPauseIcon(true);
+              setTopSheetPlayPauseIcon(true);
               updateTopSheetState();
             }).catch(() => {
-              if (spotifyPlayPause) spotifyPlayPause.textContent = '▶';
+              setSpotifyPlayPauseIcon(false);
+              setSpotifySmallPlayPauseIcon(false);
+              setTopSheetPlayPauseIcon(false);
               updateTopSheetState();
             });
-          } else if (spotifyPlayPause) {
-            spotifyPlayPause.textContent = '❚❚';
+          } else {
+            setSpotifyPlayPauseIcon(true);
+            setSpotifySmallPlayPauseIcon(true);
+            setTopSheetPlayPauseIcon(true);
             updateTopSheetState();
           }
-        } else if (spotifyPlayPause) {
-          spotifyPlayPause.textContent = '▶';
+        } else {
+          setSpotifyPlayPauseIcon(false);
+          setSpotifySmallPlayPauseIcon(false);
+          setTopSheetPlayPauseIcon(false);
           updateTopSheetState();
         }
       };
@@ -5074,7 +5625,11 @@
     spotifyAudio.currentTime = 0;
     if (spotifySeek) spotifySeek.value = '0';
     if (spotifyCurrentTime) spotifyCurrentTime.textContent = '0:00';
-    if (spotifyPlayPause) spotifyPlayPause.textContent = '▶';
+    setSpotifyPlayPauseIcon(false);
+    setSpotifySmallPlayPauseIcon(false);
+    setTopSheetPlayPauseIcon(false);
+    if (spotifyPlayerProgressFill) spotifyPlayerProgressFill.style.width = '0%';
+    setSpotifyBigPlayerVisible(false);
     setSpotifyPlayerVisible(false);
     updateTopSheetState();
   }
@@ -5115,7 +5670,11 @@
               <div class="tiktok-action-label" data-tiktok-like-count="${video.id}">${formatTikTokCount(video.likes)}</div>
             </div>
             <div class="tiktok-action-wrap">
-              <div class="tiktok-action" data-tiktok-action="comment" data-video-id="${video.id}">💬</div>
+              <div class="tiktok-action" data-tiktok-action="comment" data-video-id="${video.id}" aria-label="Kommentare">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M5.25 4h13.5A2.25 2.25 0 0 1 21 6.25v8.5A2.25 2.25 0 0 1 18.75 17H9.62l-4.34 3.48c-.73.58-1.78.07-1.78-.87V6.25A2.25 2.25 0 0 1 5.75 4h-.5Zm0 1.5a.75.75 0 0 0-.75.75v10.24l3.56-2.85A.75.75 0 0 1 8.53 13h10.22a.75.75 0 0 0 .75-.75v-6a.75.75 0 0 0-.75-.75H5.25Z"></path>
+                </svg>
+              </div>
               <div class="tiktok-action-label">${formatTikTokCount(video.commentsCount)}</div>
             </div>
             <div class="tiktok-action-wrap">
@@ -5458,6 +6017,7 @@
     if (photosView) photosView.classList.remove('active');
     if (safariView) safariView.style.display = 'none';
     if (spotifyView) spotifyView.classList.remove('active');
+    setSpotifyBigPlayerVisible(false);
     setSpotifyPlayerVisible(false);
     if (timerView) timerView.classList.remove('active');
     if (weatherView) weatherView.classList.remove('active');
@@ -5611,6 +6171,7 @@ localStorage.removeItem('unlocked');
       if (name === 'Safari') safariView.style.display = 'block';
       if (name === 'Spotify') {
         spotifyView.classList.add('active');
+        setSpotifyBigPlayerVisible(false);
         setSpotifyPlayerVisible(Boolean(spotifyAudio && spotifyAudio.src));
       }
       if (name === 'Uhr') timerView.classList.add('active');
@@ -5985,6 +6546,11 @@ localStorage.removeItem('unlocked');
       e.stopPropagation();
       toggleTopSheet();
     });
+    island.addEventListener('touchstart', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      toggleTopSheet();
+    }, { passive: false });
   });
 
   if (topSheetToggle) {
@@ -6000,10 +6566,14 @@ localStorage.removeItem('unlocked');
         if (playPromise && typeof playPromise.catch === 'function') {
           playPromise.catch(() => {});
         }
-        if (spotifyPlayPause) spotifyPlayPause.textContent = '❚❚';
+        setSpotifyPlayPauseIcon(true);
+        setSpotifySmallPlayPauseIcon(true);
+        setTopSheetPlayPauseIcon(true);
       } else {
         spotifyAudio.pause();
-        if (spotifyPlayPause) spotifyPlayPause.textContent = '▶';
+        setSpotifyPlayPauseIcon(false);
+        setSpotifySmallPlayPauseIcon(false);
+        setTopSheetPlayPauseIcon(false);
       }
       updateTopSheetState();
     });
@@ -6011,12 +6581,6 @@ localStorage.removeItem('unlocked');
 
   if (topSheet) {
     topSheet.addEventListener('click', (e) => e.stopPropagation());
-  }
-
-  if (phoneScreen) {
-    phoneScreen.addEventListener('click', () => {
-      closeTopSheet();
-    });
   }
 
   appScreen.classList.remove('active');
