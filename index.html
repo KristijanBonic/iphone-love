@@ -6,6 +6,14 @@
   <base href="https://kristijanbonic.github.io/iphone-love/" />
   <title>Ljubavni Iphone</title>
   <style>
+    :root {
+      --app-transition-duration: .22s;
+      --app-transition-ease: cubic-bezier(.22,1,.36,1);
+      --app-transition-distance: 10px;
+      --app-transition-distance-sm: 6px;
+      --app-transition-scale: 0.992;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -266,7 +274,7 @@
       opacity: 0;
       pointer-events: none;
       transform: translateY(-100%);
-      transition: opacity .24s ease, transform .28s ease;
+      transition: opacity var(--app-transition-duration) ease, transform var(--app-transition-duration) var(--app-transition-ease);
       border-radius: 0;
       padding: 22px 16px 6px;
       background: linear-gradient(180deg, rgba(90, 33, 63, 0.56), rgba(58, 18, 40, 0.42));
@@ -292,6 +300,9 @@
       text-align: center;
       line-height: 0.95;
       margin-bottom: 14px;
+      transform: translateY(calc(var(--app-transition-distance-sm) * -1));
+      opacity: 0;
+      transition: transform var(--app-transition-duration) ease, opacity var(--app-transition-duration) ease;
     }
 
     .top-sheet-date {
@@ -301,6 +312,9 @@
       text-align: center;
       color: rgba(255,255,255,0.84);
       margin-bottom: 4px;
+      transform: translateY(calc(var(--app-transition-distance-sm) * -1));
+      opacity: 0;
+      transition: transform var(--app-transition-duration) ease, opacity var(--app-transition-duration) ease;
     }
 
     .top-sheet-card {
@@ -314,6 +328,16 @@
       background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
       border: 1px solid rgba(255,255,255,0.12);
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
+      transform: translateY(var(--app-transition-distance));
+      opacity: 0;
+      transition: transform var(--app-transition-duration) var(--app-transition-ease), opacity var(--app-transition-duration) ease;
+    }
+
+    .top-sheet.active .top-sheet-date,
+    .top-sheet.active .top-sheet-time,
+    .top-sheet.active .top-sheet-card {
+      transform: translateY(0);
+      opacity: 1;
     }
 
     .top-sheet-track-row {
@@ -409,14 +433,6 @@
       background: linear-gradient(180deg, #ffd6e7, #f6a9c9);
       color: #8d1f4b;
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.72), 0 10px 20px rgba(214, 88, 140, 0.18);
-    }
-
-    .top-sheet-empty {
-      text-align: center;
-      font-size: 13px;
-      line-height: 1.45;
-      color: rgba(255,255,255,0.82);
-      padding: 10px 6px 2px;
     }
 
     .signal {
@@ -707,6 +723,17 @@
       transform: scale(1);
     }
 
+    .homescreen.active .app,
+    .homescreen.active .dock {
+      transition: opacity var(--app-transition-duration) ease, transform var(--app-transition-duration) ease;
+    }
+
+    .screen.app-opening .homescreen.active .app,
+    .screen.app-opening .homescreen.active .dock {
+      transform: scale(var(--app-transition-scale));
+      opacity: 0.84;
+    }
+
     .lockscreen.hidden {
       opacity: 0;
       pointer-events: none;
@@ -852,20 +879,21 @@
       overflow: hidden;
       opacity: 0;
       pointer-events: none;
-      transform: scale(1.04);
-      transition: opacity .28s ease, transform .32s cubic-bezier(.22,1,.36,1);
+      transform: translateY(22px);
+      transform-origin: center bottom;
+      transition: opacity var(--app-transition-duration) ease, transform var(--app-transition-duration) var(--app-transition-ease);
     }
 
     .app-screen.active {
       opacity: 1;
       pointer-events: auto;
-      transform: scale(1);
+      transform: translateY(0);
     }
 
     .app-screen.closing {
       opacity: 0;
       pointer-events: none;
-      transform: scale(0.94);
+      transform: translateY(26px);
     }
 
     
@@ -1472,6 +1500,86 @@
       display: block;
     }
 
+    .mail-view {
+      display: none;
+      color: white;
+      min-height: 100%;
+      padding-top: 6px;
+    }
+
+    .mail-view.active {
+      display: block;
+    }
+
+    .mail-shell {
+      display: grid;
+      gap: 14px;
+    }
+
+    .mail-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .mail-tab {
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 16px;
+      padding: 11px 10px;
+      background: linear-gradient(180deg, rgba(104, 38, 73, 0.42), rgba(67, 22, 47, 0.28));
+      color: rgba(255,255,255,0.82);
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
+    }
+
+    .mail-tab.active {
+      color: white;
+      background: linear-gradient(180deg, rgba(126, 48, 92, 0.56), rgba(84, 29, 58, 0.40));
+    }
+
+    .mail-panel {
+      display: none;
+    }
+
+    .mail-panel.active {
+      display: block;
+    }
+
+    .mail-item {
+      border-radius: 22px;
+      padding: 16px;
+      background: linear-gradient(180deg, rgba(90, 33, 63, 0.46), rgba(58, 18, 40, 0.34));
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 16px 30px rgba(92, 28, 61, 0.18);
+    }
+
+    .mail-meta {
+      display: grid;
+      gap: 4px;
+      margin-bottom: 14px;
+    }
+
+    .mail-from {
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .mail-to,
+    .mail-subject {
+      font-size: 12px;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.45;
+    }
+
+    .mail-body {
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.94);
+    }
+
     .booking-view {
       display: none;
       color: white;
@@ -1485,10 +1593,25 @@
 
     .booking-page {
       display: none;
+      margin-top: 12px;
+      gap: 12px;
+      opacity: 0;
+      transform: none;
     }
 
     .booking-page.active {
+      display: grid;
+      opacity: 1;
+      transform: none;
+    }
+
+    .booking-page.entering {
+      animation: none;
+    }
+
+    .booking-page.leaving {
       display: block;
+      animation: none;
     }
 
     .booking-actions {
@@ -1563,32 +1686,6 @@
       gap: 12px;
     }
 
-    .booking-trip-card {
-      background: linear-gradient(180deg, rgba(90, 33, 63, 0.44), rgba(58, 18, 40, 0.32));
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 22px;
-      padding: 16px 14px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 12px 24px rgba(92, 28, 61, 0.20);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
-
-    .booking-trip-date {
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.78);
-      margin-bottom: 8px;
-    }
-
-    .booking-trip-route {
-      font-size: 16px;
-      line-height: 1.45;
-      font-weight: 700;
-      color: rgba(255,255,255,0.96);
-    }
-
     .booking-single-photo {
       display: grid;
       justify-content: center;
@@ -1616,6 +1713,81 @@
     .booking-gallery-list .photo-art[data-photo-shell] img[data-photo-fit="contain"] {
       object-fit: contain;
       background: rgba(0,0,0,0.18);
+    }
+
+    .booking-category-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .booking-video-card {
+      padding: 14px;
+      background: linear-gradient(180deg, rgba(90, 33, 63, 0.46), rgba(58, 18, 40, 0.34));
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 24px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 16px 30px rgba(92, 28, 61, 0.18);
+      overflow: hidden;
+    }
+
+    .booking-video-shell {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      background: rgba(24, 8, 18, 0.62);
+    }
+
+    .booking-video-shell video {
+      width: 100%;
+      display: block;
+      aspect-ratio: 9 / 16;
+      object-fit: cover;
+      background: #1a0b15;
+      cursor: pointer;
+    }
+
+    .booking-video-play {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.88);
+      color: #8d1f4b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 18px 34px rgba(0,0,0,0.22);
+      pointer-events: none;
+      transition: opacity .16s ease, transform .16s ease;
+    }
+
+    .booking-video-play svg {
+      width: 26px;
+      height: 26px;
+      display: block;
+      fill: currentColor;
+      margin-left: 3px;
+    }
+
+    .booking-video-shell.is-playing .booking-video-play {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.92);
+    }
+
+    .booking-top-button {
+      justify-self: center;
+      margin-top: 6px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-size: 12px;
+      width: auto;
+      min-width: 110px;
+      background: linear-gradient(180deg, rgba(104, 38, 73, 0.34), rgba(67, 22, 47, 0.20));
+      color: rgba(255,255,255,0.92);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
     }
 
     .camera-shell {
@@ -1899,15 +2071,6 @@
       line-height: 1.35;
     }
 
-    .photo-caption {
-      font-size: 12px;
-      font-weight: 600;
-      margin-top: 8px;
-      text-align: center;
-      opacity: 0.95;
-      display: none;
-    }
-
     .photo-viewer {
       position: absolute;
       top: 104px;
@@ -1922,10 +2085,21 @@
       padding: 0;
       overflow: hidden;
       border-radius: 28px;
+      opacity: 0;
+      transform: scale(var(--app-transition-scale));
+      transition: opacity var(--app-transition-duration) ease, transform var(--app-transition-duration) ease;
     }
 
     .photo-viewer.active {
       display: flex;
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .photo-viewer.closing {
+      display: flex;
+      opacity: 0;
+      transform: translateY(18px);
     }
 
     .photo-viewer img {
@@ -2783,10 +2957,23 @@
       display: none;
       margin-top: 12px;
       gap: 12px;
+      opacity: 0;
+      transform: translateY(8px);
     }
 
     .safari-page.active {
       display: grid;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .safari-page.entering {
+      animation: appPageIn var(--app-transition-duration) var(--app-transition-ease);
+    }
+
+    .safari-page.leaving {
+      display: grid;
+      animation: appPageOut var(--app-transition-duration) ease forwards;
     }
 
     .safari-back {
@@ -2885,10 +3072,6 @@
       height: auto;
     }
 
-.spotify-helper {
-      display: none;
-    }
-
     .spotify-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -2983,9 +3166,6 @@
       overflow: hidden;
     }
 
-    .track-sub {
-      display: none;
-    }
 
     .spotify-player {
       position: absolute;
@@ -3190,11 +3370,15 @@
       position: absolute;
       inset: 0;
       z-index: 34;
-      display: none;
+      display: block;
       padding: 12px 18px 22px;
       background: linear-gradient(180deg, rgba(105, 28, 54, 0.98), rgba(80, 20, 42, 0.98));
       color: white;
       overflow-y: auto;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(var(--app-transition-distance));
+      transition: opacity var(--app-transition-duration) ease, transform var(--app-transition-duration) var(--app-transition-ease);
     }
 
     .spotify-big-player::before {
@@ -3209,7 +3393,9 @@
     }
 
     .spotify-big-player.active {
-      display: block;
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
     }
 
     .spotify-big-topbar {
@@ -3399,6 +3585,28 @@
       88%, 100% { transform: translateX(var(--marquee-shift, 0)); }
     }
 
+    @keyframes appPageIn {
+      from {
+        opacity: 0;
+        transform: translateY(var(--app-transition-distance-sm));
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes appPageOut {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(var(--app-transition-distance-sm));
+      }
+    }
+
     @keyframes pulse {
       0% { transform: translate(-50%,-50%) scale(1); }
       50% { transform: translate(-50%,-50%) scale(1.15); }
@@ -3491,6 +3699,10 @@
           <div class="app">
             <div class="icon"><img src="./images/apps/app-kamera.jpg" alt="Kamera App"></div>
             <div class="label">Kamera</div>
+          </div>
+          <div class="app">
+            <div class="icon"><img src="./images/apps/app-mail.jpg" alt="Mail App"></div>
+            <div class="label">Mail</div>
           </div>
           <div class="app">
             <div class="icon"><img src="./images/apps/app-fotos.jpg" alt="Fotos App"></div>
@@ -3691,48 +3903,92 @@
             </div>
           </section>
 
+          <section class="mail-view" id="mailView">
+            <div class="mail-shell">
+              <div class="love-card">
+                <div class="love-eyebrow">Mail 💌</div>
+                <div class="love-title">Dein Postfach</div>
+                <div class="mail-tabs">
+                  <button class="mail-tab" type="button" data-mail-tab="inbox">Posteingang</button>
+                  <button class="mail-tab" type="button" data-mail-tab="spam">Spam</button>
+                  <button class="mail-tab" type="button" data-mail-tab="sent">Gesendet</button>
+                </div>
+              </div>
+
+              <div class="mail-panel" data-mail-panel="inbox">
+                <div class="mail-item">
+                  <div class="mail-meta">
+                    <div class="mail-from">Von: kristijanbonic@icloud.com</div>
+                    <div class="mail-to">An: bosiljkabonic@icloud.com</div>
+                    <div class="mail-subject">Betreff: Volim te najvise na celom svetu</div>
+                  </div>
+                  <div class="mail-body">
+                    Ljubavi,<br><br>
+                    Ne znam da li postoje reči koje mogu u potpunosti da opišu koliko mi značiš, ali ipak želim da pokušam. Svaki put kada pomislim na tebe, moje srce postane toplije, a svet oko mene lepši. Tvoj osmeh je moja omiljena slika, a tvoj glas najlepša melodija koju sam ikada čuo.<br><br>
+                    Sa tobom čak i najobičniji trenuci postaju posebni. Volim način na koji me gledaš, kao da u meni vidiš nešto što ni sam ne umem da prepoznam. Ti si moja sreća, moj mir i moja inspiracija.<br><br>
+                    Hvala ti što postojiš i što si deo mog života. Volim te više nego što reči mogu da izraze, i svaki dan te volim sve više.<br><br>
+                    Zauvek tvoj,<br>
+                    Kića
+                  </div>
+                </div>
+              </div>
+
+              <div class="mail-panel" data-mail-panel="spam">
+                <div class="mail-item">
+                  <div class="mail-body">Hier ist gerade nichts.</div>
+                </div>
+              </div>
+
+              <div class="mail-panel" data-mail-panel="sent">
+                <div class="mail-item">
+                  <div class="mail-body">Hier ist gerade nichts.</div>
+                </div>
+              </div>
+
+              <div class="mail-panel active" data-mail-panel="start">
+                <div class="mail-item">
+                  <div class="mail-body">Wähle einen Ordner aus, um deine Mails zu öffnen.</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
           <section class="photos-view" id="photosView">
             <div class="photos-grid">
               <div class="photo-card">
                 <div class="photo-art">
                   <img src="./images/fotos/fotos_bild-1.jpg" alt="Foto 1 von euch" data-photo-full>
                 </div>
-                <div class="photo-caption">Foto 1</div>
               </div>
 
               <div class="photo-card">
                 <div class="photo-art">
                   <img src="./images/fotos/fotos_bild-2.jpg" alt="Foto 2 von euch" data-photo-full>
                 </div>
-                <div class="photo-caption">Foto 2</div>
               </div>
 
               <div class="photo-card">
                 <div class="photo-art">
                   <img src="./images/fotos/fotos_bild-3.jpg" alt="Foto 3 von euch" data-photo-full>
                 </div>
-                <div class="photo-caption">Foto 3</div>
               </div>
 
               <div class="photo-card">
                 <div class="photo-art">
                   <img src="./images/fotos/fotos_bild-4.jpg" alt="Foto 4 von euch" data-photo-full>
                 </div>
-                <div class="photo-caption">Foto 4</div>
               </div>
 
               <div class="photo-card">
                 <div class="photo-art">
                   <img src="./images/fotos/fotos_bild-5.jpg" alt="Foto 5 von euch" data-photo-full>
                 </div>
-                <div class="photo-caption">Foto 5</div>
               </div>
 
               <div class="photo-card">
                 <div class="photo-art">
                   <img src="./images/fotos/fotos_bild-6.jpg" alt="Foto 6 von euch" data-photo-full>
                 </div>
-                <div class="photo-caption">Foto 6</div>
               </div>
             </div>
           </section>
@@ -4247,7 +4503,6 @@
   let input = '';
 
   const dots = Array.from(document.querySelectorAll('.dot'));
-  const numButtons = document.querySelectorAll('[data-num]');
   const hintEl = document.querySelector('.hint');
   const lockCopy = document.getElementById('lockCopy');
   const phoneScreen = document.getElementById('phoneScreen');
@@ -4270,6 +4525,7 @@
   const phoneView = document.getElementById('phoneView');
   const messagesView = document.getElementById('messagesView');
   const mapView = document.getElementById('mapView');
+  const mailView = document.getElementById('mailView');
   const timerView = document.getElementById('timerView');
   const weatherView = document.getElementById('weatherView');
   const calculatorView = document.getElementById('calculatorView');
@@ -4296,7 +4552,6 @@
   const countMinutes = document.getElementById('countMinutes');
   const countSeconds = document.getElementById('countSeconds');
   const spotifyCards = document.querySelectorAll('.track-card');
-  const spotifyGrid = document.getElementById('spotifyGrid');
   const phoneTabs = document.querySelectorAll('.phone-tab');
   const phoneContent = document.getElementById('phoneContent');
   const callOverlay = document.getElementById('callOverlay');
@@ -4311,7 +4566,6 @@
   const photoViewerImage = document.getElementById('photoViewerImage');
   const photoViewerPlaceholder = document.getElementById('photoViewerPlaceholder');
   const photoViewerClose = document.getElementById('photoViewerClose');
-  const safariSearch = document.getElementById('safariSearch');
   const modalClose = document.getElementById('modalClose');
   const lockButton = document.getElementById('lockButton');
   const volumeUpButton = document.getElementById('volumeUpButton');
@@ -4465,6 +4719,47 @@
     topSheet.style.pointerEvents = 'none';
     topSheet.style.transform = 'translateY(-100%)';
     if (phoneScreen) phoneScreen.classList.remove('top-sheet-open');
+  }
+
+  function switchAnimatedPanel(container, selector, targetPanel) {
+    if (!container || !targetPanel) return;
+    const currentPanel = container.querySelector(`${selector}.active`);
+    if (currentPanel === targetPanel) return;
+
+    if (currentPanel) {
+      currentPanel.classList.remove('entering');
+      currentPanel.classList.add('leaving');
+      window.setTimeout(() => {
+        currentPanel.classList.remove('active', 'leaving');
+      }, 220);
+    }
+
+    targetPanel.classList.remove('leaving');
+    targetPanel.classList.add('active', 'entering');
+    window.setTimeout(() => {
+      targetPanel.classList.remove('entering');
+    }, 300);
+  }
+
+  function openAppScreenAnimated() {
+    if (!appScreen) return;
+    phoneScreen?.classList.add('app-opening');
+    appScreen.classList.remove('closing');
+    appScreen.classList.add('active');
+    window.setTimeout(() => {
+      phoneScreen?.classList.remove('app-opening');
+    }, 360);
+  }
+
+  function closeAppScreenAnimated() {
+    if (!appScreen) return;
+    appScreen.classList.remove('active');
+    appScreen.classList.add('closing');
+    phoneScreen?.classList.remove('app-opening');
+    window.setTimeout(() => {
+      resetAppViews();
+      appScreen.classList.remove('closing');
+    }, 320);
   }
 
   function canOpenTopSheet() {
@@ -4663,9 +4958,9 @@
           </div>
           <div style="margin-top:12px;font-size:13px;color:rgba(255,255,255,0.78);font-weight:600;">Letzte Suchen</div>
           <div style="margin-top:8px;display:grid;gap:8px;">
-            <button class="safari-item" type="button" data-safari-page="friend-awesome">Warum ist mein Freund so Toll?</button>
+            <button class="safari-item" type="button" data-safari-page="friend-awesome">Warum bist du so toll?</button>
             <button class="safari-item" type="button" data-safari-page="friend-gallery">Bilder von meinem wunderschönen Freund</button>
-            <button class="safari-item" type="button" data-safari-page="why-love-him">Warum liebt mich mein Freund so sehr?</button>
+            <button class="safari-item" type="button" data-safari-page="why-love-him">Die beste Caillou folge</button>
             <button class="safari-item" type="button" data-safari-page="pink-ranger">Pinker Power Ranger</button>
           </div>
         </div>
@@ -4673,17 +4968,27 @@
         <div class="safari-page" id="safariPage-friend-awesome">
           <button class="safari-back" type="button">Zurück</button>
           <div class="safari-card">
-            <div class="safari-title">Warum ist mein Freund so toll?</div>
+            <div class="safari-title">Warum bist du so toll?</div>
             <div class="safari-text">
-              Dein Freund ist toll, weil er dir das Gefühl gibt, etwas ganz Besonderes zu sein. Er ist aufmerksam,
-              liebevoll und steckt sichtbar Herz in die kleinen Dinge, die euren Alltag schöner machen.
+              Du bist toll, weil du du bist. Es ist schwer zu beschreiben, weil einfach alles an dir so perfekt ist
+              und ich nichts ändern würde. Aber wenn ich sagen müsste, was ich toll an dir finde, wüsste ich nicht,
+              wo ich richtig anfangen soll, weil:
             </div>
             <ul class="safari-list">
-              <li>Er denkt an die kleinen Details, die dir Freude machen.</li>
-              <li>Er bringt dich zum Lachen und macht normale Tage besonders.</li>
-              <li>Er zeigt dir mit Taten, wie wichtig du ihm bist.</li>
-              <li>Er fühlt sich nicht nur wie ein Freund an, sondern wie Zuhause.</li>
+              <li>du so eine süße Art hast: Wenn du dich über etwas freust, lächelst du so wunderschön, hüpfst so süß rum, deine Bäckchen sehen so süß aus und deine wunderschönen Augen werden ganz groß</li>
+              <li>du so ein lebensfroher Mensch bist, der in jeder Situation versucht, etwas Gutes zu sehen und positiv zu bleiben, und mit deiner verrückt lustigen Art alle zum Lächeln bringst und glücklich machst mit deinem LALALALALALA im Kopf</li>
+              <li>du so wunderschöne Ziele und Träume hast und sie mit aller Kraft verfolgst, über sie redest und für sie kämpfst</li>
+              <li>du so ein liebevoller, liebenswerter Mensch bist, der voller Liebe ist und sooo viel Liebe gibt und sooo vieeel Liebe verdient</li>
+              <li>man sich mit dir wie zuhause fühlt (für mich bist du mein Zuhause)</li>
+              <li>du an kleine Details denkst und damit einem eine Freude machst</li>
+              <li>du Menschen zeigst, wie wichtig sie dir sind, und das so toll mit kleinen Dingen machst, die ich merke, sehe und unendlich schätze</li>
             </ul>
+            <div class="safari-text" style="margin-top:14px;">
+              Du bist einfach ein wundervoller, toller, süßer, lebensfroher, perfekter Mensch, so wie du bist.
+              Und egal, was wer sagen sollte: Ich liebe dich so, wie du bist. Ich könnte noch unendlich lange
+              erzählen, wie toll du bist und was ich alles an dir toll finde, aber dafür habe ich jeden Tag Zeit,
+              es dir zu sagen.
+            </div>
           </div>
         </div>
 
@@ -4703,17 +5008,15 @@
         <div class="safari-page" id="safariPage-why-love-him">
           <button class="safari-back" type="button">Zurück</button>
           <div class="safari-card">
-            <div class="safari-title">Warum liebt mich mein Freund so sehr?</div>
-            <div class="safari-text">
-              Weil du für ihn ein Mensch bist, der sein Leben heller macht. Er liebt dich für dein Herz, deine Ausstrahlung
-              und dafür, wie echt und besonders sich alles mit dir anfühlt.
+            <div class="safari-title">Die beste Caillou folge</div>
+            <div class="safari-text" style="margin-bottom:12px;">
+              Tippe auf das Video, um es zu starten oder zu pausieren.
             </div>
-            <ul class="safari-list">
-              <li>Weil du ihm das Gefühl gibst, angekommen zu sein.</li>
-              <li>Weil du wunderschön bist, innen und außen.</li>
-              <li>Weil Zeit mit dir immer seine Lieblingszeit ist.</li>
-              <li>Weil du sein Lieblingsmensch bist und er dich jeden Tag wählen würde.</li>
-            </ul>
+            <div style="border-radius:22px;overflow:hidden;background:linear-gradient(180deg, rgba(58, 18, 40, 0.62), rgba(90, 33, 63, 0.42));border:1px solid rgba(255,255,255,0.14);box-shadow:inset 0 1px 0 rgba(255,255,255,0.10), 0 16px 30px rgba(92, 28, 61, 0.24);">
+              <video id="safariCaillouVideo" playsinline preload="metadata" style="width:100%;display:block;aspect-ratio:9 / 16;object-fit:cover;cursor:pointer;background:#2f1023;">
+                <source src="./images/safari/safari_video-1.mp4" type="video/mp4">
+              </video>
+            </div>
           </div>
         </div>
 
@@ -4791,26 +5094,21 @@
   function initializePhotosContent() {
     if (!photosView) return;
 
-    const photos = Array.from({ length: 50 }, (_, index) => {
+    const photos = Array.from({ length: 35 }, (_, index) => {
       const number = index + 1;
-      if (number <= 6) {
-        return `
-          <div class="photo-card">
-            <div class="photo-art">
-              <img src="./images/fotos/fotos_bild-${number}.jpg" alt="Foto ${number} von euch">
-            </div>
-          </div>
-        `;
-      }
-
       return `
         <div class="photo-card">
-          <div class="photo-art placeholder" data-photo-placeholder="Platz für Foto ${number}">Platz für Foto ${number}</div>
+          <div class="photo-art">
+            <img src="./images/fotos/fotos_bild-${number}.jpg" alt="Foto ${number} von euch">
+          </div>
         </div>
       `;
     }).join('');
 
-    photosView.innerHTML = `<div class="photos-grid">${photos}</div>`;
+    photosView.innerHTML = `
+      <div class="photos-grid">${photos}</div>
+      <button class="booking-button booking-top-button" type="button" data-photos-top>Ganz rauf</button>
+    `;
   }
 
   function buildBookingPhotoCard(src, alt, fallbackText, fitMode = 'cover') {
@@ -4818,6 +5116,37 @@
       <div class="photo-card">
         <div class="photo-art" data-photo-shell>
           <img src="${src}" alt="${alt}" data-photo-full data-photo-fit="${fitMode}" data-gallery-image data-gallery-fallback="${fallbackText}">
+        </div>
+      </div>
+    `;
+  }
+
+  function getBookingVideoSources(videoPath) {
+    const fileName = videoPath.split('/').pop() || videoPath;
+    const variants = [videoPath, './' + fileName];
+    if (videoPath.endsWith('.mp4')) {
+      variants.push(videoPath.replace(/\.mp4$/i, '.MP4'));
+      variants.push(('./' + fileName).replace(/\.mp4$/i, '.MP4'));
+    } else if (videoPath.endsWith('.MP4')) {
+      variants.push(videoPath.replace(/\.MP4$/i, '.mp4'));
+      variants.push(('./' + fileName).replace(/\.MP4$/i, '.mp4'));
+    }
+
+    return Array.from(new Set(variants.flatMap((path) => [
+      getLocalAssetUrl(path),
+      getDocumentAssetUrl(path),
+      path
+    ])));
+  }
+
+  function buildBookingVideoCard(src) {
+    return `
+      <div class="booking-video-card">
+        <div class="booking-video-shell">
+          <video webkit-playsinline playsinline preload="metadata" data-booking-video>
+            ${getBookingVideoSources(src).map((source) => `<source src="${source}" type="video/mp4">`).join('')}
+          </video>
+          <div class="booking-video-play">${spotifyIcons.play}</div>
         </div>
       </div>
     `;
@@ -4836,11 +5165,24 @@
     });
   }
 
+  function stopBookingVideos() {
+    if (!bookingView) return;
+    bookingView.querySelectorAll('[data-booking-video]').forEach((videoEl) => {
+      videoEl.pause();
+      videoEl.currentTime = 0;
+      videoEl.closest('.booking-video-shell')?.classList.remove('is-playing');
+    });
+  }
+
   function showBookingPage(pageId) {
     if (!bookingView) return;
-    bookingView.querySelectorAll('.booking-page').forEach((page) => page.classList.remove('active'));
     const targetPage = bookingView.querySelector(`#bookingPage-${pageId}`);
-    if (targetPage) targetPage.classList.add('active');
+    if (!targetPage) return;
+    stopBookingVideos();
+    bookingView.querySelectorAll('.booking-page').forEach((page) => {
+      page.classList.remove('active', 'entering', 'leaving');
+    });
+    targetPage.classList.add('active');
   }
 
   function initializeBookingContent() {
@@ -4855,9 +5197,33 @@
 
     const hotelCards = buildBookingPhotoCard('./images/booking/booking-hotel_1.jpg', 'Hotelbild 1', 'Hotelbild 1');
 
-    const photoCards = Array.from({ length: 50 }, (_, index) => (
-      buildBookingPhotoCard(`./images/booking/booking-foto_${index + 1}.jpg`, `Prag Foto ${index + 1}`, `Prag Foto ${index + 1}`)
-    )).join('');
+    const memoriesTrainCards = Array.from({ length: 7 }, (_, index) => (
+      buildBookingPhotoCard(`./images/booking/booking_foto-zug-${index + 1}.jpg`, `Hinfahrt Foto ${index + 1}`, `Hinfahrt Foto ${index + 1}`)
+    )).concat([
+      buildBookingVideoCard('./images/booking/booking_video-34.mp4')
+    ]).join('');
+
+    const dayOneCards = [
+      ...Array.from({ length: 3 }, (_, index) => buildBookingPhotoCard(`./images/booking/booking_foto-tag1-${index + 1}.jpg`, `Erster Tag Foto ${index + 1}`, `Erster Tag Foto ${index + 1}`)),
+      buildBookingVideoCard('./images/booking/booking_video-6.mp4'),
+      buildBookingVideoCard('./images/booking/booking_video-30.mp4'),
+      buildBookingVideoCard('./images/booking/booking_video-7.mp4'),
+      buildBookingVideoCard('./images/booking/booking_video-8.mp4'),
+      buildBookingVideoCard('./images/booking/booking_video-31.mp4'),
+      buildBookingVideoCard('./images/booking/booking_video-32.mp4'),
+      buildBookingVideoCard('./images/booking/booking_video-33.mp4')
+    ].join('');
+
+    const dayTwoImageOrder = [1, 2, 3, 4, 5, 6, 7, 8, 21, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+    const dayTwoCards = [
+      ...dayTwoImageOrder.map((number) => buildBookingPhotoCard(`./images/booking/booking_foto-tag2-${number}.jpg`, `Zweiter Tag Foto ${number}`, `Zweiter Tag Foto ${number}`)),
+      ...[9, 10, 11, 12, 13, 16, 17, 18].map((number) => buildBookingVideoCard(`./images/booking/booking_video-${number}.mp4`))
+    ].join('');
+
+    const dayThreeCards = [
+      ...Array.from({ length: 3 }, (_, index) => buildBookingPhotoCard(`./images/booking/booking_foto-tag3-${index + 1}.jpg`, `Letzter Tag Foto ${index + 1}`, `Letzter Tag Foto ${index + 1}`)),
+      buildBookingVideoCard('./images/booking/booking_video-19.mp4')
+    ].join('');
 
     bookingView.innerHTML = `
       <div class="booking-page active" id="bookingPage-home">
@@ -4869,7 +5235,7 @@
           <div class="booking-actions">
             <button class="booking-button" type="button" data-booking-page="train">Die Zugfahrt</button>
             <button class="booking-button" type="button" data-booking-page="hotel">Das Hotel</button>
-            <button class="booking-button" type="button" data-booking-page="photos">Die Fotos</button>
+            <button class="booking-button" type="button" data-booking-page="photos">Die Errinerungen</button>
           </div>
 
         </div>
@@ -4900,10 +5266,55 @@
       <div class="booking-page" id="bookingPage-photos">
         <button class="booking-back" type="button" data-booking-page="home">Zurück</button>
         <div class="love-card">
-          <div class="love-eyebrow">Die Fotos 📸</div>
+          <div class="love-eyebrow">Die Errinerungen 📸</div>
           <div class="love-title">Unsere Zeit in Prag</div>
           <div class="booking-subtitle">Errinerungen aus unserem ersten Urlaub</div>
-          <div class="booking-gallery-list">${photoCards}</div>
+          <div class="booking-category-grid">
+            <button class="booking-button" type="button" data-booking-page="memories-train">Die Hinfahrt</button>
+            <button class="booking-button" type="button" data-booking-page="memories-day1">Der Erste Tag</button>
+            <button class="booking-button" type="button" data-booking-page="memories-day2">Der Zweite Tag</button>
+            <button class="booking-button" type="button" data-booking-page="memories-day3">Der Letzte Tag</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="booking-page" id="bookingPage-memories-train">
+        <button class="booking-back" type="button" data-booking-page="photos">Zurück</button>
+        <div class="love-card">
+          <div class="love-eyebrow">Die Hinfahrt 🚆</div>
+          <div class="love-title">Unsere Reise nach Prag</div>
+          <div class="booking-gallery-list">${memoriesTrainCards}</div>
+          <button class="booking-button booking-top-button" type="button" data-booking-top>Ganz rauf</button>
+        </div>
+      </div>
+
+      <div class="booking-page" id="bookingPage-memories-day1">
+        <button class="booking-back" type="button" data-booking-page="photos">Zurück</button>
+        <div class="love-card">
+          <div class="love-eyebrow">Der Erste Tag ✨</div>
+          <div class="love-title">Unser erstes Ankommen</div>
+          <div class="booking-gallery-list">${dayOneCards}</div>
+          <button class="booking-button booking-top-button" type="button" data-booking-top>Ganz rauf</button>
+        </div>
+      </div>
+
+      <div class="booking-page" id="bookingPage-memories-day2">
+        <button class="booking-back" type="button" data-booking-page="photos">Zurück</button>
+        <div class="love-card">
+          <div class="love-eyebrow">Der Zweite Tag 💗</div>
+          <div class="love-title">Der schönste volle Tag</div>
+          <div class="booking-gallery-list">${dayTwoCards}</div>
+          <button class="booking-button booking-top-button" type="button" data-booking-top>Ganz rauf</button>
+        </div>
+      </div>
+
+      <div class="booking-page" id="bookingPage-memories-day3">
+        <button class="booking-back" type="button" data-booking-page="photos">Zurück</button>
+        <div class="love-card">
+          <div class="love-eyebrow">Der Letzte Tag 🌸</div>
+          <div class="love-title">Noch ein letzter Blick</div>
+          <div class="booking-gallery-list">${dayThreeCards}</div>
+          <button class="booking-button booking-top-button" type="button" data-booking-top>Ganz rauf</button>
         </div>
       </div>
     `;
@@ -5216,23 +5627,10 @@
   }
 
   function applyMediaVolume() {
-    if (spotifyAudio) {
-      spotifyAudio.volume = mediaVolume;
-      spotifyAudio.muted = mediaVolume === 0;
-    }
-
-    if (callAudio) {
-      callAudio.volume = mediaVolume;
-      callAudio.muted = mediaVolume === 0;
-    }
-    if (callBeepAudio) {
-      callBeepAudio.volume = mediaVolume;
-      callBeepAudio.muted = mediaVolume === 0;
-    }
-
-    document.querySelectorAll('.tiktok-media').forEach((videoEl) => {
-      videoEl.volume = mediaVolume;
-      videoEl.muted = mediaVolume === 0;
+    document.querySelectorAll('audio, video').forEach((mediaEl) => {
+      if (mediaEl.id === 'cameraPreview') return;
+      mediaEl.volume = mediaVolume;
+      mediaEl.muted = mediaVolume === 0;
     });
 
     syncVolumeHud();
@@ -6024,6 +6422,7 @@
     if (calculatorView) calculatorView.classList.remove('active');
     if (tiktokView) tiktokView.classList.remove('active');
     if (cameraView) cameraView.classList.remove('active');
+    if (mailView) mailView.classList.remove('active');
     if (bookingView) bookingView.classList.remove('active');
     if (phoneView) phoneView.classList.remove('active');
     if (messagesView) messagesView.classList.remove('active');
@@ -6053,18 +6452,39 @@
     const safariHome = document.getElementById('safariHome');
     const safariPages = document.querySelectorAll('.safari-page');
 
-    safariPages.forEach((page) => page.classList.remove('active'));
+    stopSafariVideo();
+    safariPages.forEach((page) => page.classList.remove('active', 'entering', 'leaving'));
     if (safariHome) safariHome.style.display = 'block';
   }
 
   function openSafariPage(pageId) {
     const safariHome = document.getElementById('safariHome');
-    const safariPages = document.querySelectorAll('.safari-page');
     const targetPage = document.getElementById('safariPage-' + pageId);
 
-    safariPages.forEach((page) => page.classList.remove('active'));
     if (safariHome) safariHome.style.display = 'none';
-    if (targetPage) targetPage.classList.add('active');
+    if (!targetPage || !safariView) return;
+    switchAnimatedPanel(safariView, '.safari-page', targetPage);
+  }
+
+  function stopSafariVideo() {
+    const safariCaillouVideo = document.getElementById('safariCaillouVideo');
+    if (!safariCaillouVideo) return;
+    safariCaillouVideo.pause();
+    safariCaillouVideo.currentTime = 0;
+  }
+
+  function openPhotoViewerPanel() {
+    if (!photoViewer) return;
+    photoViewer.classList.remove('closing');
+    photoViewer.classList.add('active');
+  }
+
+  function closePhotoViewerPanel() {
+    if (!photoViewer || !photoViewer.classList.contains('active')) return;
+    photoViewer.classList.add('closing');
+    window.setTimeout(() => {
+      photoViewer.classList.remove('active', 'closing', 'show-placeholder', 'contain-image');
+    }, 240);
   }
 
   function renderPhone(tab) {
@@ -6177,6 +6597,7 @@ localStorage.removeItem('unlocked');
       if (name === 'Uhr') timerView.classList.add('active');
       if (name === 'Wetter') weatherView.classList.add('active');
       if (name === 'Rechner') calculatorView.classList.add('active');
+      if (name === 'Mail') mailView.classList.add('active');
       if (name === 'Booking.com') bookingView.classList.add('active');
       if (name === 'TikTok') {
         stopSpotifyPlayback();
@@ -6196,8 +6617,7 @@ localStorage.removeItem('unlocked');
       if (name === 'Instagram') messagesView.classList.add('active');
       if (name === 'Wo ist?') mapView.style.display = 'block';
 
-      appScreen.classList.remove('closing');
-      appScreen.classList.add('active');
+      openAppScreenAnimated();
     });
   });
 
@@ -6364,10 +6784,49 @@ localStorage.removeItem('unlocked');
 
   if (bookingView) {
     bookingView.addEventListener('click', (e) => {
+      const bookingVideo = e.target.closest('[data-booking-video]');
+      if (bookingVideo) {
+        bookingView.querySelectorAll('[data-booking-video]').forEach((videoEl) => {
+          if (videoEl !== bookingVideo) {
+            videoEl.pause();
+            videoEl.closest('.booking-video-shell')?.classList.remove('is-playing');
+          }
+        });
+        if (bookingVideo.paused) {
+          const playPromise = bookingVideo.play();
+          if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(() => {});
+          bookingVideo.closest('.booking-video-shell')?.classList.add('is-playing');
+        } else {
+          bookingVideo.pause();
+          bookingVideo.closest('.booking-video-shell')?.classList.remove('is-playing');
+        }
+        return;
+      }
+
       const bookingNav = e.target.closest('[data-booking-page]');
+      const bookingTop = e.target.closest('[data-booking-top]');
+
+      if (bookingTop) {
+        const activePage = bookingView.querySelector('.booking-page.active');
+        activePage?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        appScreen?.querySelector('.app-content')?.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
 
       if (!bookingNav) return;
       showBookingPage(bookingNav.dataset.bookingPage || 'home');
+    });
+  }
+
+  if (mailView) {
+    mailView.addEventListener('click', (e) => {
+      const tab = e.target.closest('[data-mail-tab]');
+      if (!tab) return;
+      const tabName = tab.dataset.mailTab;
+      mailView.querySelectorAll('[data-mail-tab]').forEach((item) => item.classList.toggle('active', item === tab));
+      mailView.querySelectorAll('[data-mail-panel]').forEach((panel) => {
+        panel.classList.toggle('active', panel.dataset.mailPanel === tabName);
+      });
     });
   }
 
@@ -6397,6 +6856,13 @@ localStorage.removeItem('unlocked');
 
   if (photosView) {
     photosView.addEventListener('click', (e) => {
+      const topButton = e.target.closest('[data-photos-top]');
+      if (topButton) {
+        photosView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        appScreen?.querySelector('.app-content')?.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
       const photo = e.target.closest('[data-photo-full]');
       const placeholder = e.target.closest('[data-photo-placeholder]');
       if (!photoViewer || !photoViewerImage) return;
@@ -6407,7 +6873,7 @@ localStorage.removeItem('unlocked');
         photoViewerImage.src = photo.getAttribute('src') || '';
         photoViewerImage.alt = photo.getAttribute('alt') || 'Vollbild Foto';
         if (photoViewerPlaceholder) photoViewerPlaceholder.textContent = '';
-        photoViewer.classList.add('active');
+        openPhotoViewerPanel();
         return;
       }
 
@@ -6418,32 +6884,27 @@ localStorage.removeItem('unlocked');
         if (photoViewerPlaceholder) {
           photoViewerPlaceholder.textContent = placeholder.getAttribute('data-photo-placeholder') || 'Platz für ein Foto';
         }
-        photoViewer.classList.add('active');
+        openPhotoViewerPanel();
       }
     });
   }
 
   if (photoViewerClose) {
     photoViewerClose.addEventListener('click', () => {
-      if (!photoViewer) return;
-      photoViewer.classList.remove('active');
-      photoViewer.classList.remove('show-placeholder');
-      photoViewer.classList.remove('contain-image');
+      closePhotoViewerPanel();
     });
   }
 
   if (photoViewer) {
     photoViewer.addEventListener('click', (e) => {
       if (e.target !== photoViewer) return;
-      photoViewer.classList.remove('active');
-      photoViewer.classList.remove('show-placeholder');
-      photoViewer.classList.remove('contain-image');
+      closePhotoViewerPanel();
     });
   }
 
   if (cameraShutter) {
     cameraShutter.addEventListener('click', () => {
-      showLoveAlert('Wir sind ein Traumpaar und unsere Seelen sind füreinander bestimmt. 💗');
+          showLoveAlert('Du bist wunderschön. Deine braunen Augen haben so eine tiefe, beruhigende Magie, dein Haar ist einfach perfekt und deine Bäckchen machen dein Lächeln nur noch schöner. Und dieses Lächeln… es bringt alles zum Strahlen.');
     });
   }
 
@@ -6507,6 +6968,16 @@ localStorage.removeItem('unlocked');
       const backButton = e.target.closest('.safari-back');
       if (backButton) {
         showSafariHome();
+        return;
+      }
+
+      const safariCaillouVideo = e.target.closest('#safariCaillouVideo');
+      if (safariCaillouVideo) {
+        if (safariCaillouVideo.paused) {
+          safariCaillouVideo.play().catch(() => {});
+        } else {
+          safariCaillouVideo.pause();
+        }
       }
     });
   }
@@ -6524,12 +6995,7 @@ localStorage.removeItem('unlocked');
   renderPhone('favoriten');
 
   homeBar.addEventListener('click', () => {
-    appScreen.classList.remove('active');
-    appScreen.classList.add('closing');
-    setTimeout(() => {
-      resetAppViews();
-      appScreen.classList.remove('closing');
-    }, 280);
+    closeAppScreenAnimated();
   });
 
   if (lockButton) {
